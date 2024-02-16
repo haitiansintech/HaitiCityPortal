@@ -1,10 +1,20 @@
-# GitHub Codespaces ♥️ Next.js
+We’re thrilled to unveil HaitiCityPortal, our latest open-source initiative at Haitians in Tech. This project embodies our commitment to leveraging technology for social impact, specifically designed to empower municipalities across Haiti with digital tools for enhanced civic engagement and public service delivery.
 
-Welcome to your shiny new Codespace running Next.js! We've got everything fired up and running for you to explore Next.js.
+HaitiCityPortal Features:
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+	•	Public Service Information: Access to essential city services and information at your fingertips.
+	•	Event Calendars: Stay updated with local events, meetings, and activities.
+	•	GIS & Mapping: Interactive maps for better urban planning and community insights.
+	•	Online Bill Payments & Forms: Simplifying transactions and applications for residents.
+	•	Open Data Access: Fueling transparency and innovation with public datasets.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+Why HaitiCityPortal?
+In a world where technology is increasingly pivotal, HaitiCityPortal aims to bridge the digital divide, ensuring Haitian municipalities have the tools needed to serve their communities effectively. Inspired by the transformative power of open-source collaboration, we believe this platform can catalyze positive change, fostering a more connected, informed, and empowered Haiti.
+
+Join Us in This Journey
+We invite developers, designers, urban planners, and anyone passionate about tech for good to contribute to HaitiCityPortal. Whether it’s coding, offering design insights, or sharing your expertise in urban development, your contribution can make a significant difference.
+
+
 
 To run this application:
 
