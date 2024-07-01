@@ -14,6 +14,28 @@ In a world where technology is increasingly pivotal, HaitiCityPortal aims to bri
 Join Us in This Journey
 We invite developers, designers, urban planners, and anyone passionate about tech for good to contribute to HaitiCityPortal. Whether it’s coding, offering design insights, or sharing your expertise in urban development, your contribution can make a significant difference.
 
+Hosting platform options include 
+<ul> 
+                    <li> Microsoft Azure. </li> 
+		      <li> Amazon Web Services (AWS). </li> 
+	              <li> Google Cloud Platform (GCP). </li> 
+</ul>
+
+<ul> 
+	<b> The platform includes securly hosting on Kubernetes and pods  <b> 
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+
 
 
 To run this application:
