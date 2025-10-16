@@ -3,7 +3,7 @@
 Build a Next.js 15 + TypeScript civic MVP with:
 - Pages: `/` (landing), `/issues`, `/issues/new`, `/events`, `/map`, `/data`
 - Supabase (Auth, Postgres, Storage) with RLS
-- MapLibre (client map), next-intl (en/ht/fr), Tailwind v4 + shadcn/ui
+- MapLibre (client map), next-intl (en/ht/fr/es), Tailwind v4 + shadcn/ui
 
 ## First tasks (in order)
 
@@ -28,7 +28,7 @@ Build a Next.js 15 + TypeScript civic MVP with:
 
 **Create**
 - `src/components/nav/Navbar.tsx`
-- `src/components/nav/LocaleSwitcher.tsx` (stub EN/HT/FR; no i18n wiring yet)
+- `src/components/nav/LocaleSwitcher.tsx` (stub EN/HT/FR/ES; no i18n wiring yet)
 - `src/components/layout/Footer.tsx`
 - Update `src/app/layout.tsx` to include `<Navbar/>` (sticky) and `<Footer/>`
 - Export `metadata` (title, description, openGraph basic) in `src/app/layout.tsx`
