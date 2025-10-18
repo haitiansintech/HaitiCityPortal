@@ -23,7 +23,7 @@ export default function LocaleSwitcher() {
           startTransition(() => setLocale(next));
         }}
         aria-label="Select language"
-        className="rounded-md border border-white/20 bg-slate-900/80 px-3 py-1 text-sm text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+        className="rounded-md border border-white/20 bg-slate-900/80 px-3 py-1 text-sm text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
         disabled={isPending}
       >
         {locales.map((option) => (

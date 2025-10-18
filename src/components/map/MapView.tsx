@@ -196,13 +196,54 @@ export default function MapView() {
   }, []);
 
   return (
-    <div className="space-y-3">
-      <div
-        ref={containerRef}
-        aria-label="Interactive map of reported issues in Haiti"
-        role="region"
-        className="h-[32rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80"
-      />
+    <div className="space-y-4">
+      <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-lg shadow-black/20 backdrop-blur">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <div
+            ref={containerRef}
+            aria-label="Interactive map of reported issues in Haiti"
+            role="region"
+            className="h-[28rem] w-full overflow-hidden rounded-3xl bg-slate-900/80 lg:h-[32rem]"
+          />
+          <aside className="flex flex-col gap-4 border-t border-white/10 bg-slate-950/60 p-6 text-sm text-slate-200 lg:border-l lg:border-t-0">
+            <h2 className="text-base font-semibold text-white">Layers &amp; filters</h2>
+            <p className="text-xs text-slate-400">
+              Toggle map layers to compare infrastructure and service delivery. Filters are for display only.
+            </p>
+            <div className="space-y-3">
+              <button
+                type="button"
+                className="flex w-full items-center justify-between rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-3 py-2 text-left text-sm font-medium text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+              >
+                Issue density heatmap
+                <span className="text-xs uppercase text-cyan-200">Soon</span>
+              </button>
+              <button
+                type="button"
+                className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-left text-sm font-medium text-slate-100 transition hover:border-orange-400/40 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+              >
+                Infrastructure overlays
+                <span className="text-xs uppercase text-slate-400">Planned</span>
+              </button>
+            </div>
+            <div className="mt-4 space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Legend</p>
+              <div className="flex items-center gap-3 text-xs text-slate-300">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400" aria-hidden />
+                Active issue
+              </div>
+              <div className="flex items-center gap-3 text-xs text-slate-300">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-yellow-300" aria-hidden />
+                In progress
+              </div>
+              <div className="flex items-center gap-3 text-xs text-slate-300">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-slate-400" aria-hidden />
+                Pending review
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
       {error && (
         <p className="text-sm text-rose-200">We could not load the map data: {error}</p>
       )}

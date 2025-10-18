@@ -23,12 +23,12 @@ const footerLinks = {
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-16 border-t border-white/10 bg-slate-950/95 text-slate-200">
+    <footer className="mt-20 border-t border-white/10 bg-slate-950/70 text-slate-200 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-emerald-300">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-cyan-200">
                 {section}
               </h2>
               <ul className="mt-3 space-y-2 text-sm text-slate-300">
@@ -37,14 +37,14 @@ export default function Footer() {
                     {link.href.startsWith("mailto:") ? (
                       <a
                         href={link.href}
-                        className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                        className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                        className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
                       >
                         {link.label}
                       </Link>
@@ -61,7 +61,7 @@ export default function Footer() {
             <LocaleSwitcher />
             <Link
               href="/data"
-              className="rounded-md border border-white/20 px-3 py-1 text-sm text-slate-200 transition hover:border-emerald-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="rounded-md border border-white/15 px-3 py-1 text-sm text-slate-200 transition hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
             >
               Open Data
             </Link>
