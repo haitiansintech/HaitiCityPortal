@@ -52,17 +52,21 @@ export default async function IssuesListPage() {
   const issues = (data && data.length > 0 ? data : fallbackIssues) ?? [];
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-20 sm:px-6">
-      <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold text-white">Issues</h1>
-          <p className="mt-2 text-sm text-slate-300">
-            Recent reports from residents across the municipality. Public read access is enabled.
+    <div className="mx-auto w-full max-w-5xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-6xl lg:px-8">
+      <div className="mb-12 flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-black/20 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-3">
+          <h1 className="text-3xl font-semibold text-white">Service issues</h1>
+          <p className="text-sm text-slate-300">
+            Track recent reports from residents across the municipality. Status updates are refreshed in real time.
           </p>
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-300">
+            <span className="flex h-2 w-2 rounded-full bg-cyan-400" aria-hidden />
+            Updated hourly from the civic response queue
+          </div>
         </div>
         <Link
           href="/issues/new"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-sky-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/30 transition hover:scale-[1.015] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+          className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r from-cyan-400 to-sky-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/30 transition hover:scale-[1.015] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
         >
           Report an issue
           <svg
@@ -113,8 +117,8 @@ export default async function IssuesListPage() {
         </div>
       ) : (
         <div className="relative">
-          <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/60 via-white/20 to-transparent sm:block" aria-hidden />
-          <ul className="space-y-6">
+          <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/60 via-white/20 to-transparent sm:block" aria-hidden />
+          <ul className="space-y-6 pl-0 sm:pl-6">
             {issues.map((issue) => {
               const statusLabel = formatStatus(issue.status);
               const tone = statusTone[statusLabel as keyof typeof statusTone] ?? statusTone.Pending;
@@ -123,7 +127,7 @@ export default async function IssuesListPage() {
                   key={issue.id}
                   className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur transition hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-cyan-400/20"
                 >
-                  <span className="absolute -left-1 top-6 hidden h-5 w-5 rounded-full border-4 border-slate-950 bg-cyan-300 shadow-md sm:block" aria-hidden />
+                  <span className="absolute -left-[22px] top-6 hidden h-5 w-5 rounded-full border-4 border-slate-950 bg-cyan-300 shadow-md sm:block" aria-hidden />
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <h2 className="text-lg font-semibold text-white">{issue.title}</h2>
