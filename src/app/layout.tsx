@@ -41,17 +41,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-slate-950 text-slate-100">
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-950 font-sans`}>
+    <html lang="en" className="bg-background text-foreground">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans text-foreground`}
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 0% 0%, rgba(86, 212, 245, 0.12), transparent 55%), radial-gradient(circle at 90% 10%, rgba(249, 115, 98, 0.1), transparent 45%), linear-gradient(180deg, rgba(4, 10, 26, 0.96) 0%, rgba(3, 6, 20, 0.98) 100%)",
+        }}
+      >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-emerald-500 focus:px-4 focus:py-2 focus:text-slate-900"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-cyan-400 focus:px-4 focus:py-2 focus:text-slate-950"
         >
           Skip to main content
         </a>
         <div className="flex min-h-screen flex-col">
           <Navbar />
-          <main id="main-content" className="flex-1 bg-gradient-to-b from-slate-900 to-slate-950">
+          <main
+            id="main-content"
+            className="flex-1 bg-gradient-to-b from-transparent via-background/40 to-background"
+          >
             {children}
           </main>
           <Footer />
