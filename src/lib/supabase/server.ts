@@ -1,10 +1,9 @@
 import { cookies } from "next/headers";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
-/**
- * Next 15: cookies() is async. We build the cookie methods explicitly.
- */
-export async function createServerSupabase() {
+type CookieMode = "read" | "write";
+
+async function initServerSupabase(mode: CookieMode) {
   const jar = await cookies();
 
   return createServerClient(
@@ -16,12 +15,32 @@ export async function createServerSupabase() {
           return jar.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          jar.set({ name, value, ...options });
+          if (mode === "write") {
+            jar.set({ name, value, ...options });
+          }
         },
         remove(name: string, options: CookieOptions) {
-          jar.set({ name, value: "", ...options, maxAge: 0 });
+          if (mode === "write") {
+            jar.set({ name, value: "", ...options, maxAge: 0 });
+          }
         },
       },
     }
   );
+}
+
+/**
+ * Create a Supabase client for Server Components. Cookie writes are disabled to
+ * satisfy Next.js 15 restrictions during render.
+ */
+export async function createServerSupabase() {
+  return initServerSupabase("read");
+}
+
+/**
+ * Create a Supabase client for Server Actions or Route Handlers where cookie
+ * mutations are permitted.
+ */
+export async function createServerSupabaseWithAccess() {
+  return initServerSupabase("write");
 }

@@ -76,7 +76,7 @@ export default async function DataGalleryPage() {
   const items = datasets.length > 0 ? datasets : enableLocalMode ? localFallback : [];
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6">
+    <div className="mx-auto w-full max-w-6xl px-4 pb-24 pt-16 sm:px-6 lg:px-8">
       <div className="mb-12 flex flex-col gap-6 rounded-3xl border border-cyan-400/30 bg-white/5 p-8 shadow-xl shadow-cyan-400/20 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-3">
           <h1 className="text-3xl font-semibold text-white">Open data catalog</h1>
@@ -100,7 +100,7 @@ export default async function DataGalleryPage() {
         </div>
         <a
           href="mailto:data@haiticity.org"
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+          className="inline-flex items-center justify-center gap-2 self-start rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-semibold text-slate-100 transition hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
         >
           Request a dataset
           <svg

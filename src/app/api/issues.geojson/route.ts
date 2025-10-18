@@ -1,4 +1,4 @@
-import { createServerSupabase } from "@/lib/supabase/server";
+import { createServerSupabaseWithAccess } from "@/lib/supabase/server";
 
 type IssuePoint = {
   id: string;
@@ -9,7 +9,7 @@ type IssuePoint = {
 };
 
 export async function GET() {
-  const supabase = await createServerSupabase();
+  const supabase = await createServerSupabaseWithAccess();
   const { data, error } = await supabase
     .from("issues")
     .select("id,title,latitude,longitude,created_at")
