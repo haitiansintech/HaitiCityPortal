@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/layout/Footer";
-import "./globals.css";
+import "./compiled.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-background text-foreground">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen font-sans`}
         style={{
           backgroundImage:
             "radial-gradient(circle at 0% 0%, rgba(86, 212, 245, 0.12), transparent 55%), radial-gradient(circle at 90% 10%, rgba(249, 115, 98, 0.1), transparent 45%), linear-gradient(180deg, rgba(4, 10, 26, 0.96) 0%, rgba(3, 6, 20, 0.98) 100%)",

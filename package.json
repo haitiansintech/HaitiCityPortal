@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run generate:css",
+    "prebuild": "npm run generate:css",
+    "generate:css": "node scripts/build-tailwind.ts",
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
