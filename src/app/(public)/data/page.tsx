@@ -1,5 +1,7 @@
 import { DatasetCard } from "@/components/data/DatasetCard";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { datasets } from "@/db/schema";
+import { asc } from "drizzle-orm";
 
 type DatasetRecord = {
   id: string;
@@ -10,19 +12,24 @@ type DatasetRecord = {
 };
 
 async function fetchDatasets() {
-  const supabase = await createServerSupabase();
-  const { data, error } = await supabase
-    .from("datasets")
-    .select("id,title,description,category,download_url")
-    .order("title", { ascending: true })
-    .limit(24);
+  try {
+    const data = await db
+      .select({
+        id: datasets.id,
+        title: datasets.title,
+        description: datasets.description,
+        category: datasets.category,
+        download_url: datasets.download_url,
+      })
+      .from(datasets)
+      .orderBy(asc(datasets.title))
+      .limit(24);
 
-  if (error) {
+    return data;
+  } catch (error: any) {
     console.error("Failed to load datasets", error.message);
     return [] as DatasetRecord[];
   }
-
-  return (data as DatasetRecord[] | null) ?? [];
 }
 
 const localFallback: DatasetRecord[] = [

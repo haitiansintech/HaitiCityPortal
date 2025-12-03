@@ -1,20 +1,23 @@
 import { redirect } from "next/navigation";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { auth } from "@/auth";
+import { db } from "@/db";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export default async function AdminDashboard() {
-  const supabase = await createServerSupabase();
+  const session = await auth();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  if (!session?.user?.email) redirect("/login");
 
-  if (!user) redirect("/login");
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, full_name, municipality_code")
-    .eq("id", user.id)
-    .single();
+  const profile = await db.query.users.findFirst({
+    where: eq(users.email, session.user.email),
+    columns: {
+      role: true,
+      name: true,
+      municipality_code: true,
+      email: true,
+    },
+  });
 
   if (profile?.role !== "admin" && profile?.role !== "staff") {
     redirect("/unauthorized");
@@ -38,9 +41,9 @@ export default async function AdminDashboard() {
           <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-sm text-slate-200">
             <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">Signed in as</dt>
             <dd className="mt-1 text-lg font-semibold text-white">
-              {profile?.full_name || user.email}
+              {profile?.name || session.user.email}
             </dd>
-            <dd className="mt-2 text-xs text-slate-400">{user.email}</dd>
+            <dd className="mt-2 text-xs text-slate-400">{session.user.email}</dd>
           </div>
           <div className="rounded-2xl border border-white/10 bg-slate-950/40 p-5 text-sm text-slate-200">
             <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">Permissions</dt>

@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { issues } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 interface IssueRecord {
   id: string;
   title: string;
   description: string | null;
   status: string | null;
-  created_at: string;
+  created_at: Date | null;
 }
 
 function formatStatus(status: string | null) {
@@ -22,34 +24,47 @@ const statusTone: Record<string, string> = {
 };
 
 export default async function IssuesListPage() {
-  const supabase = await createServerSupabase();
-  const { data, error } = await supabase
-    .from("issues")
-    .select("id,title,description,status,created_at")
-    .order("created_at", { ascending: false })
-    .limit(20);
+  let data: IssueRecord[] = [];
+  let error: { message: string } | null = null;
+
+  try {
+    const result = await db
+      .select({
+        id: issues.id,
+        title: issues.title,
+        description: issues.description,
+        status: issues.status,
+        created_at: issues.created_at,
+      })
+      .from(issues)
+      .orderBy(desc(issues.created_at))
+      .limit(20);
+    data = result;
+  } catch (e: any) {
+    error = { message: e.message };
+  }
 
   const enableLocalMode = process.env.ENABLE_LOCAL_MODE === "true";
   const fallbackIssues: IssueRecord[] = enableLocalMode
     ? [
-        {
-          id: "sample-1",
-          title: "Streetlight outage on Rue Capois",
-          description: "Streetlight in front of the market has been out for two weeks.",
-          status: "in_progress",
-          created_at: new Date().toISOString(),
-        },
-        {
-          id: "sample-2",
-          title: "Blocked drainage near Avenue Christophe",
-          description: "Debris blocking the drainage channel after recent storms.",
-          status: "submitted",
-          created_at: new Date(Date.now() - 86400000).toISOString(),
-        },
-      ]
+      {
+        id: "sample-1",
+        title: "Streetlight outage on Rue Capois",
+        description: "Streetlight in front of the market has been out for two weeks.",
+        status: "in_progress",
+        created_at: new Date(),
+      },
+      {
+        id: "sample-2",
+        title: "Blocked drainage near Avenue Christophe",
+        description: "Debris blocking the drainage channel after recent storms.",
+        status: "submitted",
+        created_at: new Date(Date.now() - 86400000),
+      },
+    ]
     : [];
 
-  const issues = (data && data.length > 0 ? data : fallbackIssues) ?? [];
+  const issuesList = (data && data.length > 0 ? data : fallbackIssues) ?? [];
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-6xl lg:px-8">
@@ -105,7 +120,7 @@ export default async function IssuesListPage() {
           </div>
         </div>
       )}
-      {issues.length === 0 && !error ? (
+      {issuesList.length === 0 && !error ? (
         <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center text-sm text-slate-300 shadow-xl shadow-black/20">
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-sky-500/15 text-sky-300">
             <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-10 w-10">
@@ -119,7 +134,7 @@ export default async function IssuesListPage() {
         <div className="relative">
           <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/60 via-white/20 to-transparent sm:block" aria-hidden />
           <ul className="space-y-6 pl-0 sm:pl-6">
-            {issues.map((issue) => {
+            {issuesList.map((issue) => {
               const statusLabel = formatStatus(issue.status);
               const tone = statusTone[statusLabel as keyof typeof statusTone] ?? statusTone.Pending;
               return (
@@ -146,7 +161,7 @@ export default async function IssuesListPage() {
                       <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-3.5 w-3.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l2.5 2.5" />
                       </svg>
-                      Reported on {new Date(issue.created_at).toLocaleString()}
+                      Reported on {issue.created_at ? new Date(issue.created_at).toLocaleString() : "Unknown"}
                     </span>
                     <span className="inline-flex items-center gap-1 text-slate-300/80">
                       <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-3.5 w-3.5">

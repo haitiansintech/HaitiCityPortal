@@ -1,15 +1,12 @@
-"use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { createIssue } from "@/app/actions/issues";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function NewIssuePage() {
-  const supabase = createClient();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -19,28 +16,13 @@ export default function NewIssuePage() {
     setIsSubmitting(true);
     setMessage(null);
 
-    const form = new FormData(event.currentTarget);
-    const title = String(form.get("title") ?? "").trim();
-    const description = String(form.get("description") ?? "").trim();
-    const contactEmail = String(form.get("contactEmail") ?? "").trim();
-
-    if (!title) {
-      setMessage("Please provide a title for the issue.");
-      setIsSubmitting(false);
-      return;
-    }
-
-    const { error } = await supabase.from("issues").insert({
-      title,
-      description: description || null,
-      contact_email: contactEmail || null,
-      status: "submitted",
-    });
+    const formData = new FormData(event.currentTarget);
+    const result = await createIssue(formData);
 
     setIsSubmitting(false);
 
-    if (error) {
-      setMessage(`Unable to submit issue: ${error.message}`);
+    if (result.error) {
+      setMessage(result.error);
       return;
     }
 
