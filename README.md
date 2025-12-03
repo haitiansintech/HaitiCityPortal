@@ -4,7 +4,7 @@ Next.js 15 + TypeScript civic portal for reporting issues, exploring municipal d
 
 ## Getting started
 
-1. Copy the environment template and fill in your Supabase credentials:
+1. Copy the environment template and configure your database and auth credentials:
 
    ```bash
    cp .env.local.example .env.local
@@ -19,24 +19,24 @@ Next.js 15 + TypeScript civic portal for reporting issues, exploring municipal d
 
 3. Visit [http://localhost:3000](http://localhost:3000) to explore the portal.
 
-### Supabase setup
+### Database Setup
 
-Create the following tables in Supabase (simplified schema):
+The database schema is managed via Drizzle ORM in `src/db/schema.ts`.
 
-- `issues`: `id uuid`, `title text`, `description text`, `status text`, `latitude float8`, `longitude float8`, `contact_email text`, `created_at timestamptz default now()`
-- `events`: `id uuid`, `title text`, `description text`, `start_time timestamptz`, `end_time timestamptz`, `location text`
-- `datasets`: `id uuid`, `title text`, `description text`, `category text`, `download_url text`
+Run the following command to push the schema to your database:
 
-Row Level Security (RLS) can allow public read access for the civic pages while protecting inserts/updates with policies as needed.
+```bash
+npm run db:push
+```
 
 ### Public routes
 
 - `/` — Landing page with hero, quick actions, announcements, and partner CTA
-- `/issues` — Public issues list with status badges and Supabase-backed data
-- `/issues/new` — Issue submission form (client) with Supabase insert
+- `/issues` — Public issues list with status badges and database-backed data
+- `/issues/new` — Issue submission form (client)
 - `/events` — Upcoming events grouped by month with ICS feed (`/api/events/ics`)
 - `/map` — MapLibre map consuming `/api/issues.geojson`
-- `/data` — Open data gallery (Supabase or local sample datasets)
+- `/data` — Open data gallery (Database or local sample datasets)
 - `/tax/lookup` — Parcel/NIF lookup with stub API and bill links (`/tax/bill/[id]`)
 - `/title/request/new` — Four-step title verification wizard with confirmation reference
 - `/about`, `/privacy`, `/terms` — Static MDX content rendered via lightweight markdown renderer
@@ -51,7 +51,8 @@ Row Level Security (RLS) can allow public read access for the civic pages while 
 ### Tooling
 
 - Tailwind CSS v4 with shadcn/ui components (Button, Card, Input, Label, Textarea)
-- Supabase server & browser clients in `src/lib/supabase`
+- Drizzle ORM for database access
+- NextAuth for authentication
 - MapLibre loaded from CDN for the public map
 
 The project ships with responsive navigation, footer, error boundaries, accessibility enhancements, and manifest metadata for PWA support.

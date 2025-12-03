@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { createServerSupabase } from "@/lib/supabase/server";
 
 type EventRecord = {
   id: string;
@@ -32,14 +31,41 @@ function groupByMonth(events: EventRecord[]) {
   }, {});
 }
 
+import { db } from "@/db";
+import { events } from "@/db/schema";
+import { asc, gte } from "drizzle-orm";
+
 async function fetchEvents() {
-  const supabase = await createServerSupabase();
-  const { data, error } = await supabase
-    .from("events")
-    .select("id,title,description,start_time,end_time,location")
-    .order("start_time", { ascending: true })
-    .gte("start_time", new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString())
-    .limit(50);
+  let data: EventRecord[] = [];
+  let error: { message: string } | null = null;
+
+  try {
+    const result = await db
+      .select({
+        id: events.id,
+        title: events.title,
+        description: events.description,
+        start_time: events.start_time,
+        end_time: events.end_time,
+        location: events.location,
+      })
+      .from(events)
+      .where(gte(events.start_time, new Date(Date.now() - 7 * 24 * 3600 * 1000)))
+      .orderBy(asc(events.start_time))
+      .limit(50);
+
+    // Convert dates to ISO strings to match EventRecord type if needed, 
+    // but EventRecord expects strings. Drizzle returns Dates for timestamp columns.
+    // We need to map them.
+    data = result.map(e => ({
+      ...e,
+      start_time: e.start_time.toISOString(),
+      end_time: e.end_time ? e.end_time.toISOString() : null,
+    }));
+
+  } catch (e: any) {
+    error = { message: e.message };
+  }
 
   const enableLocalMode = process.env.ENABLE_LOCAL_MODE === "true";
   if (error && !enableLocalMode) {
@@ -79,7 +105,7 @@ async function fetchEvents() {
     ];
   }
 
-  return data as EventRecord[];
+  return data;
 }
 
 export default async function EventsPage() {

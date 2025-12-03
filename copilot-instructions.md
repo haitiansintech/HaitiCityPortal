@@ -2,14 +2,14 @@
 
 Build a Next.js 15 + TypeScript civic MVP with:
 - Pages: `/` (landing), `/issues`, `/issues/new`, `/events`, `/map`, `/data`
-- Supabase (Auth, Postgres, Storage) with RLS
+- Postgres (Drizzle ORM), NextAuth, Object Storage
 - MapLibre (client map), next-intl (en/ht/fr/es), Tailwind v4 + shadcn/ui
 
 ## First tasks (in order)
 
 1. **Scaffold** `src/` App Router folders and pages above.
 2. **Install UI**: Tailwind v4 + shadcn; generate **Button, Card, Input, Label** components.
-3. **Supabase wiring**: server/browser clients + `.env.local` placeholders.
+3. **Database & Auth**: Drizzle setup + NextAuth configuration.
 4. **Issues vertical slice**: create/list issues; (phase 2) photo upload + map picker.
 
 ---
@@ -19,7 +19,7 @@ Build a Next.js 15 + TypeScript civic MVP with:
 **Assumptions**
 - Tailwind v4 is active via `@import "tailwindcss";` in `src/app/globals.css`
 - Project uses `src/` layout (paths below reflect that)
-- Supabase is configured; public read enabled on `issues`
+- Postgres is connected; Drizzle schema pushed
 - `ENABLE_LOCAL_MODE` may be `"true"` locally
 
 ---
@@ -172,17 +172,17 @@ Seed
 
 ```tsx
 import Link from "next/link";
-import { createServerSupabase } from "@/lib/supabase/server";
+import { db } from "@/db";
+import { issues } from "@/db/schema";
+import { desc } from "drizzle-orm";
 
 export default async function IssuesListPage() {
-  const supabase = await createServerSupabase();
-  const { data: issues, error } = await supabase
-    .from("issues")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(20);
+  const allIssues = await db.query.issues.findMany({
+    orderBy: [desc(issues.createdAt)],
+    limit: 20,
+  });
 
-  if (error) return <div className="p-6">Error: {error.message}</div>;
+  // if (error) return <div className="p-6">Error: {error.message}</div>;
 
   return (
     <div className="mx-auto max-w-4xl p-6">
@@ -191,14 +191,14 @@ export default async function IssuesListPage() {
         <Link className="underline" href="/issues/new">Report an issue →</Link>
       </div>
       <ul className="space-y-3">
-        {(issues ?? []).map((i: any) => (
+        {(allIssues ?? []).map((i: any) => (
           <li key={i.id} className="rounded border p-4">
             <div className="font-medium">{i.title}</div>
             {i.description && <div className="mt-1 line-clamp-2 text-sm text-gray-400">{i.description}</div>}
-            <div className="mt-2 text-xs opacity-70">{new Date(i.created_at).toLocaleString()} • {i.status}</div>
+            <div className="mt-2 text-xs opacity-70">{new Date(i.createdAt).toLocaleString()} • {i.status}</div>
           </li>
         ))}
-        {(!issues || issues.length === 0) && <li className="text-sm text-gray-400">No issues yet.</li>}
+        {(!allIssues || allIssues.length === 0) && <li className="text-sm text-gray-400">No issues yet.</li>}
       </ul>
     </div>
   );
@@ -266,14 +266,19 @@ Map loads; clicking a point shows title
 
 Seed — src/app/api/issues.geojson/route.ts
 ```tsx
-import { createServerSupabase } from "@/lib/supabase/server";
+import { db } from "@/db";
 
 export async function GET() {
-  const supabase = await createServerSupabase();
-  const { data } = await supabase
-    .from("issues")
-    .select("id,title,latitude,longitude,created_at")
-    .limit(200);
+  const data = await db.query.issues.findMany({
+    columns: {
+      id: true,
+      title: true,
+      latitude: true,
+      longitude: true,
+      createdAt: true,
+    },
+    limit: 200,
+  });
 
   const fc = {
     type: "FeatureCollection",
@@ -282,7 +287,7 @@ export async function GET() {
       .map((i: any) => ({
         type: "Feature",
         geometry: { type: "Point", coordinates: [i.longitude, i.latitude] },
-        properties: { id: i.id, title: i.title, created_at: i.created_at },
+        properties: { id: i.id, title: i.title, created_at: i.createdAt },
       })),
   };
 
@@ -392,7 +397,7 @@ Commit Checklist
 
  Installed Tailwind v4 + shadcn/ui; generated Button, Card, Input, Label
 
- Added Supabase server/browser clients and .env.local placeholders
+ Added Drizzle setup + NextAuth configuration
 
  Implemented Issues create/list; (phase 2) photo + map picker
 
