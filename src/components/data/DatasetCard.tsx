@@ -9,16 +9,29 @@ interface DatasetCardProps {
 
 export function DatasetCard({ title, category, description, downloadUrl }: DatasetCardProps) {
   return (
-    <article className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow">
-      <div>
-        <p className="text-xs uppercase tracking-wide text-emerald-300">{category}</p>
-        <h3 className="mt-2 text-lg font-semibold text-white">{title}</h3>
+    <article className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur transition hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-cyan-400/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-orange-400/10 opacity-0 transition group-hover:opacity-100" aria-hidden />
+      <div className="relative">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-cyan-200">
+            <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-3.5 w-3.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+            </svg>
+            {category}
+          </span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300 ring-1 ring-white/10">
+            <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-5 w-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5.25h17.25M3 9h13.5M3 12.75h17.25M3 16.5h9" />
+            </svg>
+          </span>
+        </div>
+        <h3 className="mt-4 text-lg font-semibold text-white">{title}</h3>
         {description && <p className="mt-3 text-sm text-slate-300">{description}</p>}
       </div>
       {downloadUrl ? (
         <Link
           href={downloadUrl}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+          className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 transition hover:text-cyan-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
         >
           Download dataset
           <svg
@@ -34,7 +47,7 @@ export function DatasetCard({ title, category, description, downloadUrl }: Datas
           </svg>
         </Link>
       ) : (
-        <p className="mt-6 text-sm text-slate-400">Download coming soon.</p>
+        <p className="relative mt-6 text-sm text-slate-400">Download coming soon.</p>
       )}
     </article>
   );
