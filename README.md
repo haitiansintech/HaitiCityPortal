@@ -55,4 +55,9 @@ npm run db:push
 - NextAuth for authentication
 - MapLibre loaded from CDN for the public map
 
+### Product Spec
+
+See [docs/haiti-city-portal-prd.md](docs/haiti-city-portal-prd.md) for the full PRD and technical specification, including i18n, architecture, and roadmap.
+
+
 The project ships with responsive navigation, footer, error boundaries, accessibility enhancements, and manifest metadata for PWA support.
