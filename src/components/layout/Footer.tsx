@@ -23,81 +23,60 @@ const footerLinks = {
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-24 border-t border-white/10 bg-slate-950/80 text-slate-200 backdrop-blur">
+    <footer className="mt-24 border-t border-gray-200 bg-gray-50 text-gray-700">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,2fr)]">
-          <div className="space-y-5">
-            <Link
-              href="/"
-              className="group inline-flex items-center gap-3 text-lg font-semibold text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
-            >
-              <span
-                aria-hidden
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500/80 to-orange-400/80 text-sm font-bold uppercase tracking-wide text-white shadow-md ring-1 ring-white/20 transition group-hover:shadow-lg"
-              >
-                HT
-              </span>
-              <span className="leading-tight">
-                Haiti City Portal
-                <span className="block text-xs font-normal text-slate-300">Municipal innovation hub</span>
-              </span>
+        <div className="grid gap-8 lg:grid-cols-4">
+          {/* Col 1: Logo & About */}
+          <div className="space-y-4">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sky-600 text-xs font-bold text-white">HT</div>
+              <span className="font-bold text-[#333333]">Haiti City Portal</span>
             </Link>
-            <p className="max-w-md text-sm text-slate-300">
-              A digital platform connecting residents with civic services, data, and events across the municipality. Built in partnership with local government and community leaders.
+            <p className="text-sm text-gray-600 leading-snug">
+              Connecting residents with civic services and data.
             </p>
-            <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                <span className="flex h-2 w-2 rounded-full bg-emerald-400" aria-hidden />
-                Always-on support
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1">
-                <span className="flex h-2 w-2 rounded-full bg-sky-400" aria-hidden />
-                Multilingual access
-              </span>
-            </div>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {Object.entries(footerLinks).map(([section, links]) => (
-              <div key={section} className="space-y-3">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-cyan-200">{section}</h2>
-                <ul className="space-y-2 text-sm text-slate-300">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      {link.href.startsWith("mailto:") ? (
-                        <a
-                          href={link.href}
-                          className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
-                        >
-                          {link.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          className="inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
-                        >
-                          {link.label}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+
+          {/* Col 2: Open Data */}
+          <div>
+            <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#333333]">Open Data</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li><Link href="/data" className="hover:text-sky-600">Data Catalog</Link></li>
+              <li><Link href="/api/events" className="hover:text-sky-600">Events API</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 3: Policies */}
+          <div>
+            <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#333333]">Policies</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li><Link href="/terms" className="hover:text-sky-600">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="hover:text-sky-600">Privacy Policy</Link></li>
+            </ul>
+          </div>
+
+          {/* Col 4: Support */}
+          <div>
+            <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#333333]">Support</h3>
+            <ul className="space-y-2 text-sm text-gray-600">
+              <li><Link href="/issues" className="hover:text-sky-600">Report an Issue</Link></li>
+              <li><a href="mailto:info@haiticity.org" className="hover:text-sky-600">info@haiticity.org</a></li>
+            </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Haiti City Portal. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
             <LocaleSwitcher />
             <Link
               href="/accessibility"
-              className="rounded-md border border-white/10 px-3 py-1 text-slate-200 transition hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+              className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               Accessibility
             </Link>
             <Link
               href="mailto:info@haiticity.org"
-              className="rounded-md border border-white/10 px-3 py-1 text-slate-200 transition hover:border-cyan-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300"
+              className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               Feedback
             </Link>

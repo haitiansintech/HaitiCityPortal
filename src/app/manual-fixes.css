@@ -1,0 +1,75 @@
+/* MANUAL FIXES FOR DESIGN SYSTEM TOKENS */
+/* These classes ensure visuals appear correctly even if Tailwind compilation fails */
+
+/* Surface */
+.bg-canvas {
+    background-color: #F9FAFB !important;
+}
+
+.bg-surface-card {
+    background-color: #FFFFFF !important;
+}
+
+.bg-surface-secondary {
+    background-color: #F3F4F6 !important;
+}
+
+/* Interaction */
+.bg-action-primary {
+    background-color: #0284C7 !important;
+}
+
+.hover\:bg-action-hover:hover {
+    background-color: #0369A1 !important;
+}
+
+.bg-action-destructive {
+    background-color: #E11D48 !important;
+}
+
+.hover\:bg-red-700:hover {
+    background-color: #BE123C !important;
+}
+
+/* Text */
+.text-ink-primary {
+    color: #333333 !important;
+}
+
+.text-ink {
+    color: #333333 !important;
+}
+
+.text-ink-secondary {
+    color: #6B7280 !important;
+}
+
+.text-on-action {
+    color: #FFFFFF !important;
+}
+
+.text-brand-blue {
+    color: #0284C7 !important;
+}
+
+.text-action-red {
+    color: #E11D48 !important;
+}
+
+/* Border */
+.border-weak {
+    border-color: #E5E7EB !important;
+}
+
+.border-strong {
+    border-color: #D1D5DB !important;
+}
+
+/* Utils */
+.bg-brand-blue {
+    background-color: #0284C7 !important;
+}
+
+.bg-white {
+    background-color: #FFFFFF !important;
+}
