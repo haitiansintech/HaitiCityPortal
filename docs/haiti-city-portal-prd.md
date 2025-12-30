@@ -1,57 +1,69 @@
-Haiti City Portal
-Product Requirements Document (PRD) + Technical Specification
+📘 Haiti City Portal — Product Requirements Document (PRD)
 Version 1.0
 
 1. Overview
-Haiti City Portal (HCP) is an open-source municipal services platform designed to modernize local governance in Haiti and empower Haitian citizens and the diaspora. The system provides standardized city websites, digital service delivery, civic payments, and cross-border engagement while remaining fully transparent and open-source. Paid hosting, support, and customization services will sustain long-term operations.
+Haiti City Portal (HCP) is an open-source municipal services platform designed to modernize local governance in Haiti and empower both residents and the Haitian diaspora.
+HCP provides standardized digital city websites, access to municipal services, online payments, and multilingual communication channels. 
+HCP is designed for low-bandwidth environments, full multilingual support, and seamless integration with diaspora-friendly payment rails.
 
 2. Vision & Objectives
 Primary Objectives
 Digitize municipal services across Haitian cities.
 
 
-Enable low-bandwidth-optimized access to government services.
+Ensure mobile-first, low-bandwidth access for citizens.
 
 
-Support diaspora civic engagement and sponsorship.
+Enable diaspora engagement and sponsorship of municipal services.
 
 
-Provide open-source digital public infrastructure for local governments.
+Establish an open-source civic technology foundation for Haiti.
 
 
-Create workforce development opportunities in Haiti and the diaspora.
+Create practical workforce development opportunities through open-source collaboration.
 
 
 Secondary Objectives
-Improve municipal transparency and performance tracking.
+Improve governmental transparency and public trust.
 
 
-Standardize workflows for permits, payments, and records.
+Standardize municipal workflows (payments, permits, licensing).
 
 
-Enable regional collaboration with Caribbean and Latin American partners.
+Promote regional integration with Caribbean and Latin American partners.
+
+
+Foster data-driven municipal decision-making.
 
 
 
 3. Target Users
 Primary Users
-Municipal government officials
+Haitian Citizens (Constituents)
+ Need accessible tools to request services (trash pickup, water, certificates), view updates, and make payments. Require high contrast, large text, and obvious buttons for essential services.
 
 
-Haitian citizens (local residents)
-
-
-Haitian diaspora (US, DR, Chile, Brazil, Canada, Europe)
-
-
-Developers and open-source contributors
+Haitian Diaspora (Diaspora Constituents)
+ Looking to sponsor services, support municipalities, and stay informed. Need emotional connection through imagery and clear transparency to see where contributions go.
 
 
 Secondary Users
-NGOs and donors
+Municipal Government Officials
+ Responsible for publishing updates, processing requests, and managing local services. Use the platform to serve constituents.
 
 
-Journalists and civic organizations
+Open-Source Developers
+ Contributing modules and providing technical improvements.
+
+
+Tertiary Stakeholders
+NGOs and donor organizations
+
+
+Journalists and watchdog groups
+
+
+Civic researchers
 
 
 Educational institutions
@@ -63,26 +75,23 @@ Municipal Features
 Announcements and alerts
 
 
-City department directory
+City department and services directory
 
 
-Digital forms (permits, licensing, requests)
+Digital forms (permits, licensing, service requests)
 
 
-Payment processing (property tax, service fees) via MonCash and Stripe
+Civic payments (property tax, service fees) via MonCash and Stripe
 
 
-Citizen dashboard
-
-
-Municipality dashboard with metrics
+Municipality dashboard with basic metrics
 
 
 Citizen Features
-Account creation & login
+Account creation and login
 
 
-View/submit service requests
+Submit and track service requests
 
 
 Pay municipal fees
@@ -95,54 +104,58 @@ Diaspora Features
 Cross-border payments
 
 
-Sponsorship and donation flows
+Sponsorship/donation flows for municipal initiatives
 
 
-Multilingual interface
+Full multilingual support
 
 
 System Features
 Low-bandwidth optimization
 
 
-Offline caching
+Mobile-first responsive layout
 
 
-API-based modular architecture
+Offline caching for critical content
 
 
-Five-language support (EN, HT, FR, ES, PT-BR)
+Modular API-based architecture
+
+
+Required launch languages:
+ Haitian Creole (default), French, Spanish, Brazilian Portuguese, English
 
 
 
 5. Future Features (Post-MVP)
-GIS property lookup (OpenStreetMap)
+GIS-based property lookup (OpenStreetMap)
 
 
-Digital land registry
+Digital land and business registry
 
 
-311 issue reporting with geotagging
+311 issue reporting with optional geotagging
 
 
-Cleaning routes / garbage pickup status
+Garbage pickup routes / sanitation status
 
 
-Data analytics and transparency dashboards
+Data analytics & transparency dashboards
 
 
-AI-assisted citizen services
+AI-assisted citizen helpflows
 
 
-Mobile app (React Native)
+React Native mobile app
 
 
-Integration with diaspora remittance sponsors
+Diaspora remittance integrations
 
 
 
-6. Multilingual Requirements (Required at Launch)
-Languages Supported
+6. Multilingual Requirements
+The system must support five languages at launch:
 Haitian Creole (HT) — default
 
 
@@ -158,409 +171,148 @@ Brazilian Portuguese (PT-BR)
 English (EN)
 
 
-Key Requirements
-Entire UI must support all five languages.
+Requirements
+All UI content must be available in all five languages.
 
 
-English is base language for all translation keys.
+English serves as the base string set for localization.
 
 
 Language switcher must appear in header, mobile menu, and footer.
 
 
-Layout must remain stable across languages.
+User preferences must persist across sessions.
 
 
-User selection must persist across sessions.
+Layout must remain visually stable regardless of language length.
 
 
 
 7. UX Principles
-Mobile-first for Haiti
+Mobile-first for Haiti’s mobile-dominant population
 
 
-Low-bandwidth design (2G/3G survivable)
+Low-bandwidth resilience (2G/3G survivable)
 
 
-Offline caching for critical content
+Offline-capable via caching for key content
 
 
-Highly readable fonts
+High readability—clear typography & spacing
 
 
-Color accessibility compliance
+Accessible color contrast & interaction design
 
 
-Trust-focused design (official municipality verification badges)
+Trust-driven UI including verified municipality indicators
 
 
 
 8. Success Metrics
-10+ municipalities onboarded (Year 1)
+Municipality Adoption
+10+ municipalities onboarded in Year 1
 
 
-500–1,500 daily unique users per city
+25+ in Year 2
 
 
-1,000+ digital civic transactions per city
+Citizen Engagement
+500–1,500 daily unique visitors per city
 
 
+1,000+ digital civic transactions per city annually
+
+
+Developer Ecosystem
 25+ open-source contributors
 
 
-200+ students trained through the workforce pipeline
+Active module development from the community
+
+
+Impact
+200+ students or trainees participate in technical workforce programs
 
 
 
 9. Risks & Mitigation
-Risk
-Mitigation
-Low adoption
-Onboarding support, training
-Internet instability
-Offline mode, caching
-Payment disruptions
-Multi-rail payment integrations
-Government turnover
-Institutional partnership strategy
-Security concerns
-Modern encryption, strict access levels
-
-
-10. Technical Architecture
-Frontend
-Next.js / React
-
-
-Tailwind or Styled Components
-
-
-Next-i18next or Lingui for internationalization
-
-
-Service Workers for offline caching
-
-
-Backend
-Node.js (Fastify or NestJS) or Django REST Framework
-
-
-PostgreSQL
-
-
-Redis for caching
-
-
-S3-compatible storage
-
-
-Supabase or custom auth
-
-
-APIs
-REST + GraphQL
-
-
-Webhooks for payments & status updates
-
-
-Payments
-MonCash
-
-
-Stripe for diaspora payments
-
-
-Optional bank integrations
-
-
-
-11. System Components
-Web App
-Citizen portal
-
-
-Municipality portal
-
-
-Admin CMS
-
-
-Backend Services
-Authentication
-
-
-Payment service
-
-
-Notifications (SMS, WhatsApp optional)
-
-
-Data analytics service
-
-
-Infrastructure
-Docker
-
-
-Terraform
-
-
-Vercel/DigitalOcean/Supabase hosting
-
-
-
-12. Multilingual Technical Specification (i18n)
-12.1 i18n Architecture
-English is base language.
-
-
-All text externalized into translation files.
-
-
-Graceful fallback to English if translation is missing.
-
-
-
-12.2 Folder Structure
-/src
-  /i18n
-    /locales
-      /en/*.json
-      /ht/*.json
-      /fr/*.json
-      /es/*.json
-      /pt-BR/*.json
-    i18n.ts
-    detector.ts
-
-
-12.3 Translation Key Format
-Use descriptive names:
-"auth.login.title": "Sign In"
-"form.submit": "Submit"
-"payment.success": "Your payment was successful"
-
-Avoid vague keys.
-
-12.4 Language Detection Order
-User profile setting
-
-
-LocalStorage
-
-
-Browser language
-
-
-Default: Haitian Creole
-
-
-
-12.5 CMS Multilingual Data Structure
-Example announcement:
-{
-  "title": {
-    "en": "...",
-    "ht": "...",
-    "fr": "...",
-    "es": "...",
-    "pt-BR": "..."
-  }
-}
-
-
-12.6 Backend Requirements
-Accept Accept-Language header
-
-
-Respect ?lang= query parameter
-
-
-Fallback logic on server
-
-
-
-12.7 Translation Workflow
-English finalized
-
-
-Machine translation draft
-
-
-Human review (required)
-
-
-GitHub PR workflow
-
-
-Annual glossary update
-
-
-Tools recommended: DeepL, GPT-4.1, Weblate or Crowdin.
-
-12.8 Testing Requirements
-Automated
-Missing keys checker
-
-
-Key duplication detection
-
-
-Snapshot tests to catch layout breakage
-
-
-Manual
-Test each language on:
-Mobile
-
-
-Desktop
-
-
-Offline mode
-
-
-Forms
-
-
-Payments
-
-
-
-12.9 Performance Requirements
-Lazy-load translation namespaces
-
-
-Translation bundle < 50KB per language
-
-
-Cache-first loading for repeated visits
-
-
-
-13. Data Models (High-Level)
-User
-id
-
-
-name
-
-
-email
-
-
-language
-
-
-role (citizen, admin, municipality, diaspora)
-
-
-municipalityId
-
-
-Announcement
-id
-
-
-municipalityId
-
-
-title (multilingual object)
-
-
-body (multilingual object)
-
-
-publishDate
-
-
-Payment
-id
-
-
-userId
-
-
-amount
-
-
-type
-
-
-status
-
-
-gateway
-
-
-
-14. API Endpoints (Sample)
-GET /announcements?lang=ht
-Returns multilingual announcements.
-POST /payments/moncash
-Initiates MonCash payment.
-GET /municipality/{id}/services
-Returns city-specific services.
-
-15. Deployment Requirements
-CI/CD via GitHub Actions
-
-
-Staging + production environments
-
-
-Automated rollback
-
-
-Infrastructure as Code (Terraform)
-
-
-Observability via Logtail, Grafana, or Supabase logs
-
-
-
-16. Licensing & Business Model
-Open-Source License
-AGPL or MPL recommended
-
+1. Low Municipal Adoption
+Risk: Municipalities may not adopt or maintain digital tools.
+Mitigation: Provide training, templates, onboarding support, and low-cost hosting.
+2. Internet Instability
+Risk: Poor connectivity limits access.
+Mitigation: Offline caching, low-bandwidth UI, SMS fallback for core services (future).
+3. Payment Reliability
+Risk: MonCash outages or failures interrupt payments.
+Mitigation: Multi-rail payment redundancy (Stripe, bank transfer).
+4. Government Turnover & Instability
+Risk: Political change disrupts adoption or continuity.
+Mitigation: Non-partisan positioning, diaspora-supported models, transparent OSS governance.
+5. Trust & Credibility
+Risk: Citizens may distrust digital services.
+Mitigation: Open-source transparency, visible verification of municipalities.
+6. Digital Literacy Barriers
+Risk: Not all citizens will be comfortable navigating digital services.
+Mitigation: Simple UX, multilingual support, instructional microcopy.
+7. Resource Constraints
+Risk: Cities may lack staff or technical capacity.
+Mitigation: Offer white-glove onboarding, SLAs, and plug-and-play modules.
+8. Security & Privacy Concerns
+Risk: Sensitive data may be mishandled or exposed.
+Mitigation: Strong encryption, restricted admin access, regular audits.
+
+10. Licensing
+The Haiti City Portal core platform will be released under the Mozilla Public License 2.0 (MPL 2.0).
+Why MPL 2.0
+MPL is chosen for the following reasons:
+1. Transparency & Public Trust
+All modifications to existing Haiti City Portal source files must be shared back under the same license, which ensures that civic infrastructure remains inspectable, auditable, and accountable.
+2. Flexibility for Municipal & Regional Partners
+MPL allows government agencies, NGOs, integrators, and regional technology partners to create separate custom modules or integrations without open-sourcing those additions, reducing barriers to adoption and collaboration.
+3. Compatibility With Large-Scale Deployment
+MPL avoids the procurement complexity associated with stricter copyleft licenses.
+ This makes it easier for municipalities and international organizations to evaluate, deploy, and adapt the platform.
+4. Prevents Code Lock-In
+All enhancements to the core must remain open-source, maintaining long-term accessibility and preventing the fragmentation of critical civic infrastructure.
+5. Ecosystem-Friendly
+MPL has been successfully used in large-scale open-source and government-facing projects (e.g., Firefox, CKAN, OpenMRS) where transparency and flexibility are both required.
 
 Revenue Streams
-Paid hosting
+Paid hosting plans for municipalities
 
 
-Paid SLAs
+Paid support tiers (SLAs)
 
 
-Custom development
+Custom feature development
 
 
-Municipal training
+Municipal workforce training
 
 
-Diaspora sponsorship processing
+Diaspora sponsorship processing fees
 
 
 
-17. Governance & Maintenance
+11. Governance & Maintenance
 Roles
-OSS Maintainers
+OSS Maintainers – oversee codebase
 
 
-Language Maintainers
+Language Maintainers – ensure translations (HT, FR, ES, PT-BR, EN)
 
 
-Municipal Liaisons
+Municipal Liaisons – manage city onboarding
 
 
-Training Team
+Training Lead – workforce development programs
 
 
-Technical Support Team
+Support Team – operational SLAs
 
 
 Cadence
-Quarterly feature updates
+Quarterly feature releases
 
 
 Monthly patch releases
@@ -569,15 +321,20 @@ Monthly patch releases
 Continuous community contributions
 
 
-
-18. Appendices
-Glossary of standardized municipal terminology
+Annual roadmap review
 
 
-UI wireframes (to be added)
+
+12. Appendices
+Glossary of municipal terminology
 
 
-Sample user journeys
+Wireframes (to be added)
 
 
-Low-bandwidth UI principles doc
+Sample citizen user journeys
+
+
+Low-bandwidth UI guidelines
+
+
