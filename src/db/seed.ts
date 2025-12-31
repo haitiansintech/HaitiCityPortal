@@ -108,21 +108,35 @@ async function seed() {
     const baseServices = [
         {
             service_code: "pothole",
-            service_name: { en: "Pothole Repair", ht: "Reparasyon Twou", fr: "Réparation de nid-de-poule" },
-            description: { en: "Report a pothole in the road.", ht: "Rapòte yon twou nan lari a.", fr: "Signaler un nid-de-poule sur la route." },
-            group: "Infrastructure"
+            service_name: { en: "Pothole Repair", ht: "Reparasyon Twou", fr: "Réparation de nid-de-poule", es: "Reparación de baches" },
+            description: { en: "Report a pothole in the road.", ht: "Rapòte yon twou nan lari a.", fr: "Signaler un nid-de-poule sur la route.", es: "Reportar un bache en la carretera." },
+            group: "Infrastructure",
+            base_fee_htg: 0,
+            requirements_json: [
+                { title: "Location", description: "Clear street name and nearby landmarks.", es: { title: "Ubicación", description: "Nombre claro de la calle y puntos de referencia cercanos." } }
+            ],
         },
         {
             service_code: "trash",
-            service_name: { en: "Trash Pickup Missed", ht: "Fatra Pa Ranmase", fr: "Ramassage des ordures manqué" },
-            description: { en: "Trash was not picked up on schedule.", ht: "Kamyon fatra a pa pase.", fr: "Les ordures n'ont pas été ramassées." },
-            group: "Sanitation"
+            service_name: { en: "Trash Pickup Missed", ht: "Fatra Pa Ranmase", fr: "Ramassage des ordures manqué", es: "Recogida de basura omitida" },
+            description: { en: "Trash was not picked up on schedule.", ht: "Kamyon fatra a pa pase.", fr: "Les ordures n'ont pas été ramassées.", es: "La basura no se recogió a tiempo." },
+            group: "Sanitation",
+            base_fee_htg: 1000,
+            requirements_json: [
+                { title: "Service ID", description: "Your municipal trash collection ID number.", es: { title: "ID de Servicio", description: "Su número de identificación de recogida de basura municipal." } },
+                { title: "Last Collection Date", description: "The date of your last successful pickup.", es: { title: "Última fecha de recogida", description: "La fecha de su última recogida exitosa." } }
+            ],
+            pickup_schedule: "Tuesdays and Fridays, 6:00 AM - 10:00 AM"
         },
         {
             service_code: "lighting",
-            service_name: { en: "Street Light Out", ht: "Limyè Lari Etenn", fr: "Lampadaire éteint" },
-            description: { en: "Report a broken or non-functioning street light.", ht: "Rapòte yon limyè lari ki pa mache.", fr: "Signaler un lampadaire cassé ou non fonctionnel." },
-            group: "Infrastructure"
+            service_name: { en: "Street Light Out", ht: "Limyè Lari Etenn", fr: "Lampadaire éteint", es: "Luz de la calle apagada" },
+            description: { en: "Report a broken or non-functioning street light.", ht: "Rapòte yon limyè lari ki pa mache.", fr: "Signaler un lampadaire cassé ou non fonctionnel.", es: "Reportar una luz de calle rota o que no funciona." },
+            group: "Infrastructure",
+            base_fee_htg: 0,
+            requirements_json: [
+                { title: "Pole ID", description: "The serial number visible on the light pole.", es: { title: "ID del poste", description: "El número de serie visible en el poste de luz." } }
+            ],
         }
     ];
 
@@ -287,6 +301,67 @@ async function seed() {
             facebook_page: "https://facebook.com/pnh.ht",
             is_public: true,
             status: "operational",
+            last_verified_at: new Date(),
+        },
+        // Jacmel Culture
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            name: "Ciné Théâtre Triomphe",
+            category: "culture",
+            sub_category: "Theater",
+            communal_section_id: '11111111-1111-1111-1111-111111111105',
+            latitude: 18.2350,
+            longitude: -72.5360,
+            contact_phone: "+50922223333",
+            is_public: true,
+            status: "operational",
+            entry_fee: "500 HTG",
+            amenities: ["AC", "Restrooms", "Snack Bar"],
+            last_verified_at: new Date(),
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            name: "Marché de Fer (Iron Market)",
+            category: "culture",
+            sub_category: "Historic Market",
+            communal_section_id: '11111111-1111-1111-1111-111111111105',
+            latitude: 18.2340,
+            longitude: -72.5345,
+            is_public: true,
+            status: "operational",
+            entry_fee: "Free",
+            amenities: ["Local Crafts", "Food Stalls"],
+            last_verified_at: new Date(),
+        },
+        // PAP Culture/Recreation
+        {
+            tenant_id: PAP_TENANT_ID,
+            name: "MUPANAH (Musée du Panthéon National Haïtien)",
+            category: "culture",
+            sub_category: "Museum",
+            communal_section_id: '22222222-2222-2222-2222-222222222202',
+            latitude: 18.5428,
+            longitude: -72.3389,
+            contact_phone: "+50929402030",
+            official_website: "http://www.mupanah.gouv.ht/",
+            is_public: true,
+            status: "operational",
+            entry_fee: "250 HTG",
+            amenities: ["Tour Guide", "Gift Shop", "AC"],
+            last_verified_at: new Date(),
+        },
+        {
+            tenant_id: PAP_TENANT_ID,
+            name: "Place Boyer",
+            category: "recreation",
+            sub_category: "Public Park",
+            communal_section_id: '22222222-2222-2222-2222-222222222202', // Turgeau (Pétion-Ville technically but mapping to PAP for demo)
+            latitude: 18.5130,
+            longitude: -72.2890,
+            is_public: true,
+            status: "operational",
+            entry_fee: "Free",
+            amenities: ["Benches", "Street Food", "Lighting"],
             last_verified_at: new Date(),
         },
     ]).onConflictDoNothing();

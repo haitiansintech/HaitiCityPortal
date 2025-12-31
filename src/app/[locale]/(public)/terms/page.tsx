@@ -1,0 +1,13 @@
+import { loadContent, MarkdownRenderer } from "@/lib/content";
+import { InfoLayout } from "@/components/layout/InfoLayout";
+
+export const dynamic = "force-static";
+
+export default async function TermsPage() {
+  const entry = await loadContent("terms");
+  return (
+    <InfoLayout title={entry.title}>
+      <MarkdownRenderer content={entry.body} />
+    </InfoLayout>
+  );
+}

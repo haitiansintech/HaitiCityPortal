@@ -88,14 +88,14 @@ function loadMapLibre(): Promise<MapLibreType> {
       const script = document.createElement("script");
       script.src = MAPLIBRE_SCRIPT;
       script.async = true;
-        script.onload = () => {
-          if (window.maplibregl) {
-            resolve(window.maplibregl);
-          } else {
-            reject(new Error("Failed to load MapLibre"));
-          }
-        };
-        script.onerror = () => reject(new Error("Failed to load MapLibre"));
+      script.onload = () => {
+        if (window.maplibregl) {
+          resolve(window.maplibregl);
+        } else {
+          reject(new Error("Failed to load MapLibre"));
+        }
+      };
+      script.onerror = () => reject(new Error("Failed to load MapLibre"));
       document.head.appendChild(script);
     }
   });
@@ -132,12 +132,14 @@ export default function MapView() {
             if (!response.ok) {
               throw new Error("Unable to load issue points");
             }
-            const geojson = await response.json();
+            const geojson = (await response.json()) as GeoJsonFeatureCollection;
+            if (!map) return;
             map.addSource("issues", {
               type: "geojson",
               data: geojson,
             });
 
+            if (!map) return;
             map.addLayer({
               id: "issues-points",
               type: "circle",
@@ -150,6 +152,7 @@ export default function MapView() {
               },
             });
 
+            if (!map) return;
             map.addLayer({
               id: "issues-labels",
               type: "symbol",
@@ -168,14 +171,16 @@ export default function MapView() {
               },
             });
 
+            if (!map) return;
             map.on("click", "issues-points", (event) => {
               const coordinates = event.features?.[0]?.geometry?.coordinates?.slice() as [number, number] | undefined;
               const title = (event.features?.[0]?.properties?.title as string | undefined) ?? "Issue";
               if (!coordinates) return;
+              if (!map) return;
               new maplibre.Popup({ closeOnClick: true })
                 .setLngLat(coordinates)
                 .setHTML(`<strong>${title}</strong>`)
-                .addTo(map);
+                .addTo(map as MapInstance);
             });
           } catch (issueError) {
             setError(issueError instanceof Error ? issueError.message : "Failed to load issues");

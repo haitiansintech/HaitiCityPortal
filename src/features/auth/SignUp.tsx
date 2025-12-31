@@ -33,7 +33,7 @@ const SignUp: React.FC = () => {
 
             setSuccess('Sign up successful! Please check your email to verify your account.');
         } catch (err) {
-            setError(err.message);
+            setError(err instanceof Error ? err.message : 'An unexpected error occurred');
         }
     };
 

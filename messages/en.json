@@ -1,0 +1,28 @@
+{
+    "HomePage": {
+        "hero": {
+            "badge": "ONE CITY, ONE COMMUNITY",
+            "title": "Welcome to the Haiti City Portal",
+            "description": "Connect with your local government, access services, and help build a stronger community—whether you're here at home or supporting from abroad.",
+            "reportBtn": "Report an Issue",
+            "payBtn": "Pay Taxes/Fees"
+        },
+        "quickActions": {
+            "reportPothole": "Report Pothole",
+            "payParking": "Pay Parking Ticket",
+            "trashSchedule": "Trash Schedule",
+            "payFees": "Pay Fees"
+        },
+        "services": {
+            "title": "Featured Services",
+            "viewAll": "View All Services →",
+            "getStarted": "Get Started"
+        }
+    },
+    "Common": {
+        "backToHome": "Back to Home",
+        "search": "Search",
+        "contact": "Contact",
+        "login": "Login"
+    }
+}

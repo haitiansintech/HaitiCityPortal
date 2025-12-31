@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { db } from "@/db";
-import { users } from "@/db/schema";
+import { authConfig } from "./auth.config";
+import { users, officials } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+    ...authConfig,
     providers: [
         Credentials({
             credentials: {
@@ -18,6 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 }
 
                 try {
+                    const { db } = await import("@/db");
                     // Query user from database
                     const [user] = await db
                         .select()
@@ -39,6 +41,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         return null;
                     }
 
+                    // Fetch official data if applicable
+                    let communalSectionId = undefined;
+                    if (user.role === "official" || user.role === "casec" || user.role === "asec" || user.role === "admin") {
+                        const { db } = await import("@/db");
+                        const [official] = await db
+                            .select()
+                            .from(officials)
+                            .where(eq(officials.user_id, user.id))
+                            .limit(1);
+
+                        if (official) {
+                            communalSectionId = official.communal_section_id;
+                        }
+                    }
+
                     // Return user object (will be passed to jwt callback)
                     return {
                         id: user.id,
@@ -46,6 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         name: user.name || undefined,
                         role: user.role || "user",
                         tenantId: user.tenant_id,
+                        communalSectionId: communalSectionId || undefined,
                     };
                 } catch (error) {
                     console.error("Auth error:", error);
@@ -54,31 +72,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
         }),
     ],
-    callbacks: {
-        async jwt({ token, user }) {
-            // Persist user data to token on sign in
-            if (user) {
-                token.id = user.id;
-                token.role = user.role;
-                token.tenantId = user.tenantId;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            // Add user data to session
-            if (session.user) {
-                session.user.id = token.id as string;
-                session.user.role = token.role as string;
-                session.user.tenantId = token.tenantId as string;
-            }
-            return session;
-        },
-    },
-    pages: {
-        signIn: "/login",
-    },
-    session: {
-        strategy: "jwt",
-    },
-    secret: process.env.AUTH_SECRET || "development-secret-only-for-local-testing",
 });

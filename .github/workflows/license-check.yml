@@ -1,0 +1,90 @@
+name: License Header Check
+
+on:
+  pull_request:
+    paths:
+      - '**.ts'
+      - '**.tsx'
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  check-license-headers:
+    runs-on: ubuntu-latest
+    name: Verify BSL 1.1 Headers
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for BSL 1.1 copyright headers
+        run: |
+          echo "Checking for BSL 1.1 copyright headers in TypeScript files..."
+          
+          # Expected header pattern (flexible whitespace)
+          HEADER_PATTERN="Copyright.*Haiti City Portal.*BSL 1.1"
+          
+          # Find all .ts and .tsx files (excluding node_modules and .next)
+          FILES=$(find . -type f \( -name "*.ts" -o -name "*.tsx" \) \
+            -not -path "*/node_modules/*" \
+            -not -path "*/.next/*" \
+            -not -path "*/dist/*" \
+            -not -path "*/build/*")
+          
+          MISSING_HEADERS=()
+          
+          for file in $FILES; do
+            # Check if file contains the copyright header in first 10 lines
+            if ! head -n 10 "$file" | grep -q "$HEADER_PATTERN"; then
+              MISSING_HEADERS+=("$file")
+            fi
+          done
+          
+          if [ ${#MISSING_HEADERS[@]} -ne 0 ]; then
+            echo "❌ The following files are missing BSL 1.1 copyright headers:"
+            printf '%s\n' "${MISSING_HEADERS[@]}"
+            echo ""
+            echo "Please add the following header to the top of each file:"
+            echo ""
+            echo "/**"
+            echo " * Copyright (c) $(date +%Y) Haiti City Portal Contributors"
+            echo " * Licensed under BSL 1.1 (see LICENSE for details)"
+            echo " */"
+            echo ""
+            exit 1
+          else
+            echo "✅ All TypeScript files have proper BSL 1.1 headers"
+          fi
+
+      - name: Check for files changed in PR
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Checking only changed files in this PR..."
+          
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.(ts|tsx)$' || true)
+          
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No TypeScript files changed in this PR"
+            exit 0
+          fi
+          
+          HEADER_PATTERN="Copyright.*Haiti City Portal.*BSL 1.1"
+          MISSING_HEADERS=()
+          
+          for file in $CHANGED_FILES; do
+            if [ -f "$file" ]; then
+              if ! head -n 10 "$file" | grep -q "$HEADER_PATTERN"; then
+                MISSING_HEADERS+=("$file")
+              fi
+            fi
+          done
+          
+          if [ ${#MISSING_HEADERS[@]} -ne 0 ]; then
+            echo "❌ New/modified files missing BSL 1.1 headers:"
+            printf '%s\n' "${MISSING_HEADERS[@]}"
+            exit 1
+          fi

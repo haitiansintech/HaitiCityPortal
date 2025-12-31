@@ -1,7 +1,13 @@
 import React from 'react';
 
+interface Incident {
+    id: string;
+    title: string;
+    description: string;
+}
+
 const IncidentList: React.FC = () => {
-    const [incidents, setIncidents] = React.useState([]);
+    const [incidents, setIncidents] = React.useState<Incident[]>([]);
 
     React.useEffect(() => {
         const fetchIncidents = async () => {

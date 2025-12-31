@@ -21,7 +21,7 @@ const tailwindConfigPath = path.resolve(projectRoot, "tailwind.config.ts");
 
 const projectRequire = createRequire(path.join(projectRoot, "package.json"));
 
-async function loadTailwindConfig(configPath) {
+async function loadTailwindConfig(configPath: string) {
   const source = await readFile(configPath, "utf8");
   const transpiled = ts.transpileModule(source, {
     compilerOptions: {
@@ -46,7 +46,7 @@ async function loadTailwindConfig(configPath) {
   const script = new vm.Script(transpiled.outputText, { filename: configPath });
   script.runInNewContext(context);
 
-  return moduleScope.exports.default ?? moduleScope.exports;
+  return (moduleScope.exports as any).default ?? moduleScope.exports;
 }
 
 const SUPPORTED_EXTENSIONS = new Set([
@@ -72,7 +72,8 @@ async function collectProjectContent() {
     let entries;
     try {
       entries = await readdir(current, { withFileTypes: true });
-    } catch (error) {
+    } catch (e: any) {
+      const error = e;
       if (error.code === "ENOENT") {
         continue;
       }
@@ -95,7 +96,8 @@ async function collectProjectContent() {
     try {
       const content = await readFile(filePath, "utf8");
       parts.push(content);
-    } catch (error) {
+    } catch (e: any) {
+      const error = e;
       if (error.code !== "ENOENT") {
         throw error;
       }
@@ -105,7 +107,7 @@ async function collectProjectContent() {
   return parts.join("\n");
 }
 
-function normalizeStylesheetSpecifier(specifier) {
+function normalizeStylesheetSpecifier(specifier: string) {
   if (specifier === "tailwindcss") {
     return "tailwindcss/index.css";
   }
@@ -115,7 +117,7 @@ function normalizeStylesheetSpecifier(specifier) {
   return specifier;
 }
 
-function toResolutionPaths(fromBase) {
+function toResolutionPaths(fromBase?: string) {
   const paths = [];
   if (fromBase && typeof fromBase === "string" && fromBase.length > 0) {
     paths.push(fromBase);
@@ -124,7 +126,7 @@ function toResolutionPaths(fromBase) {
   return paths;
 }
 
-function resolveStylesheet(specifier, fromBase) {
+function resolveStylesheet(specifier: string, fromBase?: string) {
   const normalized = normalizeStylesheetSpecifier(specifier);
   if (normalized.startsWith(".") || normalized.startsWith("/")) {
     const base = fromBase && fromBase.length > 0 ? fromBase : projectRoot;
@@ -132,28 +134,29 @@ function resolveStylesheet(specifier, fromBase) {
   }
   try {
     return projectRequire.resolve(normalized, { paths: toResolutionPaths(fromBase) });
-  } catch (error) {
-    throw new Error(`Unable to resolve stylesheet \"${specifier}\" from ${fromBase ?? "project root"}: ${error.message}`);
+  } catch (e: any) {
+    throw new Error(`Unable to resolve stylesheet \"${specifier}\" from ${fromBase ?? "project root"}: ${e.message}`);
   }
 }
 
-function resolveModuleSpecifier(specifier, fromBase) {
+function resolveModuleSpecifier(specifier: string, fromBase?: string) {
   if (specifier.startsWith(".") || specifier.startsWith("/")) {
     const base = fromBase && fromBase.length > 0 ? fromBase : projectRoot;
     return path.resolve(base, specifier);
   }
   try {
     return projectRequire.resolve(specifier, { paths: toResolutionPaths(fromBase) });
-  } catch (error) {
-    throw new Error(`Unable to resolve module \"${specifier}\" from ${fromBase ?? "project root"}: ${error.message}`);
+  } catch (e: any) {
+    throw new Error(`Unable to resolve module \"${specifier}\" from ${fromBase ?? "project root"}: ${e.message}`);
   }
 }
 
-async function importModule(resolvedPath) {
+async function importModule(resolvedPath: string) {
   try {
     const required = projectRequire(resolvedPath);
     return required && required.default ? required.default : required;
-  } catch (error) {
+  } catch (e: any) {
+    const error = e;
     if (error.code === "ERR_REQUIRE_ESM" || /Cannot use import statement/.test(error.message)) {
       const imported = await import(pathToFileURL(resolvedPath).href);
       return imported && imported.default ? imported.default : imported;
@@ -162,7 +165,7 @@ async function importModule(resolvedPath) {
   }
 }
 
-async function loadStylesheet(specifier, fromBase) {
+async function loadStylesheet(specifier: string, fromBase?: string) {
   const resolvedPath = resolveStylesheet(specifier, fromBase);
   const content = await readFile(resolvedPath, "utf8");
   return {
@@ -172,11 +175,11 @@ async function loadStylesheet(specifier, fromBase) {
   };
 }
 
-  async function loadModule(specifier, fromBase) {
-    const resolvedPath = resolveModuleSpecifier(specifier, fromBase);
-    const loadedModule = await importModule(resolvedPath);
-    return {
-      module: loadedModule,
+async function loadModule(specifier: string, fromBase?: string) {
+  const resolvedPath = resolveModuleSpecifier(specifier, fromBase);
+  const loadedModule = await importModule(resolvedPath);
+  return {
+    module: loadedModule,
     base: path.dirname(resolvedPath),
     path: resolvedPath,
   };

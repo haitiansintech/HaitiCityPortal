@@ -11,6 +11,7 @@ interface ServiceInfoPageProps {
     documents: string[];
     fees: string;
     payLink?: string;
+    secondaryAction?: React.ReactNode;
 }
 
 const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
@@ -19,7 +20,8 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
     steps,
     documents,
     fees,
-    payLink = "/pay"
+    payLink = "/pay",
+    secondaryAction
 }) => {
     return (
         <div className="min-h-screen bg-canvas py-12 px-4 sm:px-6 lg:px-8">
@@ -92,6 +94,12 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                                 </CardContent>
                             </Card>
                         </section>
+
+                        {secondaryAction && (
+                            <section>
+                                {secondaryAction}
+                            </section>
+                        )}
 
                         <section className="bg-white rounded-2xl p-6 border border-weak shadow-sm">
                             <h3 className="text-lg font-semibold text-ink-primary mb-2 flex items-center gap-2">
