@@ -27,12 +27,22 @@ async function seed() {
             name: "Ville de Jacmel",
             subdomain: "jacmel",
             primary_color: "#e11d48", // Rose
+            moncash_merchant_id: "JACMEL-MAIRIE",
+            bank_name: "Banque Nationale de Crédit (BNC)",
+            bank_swift_code: "BNCHHTPP",
+            bank_account_number: "2460009999",
+            bank_beneficiary_name: "Mairie de Jacmel",
         },
         {
             id: PAP_TENANT_ID,
             name: "Ville de Port-au-Prince",
             subdomain: "pap",
             primary_color: "#166534", // Green
+            moncash_merchant_id: "PAP-RECETTES",
+            bank_name: "Unibank",
+            bank_swift_code: "UNIBHTPP",
+            bank_account_number: "1010202033",
+            bank_beneficiary_name: "Mairie de Port-au-Prince",
         },
     ]).onConflictDoUpdate({
         target: tenants.id,
@@ -40,6 +50,11 @@ async function seed() {
             subdomain: sql`EXCLUDED.subdomain`,
             name: sql`EXCLUDED.name`,
             primary_color: sql`EXCLUDED.primary_color`,
+            moncash_merchant_id: sql`EXCLUDED.moncash_merchant_id`,
+            bank_name: sql`EXCLUDED.bank_name`,
+            bank_swift_code: sql`EXCLUDED.bank_swift_code`,
+            bank_account_number: sql`EXCLUDED.bank_account_number`,
+            bank_beneficiary_name: sql`EXCLUDED.bank_beneficiary_name`,
         }
     });
 
