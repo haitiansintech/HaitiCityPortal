@@ -16,13 +16,222 @@
         "services": {
             "title": "Featured Services",
             "viewAll": "View All Services →",
-            "getStarted": "Get Started"
+            "getStarted": "Get Started",
+            "viewDirectory": "View Directory",
+            "learnMore": "Learn More",
+            "reportAlert": "Report Damage / Preservation Alert"
+        },
+        "commonServices": {
+            "birthCertificates": {
+                "title": "Birth Certificates",
+                "description": "Request or verify birth certificates online."
+            },
+            "trashPickup": {
+                "title": "Trash Pickup",
+                "description": "Schedule pickup or report missed collection."
+            },
+            "businessPermits": {
+                "title": "Business Permits",
+                "description": "Apply for or renew business licenses."
+            },
+            "propertyTax": {
+                "title": "Pay Property Tax",
+                "description": "Look up and pay your property tax online."
+            },
+            "reportIssue": {
+                "title": "Report an Issue",
+                "description": "Report potholes, streetlights, or other problems."
+            },
+            "communityEvents": {
+                "title": "Community Events",
+                "description": "Find town halls, clinics, and local meetings."
+            },
+            "openData": {
+                "title": "Open Data",
+                "description": "Explore municipal datasets and spending."
+            },
+            "localOfficials": {
+                "title": "Local Officials",
+                "description": "Find and contact your CASEC, ASEC, and Town Delegates."
+            },
+            "govGuide": {
+                "title": "Government Guide",
+                "description": "Learn how local elective bodies and the Mairie work for you."
+            }
+        },
+        "mayor": {
+            "badge": "Leadership",
+            "title": "A Message from Mayor",
+            "defaultBio": "Welcome to our city's digital portal. We are committed to transparency, accessibility, and serving every citizen with dignity. Let's build our community together.",
+            "contactRep": "Contact My Representatives",
+            "office": "Office of the Mayor"
+        },
+        "news": {
+            "title": "Recent Updates",
+            "readMore": "Read more →"
         }
+    },
+    "RoadmapPage": {
+        "title": "Product Roadmap",
+        "description": "Transparency extends to our code. Here is what we are building next.",
+        "timeline": {
+            "month": {
+                "badge": "Next Month",
+                "title": "Mobile & Offline First",
+                "desc": "Optimizing the \"Field Dashboard\" for 2G EDGE networks.",
+                "item1": "Offline caching for Service Requests",
+                "item2": "SMS fallback for critical alerts",
+                "item3": "Image compression (completed)"
+            },
+            "quarter": {
+                "badge": "Next Quarter",
+                "title": "Expansion & GIS",
+                "desc": "Scaling to 5 more municipalities and improving specific tooling.",
+                "item1": "Integration with Vwa for Official Verification",
+                "item2": "Integration with OpenStreetMap for unmapped zones",
+                "item3": "\"Adopt a Park\" management module",
+                "item4": "Advanced Permit Workflow for construction"
+            },
+            "vision": {
+                "badge": "Future Vision",
+                "title": "Sovereign Identity & Land",
+                "desc": "Long-term goals for digital sovereignty.",
+                "item1": "Blockchain-verified Land Registry anchors",
+                "item2": "Civic ID integration (NIF/CIN)",
+                "item3": "Participatory Budgeting Voting"
+            }
+        },
+        "feedback": {
+            "title": "Community Feedback Loop",
+            "description": "We build what you need. Participate in our feature request discussions or upvote existing ideas.",
+            "join": "Join the Discussion",
+            "upvote": "Upvote Features"
+        }
+    },
+    "TechManifesto": {
+        "title": "The Sovereign Source Manifesto",
+        "subtitle": "We are not just building software; we are building institutions. Our technical choices reflect our commitment to Haiti's autonomy, resilience, and dignity.",
+        "pillars": {
+            "2g": {
+                "title": "2G-First Design",
+                "description": "We optimize for the lowest common denominator of Haitian connectivity. If a page doesn't load on an Edge network in a rural communal section, it is a bug."
+            },
+            "accountability": {
+                "title": "Professional Accountability",
+                "description": "Every municipal official is linked to a verified Vwa profile, turning local governance into a professional career path."
+            },
+            "sovereignty": {
+                "title": "Data Sovereignty",
+                "description": "Built with BSL 1.1, this platform ensures that Haitian municipal data belongs to the municipality, not foreign commercial entities."
+            },
+            "transparency": {
+                "title": "Transparency as Code",
+                "description": "Audit logs and fee structures are baked into the UI, making corruption harder to hide and success easier to see."
+            }
+        },
+        "footer": {
+            "established": "EST. 2025",
+            "title": "Built for Haiti. Owned by Haiti.",
+            "description": "This repository is available under the Business Source License 1.1, ensuring that while the code is open for distinct inspection, its commercial value remains sovereign to the Haitian people."
+        }
+    },
+    "ImpactPage": {
+        "title": "Why This Matters",
+        "subtitle": "We are building the digital infrastructure for a new era of civic trust. Our platform empowers citizens and officials to work together through four core pillars.",
+        "pillars": {
+            "transparency": {
+                "title": "Transparency",
+                "description": "Real-time visibility into infrastructure funds. Every gourde collected and spent is tracked on a public open ledger, eliminating the shadows where corruption hides."
+            },
+            "accountability": {
+                "title": "Accountability",
+                "description": "Direct reporting loops. When a citizen reports a pothole or missing trash pickup, it goes directly to the dashboard of the responsible CASEC, creating a verifiable record of action (or inaction)."
+            },
+            "digital": {
+                "title": "Digital Transformation",
+                "description": "Moving from paper to pixels. We are replacing fragile physiocal ledgers with decentralized, cloud-backed mobile databases that survive floods, fires, and political transitions."
+            },
+            "data": {
+                "title": "Data Access",
+                "description": "A Single Source of Truth. Whether it's birth certificate procedures or school locations, citizens shouldn't have to rely on rumors. We provide official, verified municipal data."
+            }
+        },
+        "flow": {
+            "title": "The Flow of Trust",
+            "step1": "Citizen Report",
+            "step1Desc": "Photo sent via 3G",
+            "step2": "Cloud Database",
+            "step2Desc": "Stored securely",
+            "step3": "CASEC Action",
+            "step3Desc": "Verified & Resolved"
+        },
+        "leadership": {
+            "title": "A New Standard for Leadership",
+            "desc1": "We aren't just tracking projects; we are documenting the professional legacy of the people building Haiti.",
+            "desc2": "Through our partnership with Vwa, every Mayor, ASEC, and CASEC gets a verified professional profile. This allows citizens to see their track record, past roles, and verified achievements—creating a permanent history of service.",
+            "partnerBadge": "Strategic Partner",
+            "partnerTitle": "Powered by Vwa",
+            "partnerSubtitle": "The definitive verification platform for Haitian professionals.",
+            "feature1": "Identity Verification",
+            "feature2": "Role Authentication",
+            "feature3": "Performance History"
+        }
+    },
+    "Navbar": {
+        "services": "Services",
+        "government": "Government",
+        "report": "Report",
+        "pay": "Pay",
+        "donate": "Donate",
+        "hotline": "24/7 Hotline: 129",
+        "emergencyAlerts": "Emergency alerts & updates",
+        "hub": "Municipal Services Hub",
+        "openMenu": "Open main menu",
+        "donatePay": "Donate / Pay"
     },
     "Common": {
         "backToHome": "Back to Home",
         "search": "Search",
         "contact": "Contact",
-        "login": "Login"
+        "login": "Login",
+        "language": "Language",
+        "selectLanguage": "Select language"
+    },
+    "Footer": {
+        "tagline": "Connecting residents with civic services and data.",
+        "projectDetails": "Project Details",
+        "vision": "Our Vision",
+        "techManifesto": "Technical Manifesto",
+        "impact": "Impact in Haiti",
+        "roadmap": "Project Roadmap",
+        "contribution": "Contribution Guide",
+        "resources": "Resources",
+        "dataCatalog": "Open Data Catalog",
+        "eventsApi": "Events API",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "support": "Support",
+        "contactUs": "Contact Us",
+        "reportIssue": "Report an Issue",
+        "suggestFeature": "Suggest a Feature",
+        "sitemap": "Tout Sèvis (Sitemap)",
+        "rights": "All rights reserved.",
+        "license": "© 2025 Haiti City Portal Project. Source-Available License. Commercial use prohibited.",
+        "accessibility": "Accessibility",
+        "feedback": "Feedback"
+    },
+    "Facility": {
+        "backToDirectory": "← Back to Directory",
+        "location": "Location",
+        "contact": "Contact",
+        "entryFee": "Entry Fee",
+        "amenities": "Amenities",
+        "noPhone": "No phone listed",
+        "clickToCall": "Click to Call",
+        "viewOnMap": "View on Map",
+        "aboutFacility": "About this facility",
+        "officialNotice": "This is an official public facility registered with the municipality of {tenant}.",
+        "emergencyNotice": "For emergencies, please dial 114 (Police) or 116 (Medical).",
+        "reportAlert": "Report Damage / Preservation Alert"
     }
 }

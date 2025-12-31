@@ -9,12 +9,19 @@ import { MapPin, Phone, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { BilingualGuide } from "@/components/common/BilingualGuide";
 
-export const metadata = {
-    title: "Facility Details | Haiti City Portal",
-};
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const t = await getTranslations("Facility");
+    return {
+        title: `${t("aboutFacility")} | Haiti City Portal`,
+    };
+}
 
 export default async function FacilityPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+    const t = await getTranslations("Facility");
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
@@ -55,7 +62,7 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
         <div className="min-h-screen bg-canvas py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
                 <Link href="/directory" className="text-sm font-semibold text-brand-blue hover:underline mb-6 block">
-                    ← Back to Directory
+                    {t("backToDirectory")}
                 </Link>
                 <script
                     type="application/ld+json"
@@ -80,7 +87,7 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
                             <div className="p-4 bg-slate-50 rounded-xl border border-weak flex items-start gap-3">
                                 <MapPin className="h-5 w-5 text-brand-blue mt-0.5" />
                                 <div>
-                                    <h3 className="font-bold text-ink-primary text-sm uppercase tracking-wide">Location</h3>
+                                    <h3 className="font-bold text-ink-primary text-sm uppercase tracking-wide">{t("location")}</h3>
                                     <p className="text-ink-secondary">
                                         Lat: {facility.latitude?.toFixed(4)}<br />
                                         Long: {facility.longitude?.toFixed(4)}
@@ -91,7 +98,7 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
                                         rel="noreferrer"
                                         className="text-xs font-bold text-brand-blue hover:underline mt-2 inline-block"
                                     >
-                                        View on Map
+                                        {t("viewOnMap")}
                                     </a>
                                 </div>
                             </div>
@@ -99,13 +106,13 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
                             <div className="p-4 bg-slate-50 rounded-xl border border-weak flex items-start gap-3">
                                 <Phone className="h-5 w-5 text-brand-blue mt-0.5" />
                                 <div>
-                                    <h3 className="font-bold text-ink-primary text-sm uppercase tracking-wide">Contact</h3>
+                                    <h3 className="font-bold text-ink-primary text-sm uppercase tracking-wide">{t("contact")}</h3>
                                     <p className="text-ink-secondary font-mono text-lg">
-                                        {facility.contact_phone || "No phone listed"}
+                                        {facility.contact_phone || t("noPhone")}
                                     </p>
                                     {facility.contact_phone && (
                                         <a href={`tel:${facility.contact_phone}`} className="text-xs font-bold text-brand-blue hover:underline mt-2 inline-block">
-                                            Click to Call
+                                            {t("clickToCall")}
                                         </a>
                                     )}
                                 </div>
@@ -119,13 +126,13 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8 pt-0">
                             {facility.entry_fee && (
                                 <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                                    <h3 className="font-bold text-emerald-800 text-sm uppercase tracking-wide mb-1">Entry Fee</h3>
+                                    <h3 className="font-bold text-emerald-800 text-sm uppercase tracking-wide mb-1">{t("entryFee")}</h3>
                                     <p className="font-black text-2xl text-emerald-900">{facility.entry_fee}</p>
                                 </div>
                             )}
                             {!!facility.amenities && Array.isArray(facility.amenities) && (
                                 <div className="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-                                    <h3 className="font-bold text-indigo-800 text-sm uppercase tracking-wide mb-2">Amenities</h3>
+                                    <h3 className="font-bold text-indigo-800 text-sm uppercase tracking-wide mb-2">{t("amenities")}</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {facility.amenities.map((item: string, idx: number) => (
                                             <Badge key={idx} variant="secondary" className="bg-white text-indigo-700 border border-indigo-100">
@@ -141,18 +148,19 @@ export default async function FacilityPage({ params }: { params: Promise<{ id: s
                     {/* Additional Info Section */}
                     <div className="border-t border-weak pt-6 px-8 pb-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                            <h3 className="font-bold text-ink-primary text-lg">About this facility</h3>
+                            <h3 className="font-bold text-ink-primary text-lg">{t("aboutFacility")}</h3>
                             {(facility.category === 'culture' || facility.category === 'recreation') && (
                                 <Button variant="destructive" size="sm" asChild className="rounded-full font-bold">
                                     <Link href={`/report?facility=${facility.id}&type=preservation`}>
-                                        Report Damage / Preservation Alert
+                                        {t("reportAlert")}
                                     </Link>
                                 </Button>
                             )}
                         </div>
                         <p className="text-ink-secondary">
-                            This is an official public facility registered with the municipality of {tenant.name}.
-                            For emergencies, please dial 114 (Police) or 116 (Medical).
+                            {t("officialNotice", { tenant: tenant.name })}
+                            <br />
+                            {t("emergencyNotice")}
                         </p>
                     </div>
                 </div>

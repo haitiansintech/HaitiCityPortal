@@ -9,8 +9,19 @@ export interface ContentEntry {
   body: string;
 }
 
-export const loadContent = cache(async (slug: string): Promise<ContentEntry> => {
-  const filePath = path.join(contentDir, `${slug}.mdx`);
+export const loadContent = cache(async (slug: string, locale?: string): Promise<ContentEntry> => {
+  let filePath = path.join(contentDir, `${slug}.mdx`);
+
+  if (locale && locale !== 'en') {
+    const localePath = path.join(contentDir, `${slug}.${locale}.mdx`);
+    try {
+      await fs.access(localePath);
+      filePath = localePath;
+    } catch {
+      // Fallback to default English file
+    }
+  }
+
   const raw = await fs.readFile(filePath, "utf8");
   const lines = raw.split(/\r?\n/);
   let title = "";

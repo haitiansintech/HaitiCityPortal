@@ -4,7 +4,10 @@ import { useTransition } from "react";
 import { useLocale } from "next-intl";
 import { useRouter, usePathname, routing } from "@/i18n/routing";
 
+import { useTranslations } from "next-intl";
+
 export default function LocaleSwitcher() {
+  const t = useTranslations("Common");
   const [isPending, startTransition] = useTransition();
   const locale = useLocale();
   const router = useRouter();
@@ -19,11 +22,11 @@ export default function LocaleSwitcher() {
 
   return (
     <label className="inline-flex items-center gap-2 text-sm text-gray-600">
-      <span className="hidden sm:inline">Language</span>
+      <span className="hidden sm:inline">{t("language")}</span>
       <select
         defaultValue={locale}
         onChange={onSelectChange}
-        aria-label="Select language"
+        aria-label={t("selectLanguage")}
         className="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         disabled={isPending}
       >

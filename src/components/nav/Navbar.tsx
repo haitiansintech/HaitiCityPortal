@@ -7,16 +7,19 @@ import LocaleSwitcher from "@/components/nav/LocaleSwitcher";
 import { useTenant } from "@/components/providers/TenantProvider";
 import { Facebook, Youtube, Twitter } from "lucide-react";
 
-const navLinks = [
-  { href: "/services", label: "Services" },
-  { href: "/officials", label: "Government" },
-  { href: "/report", label: "Report" },
-  { href: "/pay", label: "Pay" },
-];
+import { useTranslations } from "next-intl";
 
 export default function Navbar() {
+  const t = useTranslations("Navbar");
   const [isOpen, setIsOpen] = useState(false);
   const tenant = useTenant();
+
+  const navLinks = [
+    { href: "/services", label: t("services") },
+    { href: "/officials", label: t("government") },
+    { href: "/report", label: t("report") },
+    { href: "/pay", label: t("pay") },
+  ];
 
   return (
     <header className="sticky top-0 z-[1001] w-full border-b border-gray-200 bg-white shadow-sm">
@@ -24,8 +27,8 @@ export default function Navbar() {
       <div className="bg-slate-50 px-4 py-2">
         <div className="container mx-auto flex items-center justify-between text-xs font-medium text-slate-600">
           <div className="flex items-center gap-3">
-            <span className="font-bold text-sky-700">24/7 Hotline: 129</span>
-            <span className="hidden sm:inline">Emergency alerts & updates</span>
+            <span className="font-bold text-sky-700">{t("hotline")}</span>
+            <span className="hidden sm:inline">{t("emergencyAlerts")}</span>
             <div className="hidden md:flex items-center gap-3 ml-4 border-l border-slate-200 pl-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600" aria-label="Facebook">
                 <Facebook className="h-3.5 w-3.5" />
@@ -54,7 +57,7 @@ export default function Navbar() {
           )}
           <div className="flex flex-col leading-none">
             <span className="text-lg font-bold text-ink">{tenant?.name || "Haiti City Portal"}</span>
-            <span className="text-xs font-medium text-gray-500">Municipal Services Hub</span>
+            <span className="text-xs font-medium text-gray-500">{t("hub")}</span>
           </div>
         </Link>
 
@@ -63,21 +66,21 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={link.href as any}
               className="text-sm font-medium text-ink-primary hover:text-brand-blue transition-colors"
             >
               {link.label}
             </Link>
           ))}
           <Button variant="destructive" asChild>
-            <Link href="/donate">Donate</Link>
+            <Link href="/donate as any">{t("donate")}</Link>
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
-            <span className="sr-only">Open main menu</span>
+            <span className="sr-only">{t("openMenu")}</span>
             {isOpen ? (
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -108,7 +111,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={link.href as any}
               onClick={() => setIsOpen(false)}
               className="block text-base font-semibold text-ink-primary hover:text-brand-blue"
             >
@@ -116,7 +119,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Button variant="destructive" asChild className="w-full justify-start">
-            <Link href="/pay" onClick={() => setIsOpen(false)}>Donate / Pay</Link>
+            <Link href="/pay as any" onClick={() => setIsOpen(false)}>{t("donatePay")}</Link>
           </Button>
         </div>
       )}
