@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, Clock, FileText } from "lucide-react";
 import DashboardMap from "@/components/admin/DashboardMap";
 import LogoutButton from "@/components/auth/LogoutButton";
+import AdminNav from "@/components/admin/AdminNav";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
@@ -150,6 +151,8 @@ export default async function AdminDashboardPage() {
           </div>
           <LogoutButton />
         </div>
+
+        <AdminNav />
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

@@ -20,6 +20,14 @@ export const tenants = pgTable("tenants", {
     subdomain: text("subdomain").notNull().unique(), // e.g., 'jacmel' or 'localhost'
     logo_url: text("logo_url"),
     primary_color: text("primary_color"), // Custom branding per city
+
+    // Financial Routing (Phase 1: Manual Reconciliation)
+    moncash_merchant_id: text("moncash_merchant_id"),
+    bank_name: text("bank_name"),
+    bank_swift_code: text("bank_swift_code"),
+    bank_account_number: text("bank_account_number"),
+    bank_beneficiary_name: text("bank_beneficiary_name"),
+
     created_at: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -175,7 +183,40 @@ export const service_attributes = pgTable(
 );
 
 // -------------------------------------------------------------------------
-// 4. Other Modules (Events, Datasets) - Tenant Scoped
+// 4. Payments Implementation
+// -------------------------------------------------------------------------
+
+export const payment_records = pgTable("payment_records", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    user_id: uuid("user_id").references(() => users.id),
+    email: text("email").notNull(), // Required for guest flow and receipt delivery
+
+    amount: text("amount").notNull(), // Using text to avoid decimal precision issues in JS, handle with Big.js or similar
+    currency: text("currency").notNull(), // 'USD', 'HTG'
+
+    payment_method: text("payment_method").notNull(), // 'moncash', 'wire_transfer'
+    payment_type: text("payment_type").notNull(), // 'property_tax', 'business_license', etc.
+
+    reference_id: text("reference_id"), // Ticket #, Property ID
+    generated_memo_code: text("generated_memo_code").notNull(), // JAC-TAX-8821
+
+    status: text("status").default("pending_upload").notNull(),
+    proof_url: text("proof_url"),
+    official_quittance_id: text("official_quittance_id"),
+    admin_notes: text("admin_notes"),
+
+    verified_at: timestamp("verified_at"),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").defaultNow(),
+}, (table) => ({
+    tenantIdx: index("payments_tenant_idx").on(table.tenant_id),
+    emailIdx: index("payments_email_idx").on(table.email),
+    memoIdx: index("payments_memo_idx").on(table.generated_memo_code),
+}));
+
+// -------------------------------------------------------------------------
+// 5. Other Modules (Events, Datasets) - Tenant Scoped
 // -------------------------------------------------------------------------
 export const events = pgTable("events", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -201,6 +242,13 @@ export const datasets = pgTable("datasets", {
 // -------------------------------------------------------------------------
 // RELATIONS
 // -------------------------------------------------------------------------
+export const tenantsRelations = relations(tenants, ({ many }) => ({
+    users: many(users),
+    services: many(services),
+    requests: many(service_requests),
+    payments: many(payment_records),
+}));
+
 export const servicesRelations = relations(services, ({ one, many }) => ({
     tenant: one(tenants, {
         fields: [services.tenant_id],
@@ -232,5 +280,16 @@ export const serviceAttributesRelations = relations(service_attributes, ({ one }
     request: one(service_requests, {
         fields: [service_attributes.service_request_id],
         references: [service_requests.id],
+    }),
+}));
+
+export const paymentRecordsRelations = relations(payment_records, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [payment_records.tenant_id],
+        references: [tenants.id],
+    }),
+    user: one(users, {
+        fields: [payment_records.user_id],
+        references: [users.id],
     }),
 }));

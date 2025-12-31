@@ -1,11 +1,13 @@
-import { headers } from "next/headers";
 import { db } from "@/db";
-import { service_requests, tenants } from "@/db/schema";
+import { service_requests } from "@/db/schema";
 import { eq, and, desc } from "drizzle-orm";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import AdminNav from "@/components/admin/AdminNav";
+import LogoutButton from "@/components/auth/LogoutButton";
+import RequestFilter from "@/components/admin/RequestFilter";
 
 export const metadata = {
     title: "Manage Requests",
@@ -18,7 +20,7 @@ interface PageProps {
 
 export default async function AdminRequestsPage({ searchParams }: PageProps) {
     const session = await auth();
-    if (!session || !session.user) {
+    if (!session || !session.user || session.user.role !== "admin") {
         redirect("/login");
     }
 
@@ -26,10 +28,9 @@ export default async function AdminRequestsPage({ searchParams }: PageProps) {
     const params = await searchParams;
     const filterStatus = params.status;
 
-
     // Build query conditions
     const conditions = [eq(service_requests.tenant_id, tenantId)];
-    if (filterStatus) {
+    if (filterStatus && filterStatus !== "all") {
         conditions.push(eq(service_requests.status, filterStatus));
     }
 
@@ -60,29 +61,13 @@ export default async function AdminRequestsPage({ searchParams }: PageProps) {
                             Viewing {requests.length} request{requests.length !== 1 ? "s" : ""}
                         </p>
                     </div>
-
-                    {/* Status Filter */}
                     <div className="flex items-center gap-4">
-                        <label htmlFor="status-filter" className="text-sm font-medium text-gray-700">
-                            Filter by Status:
-                        </label>
-                        <select
-                            id="status-filter"
-                            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                            defaultValue={filterStatus || "all"}
-                            onChange={(e) => {
-                                const value = e.target.value;
-                                const url = value === "all" ? "/admin/requests" : `/admin/requests?status=${value}`;
-                                window.location.href = url;
-                            }}
-                        >
-                            <option value="all">All Statuses</option>
-                            <option value="open">Open</option>
-                            <option value="acknowledged">In Progress</option>
-                            <option value="closed">Closed</option>
-                        </select>
+                        <RequestFilter initialStatus={filterStatus || "all"} />
+                        <LogoutButton />
                     </div>
                 </div>
+
+                <AdminNav />
 
                 {/* Requests Table */}
                 <Card>
@@ -105,47 +90,26 @@ export default async function AdminRequestsPage({ searchParams }: PageProps) {
                                             <th className="text-left p-4 font-semibold text-gray-700">Submitted</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="divide-y divide-gray-100">
                                         {requests.map((request) => (
                                             <tr
                                                 key={request.id}
-                                                className="border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
-                                                onClick={() => (window.location.href = `/admin/requests/${request.id}`)}
+                                                className="hover:bg-gray-50 transition-colors cursor-pointer"
+                                                onClick={() => window.location.href = `/admin/requests/${request.id}`}
                                             >
+                                                <td className="p-4 text-xs font-mono text-gray-500">{request.id.slice(0, 8)}...</td>
+                                                <td className="p-4 font-medium text-gray-900">{request.service_name}</td>
+                                                <td className="p-4 text-gray-600 max-w-xs truncate">{request.description}</td>
                                                 <td className="p-4">
-                                                    <Link
-                                                        href={`/admin/requests/${request.id}`}
-                                                        className="text-brand-blue hover:underline font-mono text-sm"
-                                                    >
-                                                        {request.id.slice(0, 8)}...
-                                                    </Link>
-                                                </td>
-                                                <td className="p-4">
-                                                    <span className="font-medium">
-                                                        {request.service_name || request.service_code || "N/A"}
-                                                    </span>
-                                                </td>
-                                                <td className="p-4">
-                                                    <p className="text-sm text-gray-600 line-clamp-2 max-w-md">
-                                                        {request.description}
-                                                    </p>
-                                                </td>
-                                                <td className="p-4">
-                                                    <span
-                                                        className={`px-3 py-1 text-xs font-semibold rounded-full ${request.status === "open"
-                                                            ? "bg-amber-100 text-amber-700"
-                                                            : request.status === "acknowledged"
-                                                                ? "bg-blue-100 text-blue-700"
-                                                                : "bg-emerald-100 text-emerald-700"
-                                                            }`}
-                                                    >
+                                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${request.status === "open" ? "bg-amber-100 text-amber-800" :
+                                                            request.status === "acknowledged" ? "bg-blue-100 text-blue-800" :
+                                                                "bg-green-100 text-green-800"
+                                                        }`}>
                                                         {request.status}
                                                     </span>
                                                 </td>
-                                                <td className="p-4 text-sm text-gray-600">
-                                                    {request.requested_datetime
-                                                        ? new Date(request.requested_datetime).toLocaleDateString()
-                                                        : "Unknown"}
+                                                <td className="p-4 text-sm text-gray-500">
+                                                    {new Date(request.requested_datetime).toLocaleDateString()}
                                                 </td>
                                             </tr>
                                         ))}
