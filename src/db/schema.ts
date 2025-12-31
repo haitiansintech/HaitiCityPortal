@@ -85,6 +85,11 @@ export const services = pgTable(
         keywords: jsonb("keywords"),
         group: text("group"),
 
+        // Dynamic Service Content (Formerly hardcoded)
+        base_fee_htg: doublePrecision("base_fee_htg").default(0),
+        requirements_json: jsonb("requirements_json"), // Array of { title, description }
+        pickup_schedule: text("pickup_schedule"),
+
         created_at: timestamp("created_at").defaultNow().notNull(),
         updated_at: timestamp("updated_at").defaultNow(),
     },
@@ -256,6 +261,8 @@ export const officials = pgTable("officials", {
     bio: text("bio"),
     whatsapp_number: text("whatsapp_number"),
     photo_url: text("photo_url"),
+    vwa_profile_url: text("vwa_profile_url"), // Link to Vwa verification
+    user_id: uuid("user_id").references(() => users.id),
     created_at: timestamp("created_at").defaultNow(),
 });
 
@@ -291,6 +298,10 @@ export const facilities = pgTable("facilities", {
     official_website: text("official_website"),
     email_address: text("email_address"),
     facebook_page: text("facebook_page"),
+
+    // Cultural & Recreation Fields
+    entry_fee: text("entry_fee"), // e.g. "Free", "500 HTG"
+    amenities: jsonb("amenities"), // e.g. ['wifi', 'bathroom', 'playground']
 });
 
 // -------------------------------------------------------------------------

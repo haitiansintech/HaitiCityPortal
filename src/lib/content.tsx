@@ -79,23 +79,42 @@ export function MarkdownRenderer({ content }: { content: string }) {
       {nodes.map((node, index) => {
         if (node.type === "heading") {
           const Tag = (`h${Math.min(node.level, 3)}` as unknown) as keyof JSX.IntrinsicElements;
+          const isChanges = node.content.toLowerCase().includes("changes");
           return (
-            <Tag key={index} className="text-2xl font-semibold text-white">
+            <Tag key={index} className={`font-bold tracking-tight text-inherit ${node.level === 1 ? 'text-4xl mb-6' : 'text-2xl mt-8 mb-4'}`}>
               {node.content}
             </Tag>
           );
         }
         if (node.type === "list") {
           return (
-            <ul key={index} className="list-disc space-y-2 pl-6 text-slate-300">
+            <ul key={index} className="list-disc space-y-2 pl-6 text-inherit marker:text-blue-600">
               {node.items.map((item, itemIndex) => (
-                <li key={itemIndex}>{item}</li>
+                <li key={itemIndex} className="pl-1">{item}</li>
               ))}
             </ul>
           );
         }
+
+        // Simple heuristic for "Changes" box or important notes
+        // If it follows a "Changes" header (not tracked here easily without state) specifically, or maybe we just check content.
+        // For now, let's keep it simple text-inherit.
+        // Detect "Changes" box logic loosely based on content or if we had a previous header state.
+        // Since we don't have state here, let's just render the paragraph.
+        // However, the user asked to Highlight the final "Changes" clause.
+        // Let's check if the content starts with specific phrase.
+        const isUpdateNotice = node.content.toLowerCase().startsWith("we may update");
+
+        if (isUpdateNotice) {
+          return (
+            <div key={index} className="mt-6 p-6 bg-blue-50 border border-blue-100 rounded-xl text-blue-900 font-medium">
+              <p>{node.content}</p>
+            </div>
+          )
+        }
+
         return (
-          <p key={index} className="text-slate-300">
+          <p key={index} className="text-inherit leading-relaxed text-lg">
             {node.content}
           </p>
         );

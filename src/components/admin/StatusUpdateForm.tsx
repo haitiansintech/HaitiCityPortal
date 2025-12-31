@@ -52,8 +52,8 @@ export default function StatusUpdateForm({ requestId, currentStatus }: StatusUpd
             {message && (
                 <div
                     className={`p-3 rounded-md text-sm ${message.type === "success"
-                            ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
-                            : "bg-rose-50 border border-rose-200 text-rose-700"
+                        ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
+                        : "bg-rose-50 border border-rose-200 text-rose-700"
                         }`}
                 >
                     {message.type === "success" && <CheckCircle2 className="inline h-4 w-4 mr-2" />}

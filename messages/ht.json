@@ -1,0 +1,28 @@
+{
+    "HomePage": {
+        "hero": {
+            "badge": "YON SÈL VIL, YON SÈL KOMINOTE",
+            "title": "Byenveni nan Portal Vil Ayiti a",
+            "description": "Konekte ak gouvènman lokal ou a, jwenn aksè nan sèvis yo, epi ede bati yon kominote ki pi fò—si ou isit la lakay ou oswa si w ap sipòte depi lòt bò dlo.",
+            "reportBtn": "Rapòte Yon Pwoblèm",
+            "payBtn": "Peye Tak/Frè"
+        },
+        "quickActions": {
+            "reportPothole": "Rapòte Twou",
+            "payParking": "Peye Tikè Pakin",
+            "trashSchedule": "Orè Fatra",
+            "payFees": "Peye Frè"
+        },
+        "services": {
+            "title": "Sèvis Enpòtan",
+            "viewAll": "Gade Tout Sèvis →",
+            "getStarted": "Kòmanse"
+        }
+    },
+    "Common": {
+        "backToHome": "Tounen Lakay",
+        "search": "Chèche",
+        "contact": "Kontakte nou",
+        "login": "Konekte"
+    }
+}

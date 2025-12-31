@@ -1,6 +1,10 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { auth } from '@/auth';
+import NextAuth from "next-auth";
+import { authConfig } from "./auth.config";
+import { NextRequest, NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+import { routing } from './i18n/routing';
+
+const { auth } = NextAuth(authConfig);
 
 /**
  * Extracts the subdomain from a host string.
@@ -36,40 +40,44 @@ function extractSubdomain(host: string): string {
     return parts[0];
 }
 
-export default auth(async function middleware(request) {
+const intlMiddleware = createMiddleware(routing);
+
+export default auth(async function middleware(request: NextRequest & { auth: any }) {
     const headers = new Headers(request.headers);
     const host = headers.get('host') || '';
     const pathname = request.nextUrl.pathname;
 
-    // STEP 1: Extract subdomain from host (EXISTING LOGIC - PRESERVED)
+    // STEP 1: Handle Internationalization
+    // We run the intl middleware first to handle redirects/locale detection
+    const response = intlMiddleware(request);
+
+    // STEP 2: Extract subdomain from host (EXISTING LOGIC)
     const subdomain = extractSubdomain(host);
 
-
     // Set header for downstream Server Components
-    const response = NextResponse.next({
-        request: {
-            headers: new Headers(request.headers),
-        },
-    });
+    // Note: intlMiddleware might have already returned a response (redirect),
+    // but if it's "next", we can augment it.
     response.headers.set('x-tenant-subdomain', subdomain);
 
-    // STEP 2: Check authentication for protected routes (NEW LOGIC)
+    // STEP 3: Check authentication for protected routes (NEW LOGIC)
     const session = request.auth;
 
-    // Protect /admin routes
-    if (pathname.startsWith('/admin')) {
+    // Protect /admin routes (regardless of locale prefix)
+    // next-intl middleware handles adding/removing locale to pathname
+    const isLevelMatch = (path: string) => {
+        return pathname.includes(`/${path}`) || pathname.startsWith(`/${path}`);
+    };
+
+    if (pathname.includes('/admin')) {
         if (!session) {
             // Not authenticated - redirect to login
-            const loginUrl = new URL('/login', request.url);
+            // We need to preserve the locale if possible
+            const locale = pathname.split('/')[1];
+            const loginPath = routing.locales.includes(locale as any) ? `/${locale}/login` : '/login';
+            const loginUrl = new URL(loginPath, request.url);
             loginUrl.searchParams.set('callbackUrl', pathname);
             return NextResponse.redirect(loginUrl);
         }
-
-        // Optional: Tenant security check
-        // Verify user's tenantId matches the current subdomain's tenant
-        // This prevents cross-tenant access
-        // Note: You'd need to query the database to map subdomain -> tenant_id
-        // For now, we trust the session includes the correct tenantId
     }
 
     return response;

@@ -1,0 +1,28 @@
+{
+    "HomePage": {
+        "hero": {
+            "badge": "UNE SEULE VILLE, UNE SEULE COMMUNAUTÉ",
+            "title": "Bienvenue sur le Portail de l'Haiti City",
+            "description": "Connectez-vous avec votre gouvernement local, accédez aux services et aidez à bâtir une communauté plus forte, que vous soyez ici chez vous ou que vous nous souteniez depuis l'étranger.",
+            "reportBtn": "Signaler un Problème",
+            "payBtn": "Payer Taxes/Frais"
+        },
+        "quickActions": {
+            "reportPothole": "Signaler un Nid-de-poule",
+            "payParking": "Payer Amende Stationnement",
+            "trashSchedule": "Horaire de Collecte",
+            "payFees": "Payer Frais"
+        },
+        "services": {
+            "title": "Services Vedettes",
+            "viewAll": "Voir Tous les Services →",
+            "getStarted": "Commencer"
+        }
+    },
+    "Common": {
+        "backToHome": "Retour à l'Accueil",
+        "search": "Rechercher",
+        "contact": "Contact",
+        "login": "Connexion"
+    }
+}

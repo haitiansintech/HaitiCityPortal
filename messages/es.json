@@ -1,0 +1,28 @@
+{
+    "HomePage": {
+        "hero": {
+            "badge": "UNA CIUDAD, UNA COMUNIDAD",
+            "title": "Bienvenido al Portal de la Ciudad de Haití",
+            "description": "Conéctese con su gobierno local, acceda a servicios y ayude a construir una comunidad más fuerte, ya sea que esté aquí en casa o apoyando desde el extranjero.",
+            "reportBtn": "Reportar un Problema",
+            "payBtn": "Pagar Impuestos/Tasas"
+        },
+        "quickActions": {
+            "reportPothole": "Reportar Bache",
+            "payParking": "Pagar Multa de Estacionamiento",
+            "trashSchedule": "Calendario de Basura",
+            "payFees": "Pagar Tasas"
+        },
+        "services": {
+            "title": "Servicios Destacados",
+            "viewAll": "Ver Todos los Servicios →",
+            "getStarted": "Empezar"
+        }
+    },
+    "Common": {
+        "backToHome": "Volver al Inicio",
+        "search": "Buscar",
+        "contact": "Contacto",
+        "login": "Iniciar Sesión"
+    }
+}

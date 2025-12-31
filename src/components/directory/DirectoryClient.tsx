@@ -16,7 +16,11 @@ import {
     Globe,
     MessageCircle,
     Mail,
-    Facebook
+    Facebook,
+    TreePine,
+    Landmark,
+    Brush,
+    Car
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -36,6 +40,10 @@ const CATEGORIES = [
     { id: "safety", label: "Safety", icon: Shield },
     { id: "library", label: "Library", icon: Library },
     { id: "emergency", label: "Emergency", icon: AlertTriangle },
+    { id: "recreation", label: "Recreation", icon: TreePine },
+    { id: "culture", label: "Culture", icon: Landmark },
+    { id: "sanitation_street", label: "Street Cleanup", icon: Brush },
+    { id: "transportation_impound", label: "Impound/Towing", icon: Car },
 ];
 
 interface Facility {
@@ -150,7 +158,10 @@ export default function DirectoryClient({
                 {filteredFacilities.length > 0 ? (
                     filteredFacilities.map((f) => (
                         <Card key={f.id} className="rounded-[2rem] border-weak shadow-sm hover:shadow-xl transition-all bg-white group overflow-hidden border-2 hover:border-brand-blue/20">
-                            <div className={`h-3 w-full ${f.category === 'emergency' || f.category === 'safety' ? 'bg-rose-500' : 'bg-brand-blue'
+                            <div className={`h-3 w-full ${f.category === 'emergency' || f.category === 'safety' ? 'bg-rose-500' :
+                                f.category === 'recreation' ? 'bg-emerald-500' :
+                                    f.category === 'culture' ? 'bg-purple-500' :
+                                        'bg-brand-blue'
                                 }`} />
                             <CardHeader className="p-8 pb-4">
                                 <div className="flex items-start justify-between mb-4">

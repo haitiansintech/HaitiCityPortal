@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import LocaleSwitcher from "@/components/nav/LocaleSwitcher";
 import { useTenant } from "@/components/providers/TenantProvider";
+import { Facebook, Youtube, Twitter } from "lucide-react";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -25,6 +26,17 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <span className="font-bold text-sky-700">24/7 Hotline: 129</span>
             <span className="hidden sm:inline">Emergency alerts & updates</span>
+            <div className="hidden md:flex items-center gap-3 ml-4 border-l border-slate-200 pl-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600" aria-label="Facebook">
+                <Facebook className="h-3.5 w-3.5" />
+              </a>
+              <a href="https://youtube.com/@CityHallJacmel" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-red-600" aria-label="YouTube">
+                <Youtube className="h-3.5 w-3.5" />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-slate-800" aria-label="X (Twitter)">
+                <Twitter className="h-3.5 w-3.5" />
+              </a>
+            </div>
           </div>
           <LocaleSwitcher />
         </div>
