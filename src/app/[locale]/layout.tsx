@@ -119,7 +119,7 @@ export default async function LocaleLayout({
           </a>
           <TenantProvider tenant={tenant as any}>
             <LanguageProvider>
-              <div className="flex min-h-screen w-full flex-col bg-white">
+              <div className="flex min-h-screen w-full flex-col bg-canvas">
                 <Navbar />
                 <Breadcrumbs />
                 <main id="main-content" className="flex-1">

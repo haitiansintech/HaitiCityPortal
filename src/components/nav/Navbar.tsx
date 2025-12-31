@@ -16,6 +16,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/services", label: t("services") },
+    { href: "/directory", label: "Infrastructure" },
     { href: "/officials", label: t("government") },
     { href: "/report", label: t("report") },
     { href: "/pay", label: t("pay") },
@@ -73,7 +74,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Button variant="destructive" asChild>
-            <Link href="/donate as any">{t("donate")}</Link>
+            <Link href="/donate">{t("donate")}</Link>
           </Button>
         </div>
 
@@ -119,7 +120,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Button variant="destructive" asChild className="w-full justify-start">
-            <Link href="/pay as any" onClick={() => setIsOpen(false)}>{t("donatePay")}</Link>
+            <Link href="/donate" onClick={() => setIsOpen(false)}>{t("donatePay")}</Link>
           </Button>
         </div>
       )}

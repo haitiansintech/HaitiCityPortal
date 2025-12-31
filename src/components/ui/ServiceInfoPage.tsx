@@ -1,8 +1,11 @@
+"use client";
+
 import React from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle2, FileText, CreditCard, HelpCircle } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface ServiceInfoPageProps {
     title: string;
@@ -23,13 +26,15 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
     payLink = "/pay",
     secondaryAction
 }) => {
+    const t = useTranslations("ServiceInfo");
+
     return (
         <div className="min-h-screen bg-canvas py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
                 <Button variant="ghost" asChild className="mb-8 p-0 hover:bg-transparent">
                     <Link href="/services" className="flex items-center text-ink-secondary hover:text-ink-primary transition-colors">
                         <ArrowLeft className="h-4 w-4 mr-2" />
-                        Back to all services
+                        {t("back")}
                     </Link>
                 </Button>
 
@@ -45,7 +50,7 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                         <section>
                             <h2 className="text-2xl font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                 <CheckCircle2 className="h-6 w-6 text-brand-blue" />
-                                How to Apply
+                                {t("howToApply")}
                             </h2>
                             <div className="bg-white rounded-2xl p-6 border border-weak shadow-sm space-y-4">
                                 {steps.map((step, index) => (
@@ -62,7 +67,7 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                         <section>
                             <h2 className="text-2xl font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                 <FileText className="h-6 w-6 text-brand-blue" />
-                                Required Documents
+                                {t("requiredDocuments")}
                             </h2>
                             <Card className="rounded-2xl border-weak shadow-sm">
                                 <CardContent className="pt-6">
@@ -83,13 +88,13 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                         <section>
                             <h2 className="text-2xl font-semibold text-ink-primary mb-4 flex items-center gap-2">
                                 <CreditCard className="h-6 w-6 text-brand-blue" />
-                                Fees & Payment
+                                {t("feesAndPayment")}
                             </h2>
                             <Card className="rounded-2xl border-brand-blue/20 bg-blue-50/30 overflow-hidden">
                                 <CardContent className="pt-6">
                                     <p className="text-ink-secondary mb-6">{fees}</p>
                                     <Button asChild className="w-full bg-brand-blue hover:bg-action-hover text-white rounded-xl py-6">
-                                        <Link href={payLink}>Pay Service Fees Now</Link>
+                                        <Link href={payLink as any}>{t("payNow")}</Link>
                                     </Button>
                                 </CardContent>
                             </Card>
@@ -104,13 +109,13 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                         <section className="bg-white rounded-2xl p-6 border border-weak shadow-sm">
                             <h3 className="text-lg font-semibold text-ink-primary mb-2 flex items-center gap-2">
                                 <HelpCircle className="h-5 w-5 text-ink-secondary" />
-                                Need Help?
+                                {t("needHelp")}
                             </h3>
                             <p className="text-sm text-ink-secondary mb-4">
-                                If you have questions about this service, contact the municipal office.
+                                {t("helpDescription")}
                             </p>
                             <Button variant="outline" asChild className="w-full border-weak hover:bg-canvas rounded-xl">
-                                <Link href="/contact">Contact Support</Link>
+                                <Link href={"/contact" as any}>{t("contactSupport")}</Link>
                             </Button>
                         </section>
                     </div>

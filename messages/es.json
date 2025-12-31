@@ -46,9 +46,9 @@
                 "title": "Eventos Comunitarios",
                 "description": "Encuentre asambleas municipales, clínicas y reuniones locales."
             },
-            "openData": {
-                "title": "Datos Abiertos",
-                "description": "Explore conjuntos de datos municipales y gastos."
+            "infrastructure": {
+                "title": "Infraestructura",
+                "description": "Encuentre escuelas, hospitales, bibliotecas y parques."
             },
             "localOfficials": {
                 "title": "Funcionarios Locales",
@@ -197,6 +197,16 @@
         "language": "Idioma",
         "selectLanguage": "Seleccionar idioma"
     },
+    "ServiceInfo": {
+        "back": "Volver a todos los servicios",
+        "howToApply": "Cómo aplicar",
+        "requiredDocuments": "Documentos requeridos",
+        "feesAndPayment": "Tasas y Pagos",
+        "payNow": "Pagar tasas de servicio ahora",
+        "needHelp": "¿Necesita ayuda?",
+        "helpDescription": "Si tiene preguntas sobre este servicio, póngase en contacto con la oficina municipal.",
+        "contactSupport": "Contactar con soporte"
+    },
     "Footer": {
         "tagline": "Conectando residentes con servicios cívicos y datos.",
         "projectDetails": "Detalles del Proyecto",
@@ -233,5 +243,265 @@
         "officialNotice": "Esta es una instalación pública oficial registrada en el municipio de {tenant}.",
         "emergencyNotice": "Para emergencias, llame al 114 (Policía) o al 116 (Médico).",
         "reportAlert": "Reportar Daño / Alerta de Preservación"
+    },
+    "ServicesPage": {
+        "title": "Servicios Municipales",
+        "description": "Acceda a los servicios de la ciudad, pague impuestos y conéctese con sus representantes gubernamentales, todo en un solo lugar.",
+        "viewDetails": "Ver Detalles",
+        "categories": {
+            "civic": {
+                "title": "Documentos Cívicos",
+                "birthCertificates": {
+                    "title": "Actas de Nacimiento",
+                    "description": "Solicite extractos de los Archivos Nacionales."
+                },
+                "idInfo": {
+                    "title": "Información de Identidad Nacional",
+                    "description": "Guía sobre el CIN y documentos administrativos."
+                }
+            },
+            "infrastructure": {
+                "title": "Saneamiento e Infraestructura",
+                "trash": {
+                    "title": "Basura y Saneamiento",
+                    "description": "Horarios de recolección y solicitudes especiales."
+                },
+                "permits": {
+                    "title": "Permisos de Construcción",
+                    "description": "Solicite permisos estructurales y de construcción."
+                },
+                "report": {
+                    "title": "Reportar un Problema",
+                    "description": "Baches, iluminación y seguridad pública."
+                },
+                "directory": {
+                    "title": "Directorio de Infraestructura",
+                    "description": "Encuentre escuelas, hospitales, bibliotecas y parques."
+                }
+            },
+            "publicSpaces": {
+                "title": "Mantenimiento y Seguridad",
+                "cleanup": {
+                    "title": "Limpieza de Calles",
+                    "description": "Reportar basura o solicitar barrido de espacios públicos."
+                },
+                "towing": {
+                    "title": "Remolque y Corralón",
+                    "description": "Localice vehículos remolcados y pague cargos de recuperación."
+                }
+            },
+            "leadership": {
+                "title": "Gobierno y Liderazgo",
+                "officials": {
+                    "title": "Conozca a sus Funcionarios",
+                    "description": "Contacte a su CASEC, ASEC y Alcalde."
+                },
+                "governance": {
+                    "title": "Guía de Gobernanza",
+                    "description": "Entienda cómo funcionan los organismos locales."
+                },
+                "council": {
+                    "title": "Consejo Municipal",
+                    "description": "Actas de reuniones y decretos municipales."
+                }
+            },
+            "finance": {
+                "title": "Pagos y Finanzas",
+                "pay": {
+                    "title": "Pagar Impuestos y Tasas",
+                    "description": "Impuesto sobre la propiedad, cargos comerciales y multas."
+                },
+                "status": {
+                    "title": "Estado del Servicio",
+                    "description": "Siga sus pagos y recibos."
+                }
+            }
+        }
+    },
+    "Services": {
+        "birthCertificates": {
+            "title": "Archivos y Actas de Nacimiento",
+            "description": "Solicitar un 'Extracto de Archivos' es un paso fundamental para la identificación legal, pasaportes e inscripción escolar. Facilitamos la solicitud entre su Alcaldía local y los Archivos Nacionales en Puerto Príncipe.",
+            "steps": [
+                "Visite la Alcaldía (Mairie) con su aviso de nacimiento o una copia de un extracto antiguo.",
+                "Complete el formulario 'Demande d'Extrait' proporcionado por el oficial del registro civil.",
+                "La Alcaldía transmitirá su solicitud a los Archivos Nacionales (ANH).",
+                "Una vez que el extracto sea devuelto a la Alcaldía, se le notificará por SMS o teléfono.",
+                "Recoja su documento oficial en la oficina de la Alcaldía."
+            ],
+            "documents": [
+                "Copia del aviso de nacimiento original (Acta de Nacimiento/Declaración)",
+                "Copia del extracto anterior (si está disponible)",
+                "Documento de Identidad Nacional (CIN) de la persona que realiza la solicitud",
+                "Poder notarial (si solicita para otra persona)"
+            ],
+            "fees": "La tasa estándar para un extracto de acta de nacimiento es de 500 HTG. El procesamiento urgente puede incurrir en cargos municipales adicionales."
+        },
+        "trash": {
+            "steps": [
+                "Consulte el calendario de saneamiento de su barrio específico (Zona).",
+                "Coloque sus botes o bolsas de basura en los puntos de recolección designados antes de las 6:00 AM.",
+                "Asegúrese de que los objetos punzantes o los desechos peligrosos estén separados en contenedores marcados.",
+                "Para artículos voluminosos como muebles, solicite una 'Recolección Especial' con al menos 48 horas de anticipación."
+            ],
+            "reports": {
+                "title": "¿Basura no recogida?",
+                "description": "Si su bote estaba afuera antes de las 6:00 AM y no fue recogido, infórmenos de inmediato.",
+                "button": "Reportar una Recolección Omitida"
+            }
+        },
+        "permits": {
+            "steps": [
+                "Cree un perfil profesional en el Portal de la Ciudad de Haití.",
+                "Suba escaneos digitales de todos los documentos requeridos.",
+                "Espere la revisión preliminar del departamento de comercio municipal.",
+                "Pague la tasa de patente/licencia calculada en línea o en un banco local.",
+                "Reciba su permiso digital por correo electrónico o descárguelo de su tablero."
+            ],
+            "requirements": {
+                "id": "Documento de Identidad (NIF o CIN)",
+                "address": "Prueba de domicilio del negocio",
+                "quittance": "Recibo del año anterior (para renovaciones)",
+                "articles": "Estatutos notariales (para empresas)"
+            }
+        },
+        "governance": {
+            "badge": "Guía de Gobernanza",
+            "title": "Cómo funciona su gobierno local",
+            "intro": "En Haití, el gobierno local está descentralizado en \"Comunas\" y \"Secciones Comunales\". Entender quién hace qué le ayuda a obtener los servicios adecuados y a pedir cuentas a sus representantes.",
+            "sections": {
+                "mairie": {
+                    "title": "El Consejo Municipal (Alcaldía)",
+                    "description": "Liderado por un **Alcalde Principal** y dos Alcaldes Adjuntos, el consejo municipal gestiona toda la ciudad (Comuna). Supervisan la planificación urbana, la recaudación de impuestos, la seguridad pública y los grandes proyectos de infraestructura.",
+                    "list": [
+                        {
+                            "label": "**Liderazgo:** Alcalde Principal y dos Alcaldes Adjuntos."
+                        },
+                        {
+                            "label": "**Jurisdicción:** Toda la ciudad (Comuna)."
+                        },
+                        {
+                            "label": "**Responsabilidades:** Planificación urbana, recaudación de impuestos y grandes infraestructuras."
+                        }
+                    ]
+                },
+                "casec": {
+                    "title": "CASEC (Consejo de Administración)",
+                    "description": "El **Consejo de Administración de la Sección Comunal (CASEC)** es un equipo ejecutivo de 3 miembros elegido para gestionar una sección rural o urbana específica de la ciudad.",
+                    "list": [
+                        {
+                            "label": "**Autoridad Ejecutiva:** Ejecutan el presupuesto y gestionan pequeños proyectos locales (pozos, caminos locales, saneamiento)."
+                        },
+                        {
+                            "label": "**Registro Público:** Pueden verificar documentos y proporcionar certificaciones para los residentes de su sección."
+                        },
+                        {
+                            "label": "**Mediación:** A menudo actúan como primeros intervinientes en disputas locales y armonía social."
+                        }
+                    ]
+                },
+                "asec": {
+                    "title": "ASEC (Asamblea)",
+                    "description": "La **Asamblea de la Sección Comunal (ASEC)** es un órgano deliberativo de 7 a 11 miembros. Mientras que CASEC es el \"ejecutivo\", ASEC es el \"control y equilibrio\".",
+                    "list": [
+                        {
+                            "label": "**Supervisión:** Aprueban el plan de desarrollo local y supervisan los gastos del CASEC."
+                        },
+                        {
+                            "label": "**Representación:** Representan la voz de los vecindarios específicos dentro de la sección."
+                        },
+                        {
+                            "label": "**Política:** Debaten y votan sobre las directrices locales para el uso de la tierra y los recursos comunitarios."
+                        }
+                    ]
+                },
+                "delegates": {
+                    "title": "Delegados de Ciudad",
+                    "description": "Los Delegados de Ciudad son asistentes administrativos nombrados para cerrar la brecha entre los vecindarios específicos de la ciudad y la oficina central de la Alcaldía.",
+                    "list": [
+                        {
+                            "label": "**Enlace:** Conectando vecindarios directamente con la oficina del Alcalde."
+                        },
+                        {
+                            "label": "**Administración:** Asistiendo en la coordinación de servicios municipales a nivel de calle."
+                        },
+                        {
+                            "label": "**Representación:** Asegurando que las necesidades locales de los vecindarios sean escuchadas a nivel central."
+                        }
+                    ]
+                }
+            },
+            "footer": {
+                "quote": "\"Un gobierno más cercano al pueblo.\"",
+                "ctaText": "Conozca a sus representantes específicos y comience una conversación hoy mismo utilizando nuestro directorio.",
+                "ctaButton": "Conozca a sus Funcionarios"
+            }
+        },
+        "cleanup": {
+            "title": "Limpieza de Calles",
+            "description": "Nos dedicamos a mantener nuestros bulevares y espacios públicos limpios. Reporte vertederos ilegales o solicite limpieza para eventos importantes.",
+            "steps": [
+                "Identifique la ubicación de la basura o el vertedero ilegal.",
+                "Tome una foto si es posible (si es seguro hacerlo).",
+                "Envíe un informe utilizando el botón 'Reportar Basura en la Calle' a continuación.",
+                "Se enviará un equipo de saneamiento en un plazo de 48-72 horas."
+            ],
+            "documents": [
+                "No se requieren documentos para reportar.",
+                "Para solicitudes de limpieza de eventos: Número de Permiso de Evento."
+            ],
+            "fees": "Reportar vertederos ilegales es gratis. Los servicios de limpieza de eventos comienzan en 5,000 HTG.",
+            "reports": {
+                "title": "¿Ve Basura o Escombros?",
+                "description": "Ayúdenos a mantener la ciudad limpia reportando grandes pilas de basura, escombros de construcción o animales muertos.",
+                "button": "Reportar Basura en la Calle"
+            }
+        },
+        "culture": {
+            "title": "Cultura y Turismo",
+            "description": "Nuestra ciudad es rica en historia y tradiciones vibrantes. Desde el Carnaval hasta las fiestas patronales, el Departamento de Cultura asegura que nuestro patrimonio sea preservado y celebrado.",
+            "steps": [
+                "Solicite permisos de eventos con al menos 30 días de anticipación.",
+                "Registre nuevas organizaciones culturales en la Alcaldía.",
+                "Visite el 'Directorio' para encontrar museos y sitios históricos.",
+                "Siga nuestros canales oficiales para transmisiones de eventos en vivo."
+            ],
+            "documents": [
+                "Formulario de Solicitud de Permiso de Evento",
+                "Registro de Organización (MAST)",
+                "Acuerdo de Uso del Sitio"
+            ],
+            "fees": "Las tasas de uso de parques públicos varían según el tamaño del evento. El registro cultural estándar es gratuito.",
+            "youtube": {
+                "title": "Ver Eventos en Vivo",
+                "description": "¿Se perdió un festival o una reunión municipal? Transmitimos eventos culturales clave y anuncios en nuestro canal oficial de YouTube.",
+                "button": "Visite Nuestro Canal de YouTube"
+            }
+        },
+        "towing": {
+            "title": "Remolque y Depósito",
+            "description": "La municipalidad hace cumplir las regulaciones de estacionamiento para mantener las calles despejadas y seguras. Si su vehículo ha sido remolcado, use este servicio para localizarlo y entender el proceso de reclamación.",
+            "steps": [
+                "Ingrese su número de placa a continuación para verificar si su vehículo está en un lote municipal.",
+                "Visite el lote de depósito específico indicado en su resultado de búsqueda.",
+                "Presente una identificación válida, el registro del vehículo y el seguro.",
+                "Pague las tasas de remolque y almacenamiento (efectivo o cheque certificado)."
+            ],
+            "documents": [
+                "Identificación emitida por el gobierno (NIF/CIN)",
+                "Registro original del vehículo",
+                "Prueba de seguro"
+            ],
+            "fees": "Tasa de Remolque: 3,500 HTG. Tasa de Almacenamiento: 500 HTG/día (Primeras 24 horas gratis).",
+            "nationalID": {
+                "title": "Información sobre el Documento Nacional de Identidad",
+                "comingSoon": "La información sobre el Documento Nacional de Identidad (CIN) estará disponible pronto. Esta información será proporcionada por la Oficina Nacional de Identificación (ONI)."
+            },
+            "cityCouncil": {
+                "title": "Concejo Municipal",
+                "decrees": "Decretos Municipales",
+                "noDecrees": "Aún no se han publicado decretos municipales."
+            }
+        }
     }
 }
