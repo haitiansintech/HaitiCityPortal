@@ -1,10 +1,10 @@
 import { db } from "@/db";
-import { issues } from "@/db/schema";
+import { service_requests } from "@/db/schema";
 import { desc } from "drizzle-orm";
 
 type IssuePoint = {
   id: string;
-  title: string;
+  title: string | null;
   latitude: number | null;
   longitude: number | null;
   created_at: Date | null;
@@ -14,14 +14,14 @@ export async function GET() {
   try {
     const data = await db
       .select({
-        id: issues.id,
-        title: issues.title,
-        latitude: issues.latitude,
-        longitude: issues.longitude,
-        created_at: issues.created_at,
+        id: service_requests.id,
+        title: service_requests.service_name,
+        latitude: service_requests.latitude,
+        longitude: service_requests.longitude,
+        created_at: service_requests.requested_datetime,
       })
-      .from(issues)
-      .orderBy(desc(issues.created_at))
+      .from(service_requests)
+      .orderBy(desc(service_requests.requested_datetime))
       .limit(200);
 
     const enableLocalMode = process.env.ENABLE_LOCAL_MODE === "true";

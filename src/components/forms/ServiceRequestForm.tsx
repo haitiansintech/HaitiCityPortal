@@ -14,11 +14,12 @@ interface Service {
 
 interface ServiceRequestFormProps {
     services: Service[];
+    sections: { id: string; name: string }[];
 }
 
 const DRAFT_STORAGE_KEY = "service_request_draft";
 
-export default function ServiceRequestForm({ services }: ServiceRequestFormProps) {
+export default function ServiceRequestForm({ services, sections }: ServiceRequestFormProps) {
     const [isOnline, setIsOnline] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -30,6 +31,7 @@ export default function ServiceRequestForm({ services }: ServiceRequestFormProps
     // Form state
     const [formData, setFormData] = useState({
         service_code: "",
+        communal_section_id: "",
         description: "",
         email: "",
         first_name: "",
@@ -98,6 +100,7 @@ export default function ServiceRequestForm({ services }: ServiceRequestFormProps
 
         const payload: ServiceRequestInput = {
             service_code: formData.service_code,
+            communal_section_id: formData.communal_section_id,
             description: formData.description,
             email: formData.email || undefined,
             first_name: formData.first_name || undefined,
@@ -119,6 +122,7 @@ export default function ServiceRequestForm({ services }: ServiceRequestFormProps
                 // Reset form
                 setFormData({
                     service_code: "",
+                    communal_section_id: "",
                     description: "",
                     email: "",
                     first_name: "",
@@ -164,6 +168,31 @@ export default function ServiceRequestForm({ services }: ServiceRequestFormProps
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Communal Section */}
+                    <div>
+                        <label htmlFor="communal_section_id" className="block text-sm font-medium mb-2">
+                            Neighborhood / Communal Section *
+                        </label>
+                        <select
+                            id="communal_section_id"
+                            name="communal_section_id"
+                            required
+                            value={formData.communal_section_id}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white shadow-sm transition-all"
+                        >
+                            <option value="">Select your section...</option>
+                            {sections.map((section) => (
+                                <option key={section.id} value={section.id}>
+                                    {section.name}
+                                </option>
+                            ))}
+                        </select>
+                        <p className="mt-1.5 text-xs text-gray-500 italic">
+                            Reports are routed to the local official of your selected area.
+                        </p>
+                    </div>
+
                     {/* Service Type */}
                     <div>
                         <label htmlFor="service_code" className="block text-sm font-medium mb-2">
@@ -175,7 +204,7 @@ export default function ServiceRequestForm({ services }: ServiceRequestFormProps
                             required
                             value={formData.service_code}
                             onChange={handleInputChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white shadow-sm transition-all"
                         >
                             <option value="">Select a service...</option>
                             {services.map((service) => (

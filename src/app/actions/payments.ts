@@ -70,7 +70,7 @@ export async function uploadPaymentProof(id: string, proofUrl: string) {
     }
 }
 
-export async function searchPayments(query: string) {
+export async function searchPayments(query: string, verificationCode?: string) {
     try {
         const headersList = await headers();
         const subdomain = headersList.get("x-tenant-subdomain") || "demo";
@@ -94,7 +94,34 @@ export async function searchPayments(query: string) {
             )
             .orderBy(desc(payment_records.created_at));
 
-        return { success: true, records };
+        // Security: Mask data unless a valid verification code (Memo Code) is provided
+        const processedRecords = records.map(record => {
+            const isVerified = verificationCode?.toUpperCase() === record.generated_memo_code.toUpperCase();
+            const isMemoSearch = query.toUpperCase() === record.generated_memo_code.toUpperCase();
+
+            // If searched specifically by valid memo code OR provided a valid verification code
+            if (isVerified || isMemoSearch) {
+                return { ...record, isFullAccess: true };
+            }
+
+            // Otherwise, mask sensitive fields
+            return {
+                id: record.id,
+                status: record.status,
+                payment_type: record.payment_type,
+                created_at: record.created_at,
+                // Masked fields
+                generated_memo_code: record.generated_memo_code.slice(0, 4) + "...",
+                amount: "***",
+                currency: record.currency,
+                email: record.email.replace(/(?<=.{2}).(?=.*@)/g, "*"),
+                reference_id: null,
+                proof_url: null,
+                isFullAccess: false
+            };
+        });
+
+        return { success: true, records: processedRecords };
     } catch (error) {
         console.error("Search payments error:", error);
         return { success: false, error: "Search failed" };

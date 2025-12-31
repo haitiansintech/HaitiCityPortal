@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import FinanceTable from "@/components/admin/FinanceTable";
+import PaymentFinanceTable from "@/components/admin/PaymentFinanceTable";
 
 export const metadata = {
     title: "Finance Dashboard | Admin",
@@ -62,7 +62,7 @@ export default async function FinanceDashboardPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <FinanceTable records={pending} />
+                            <PaymentFinanceTable records={pending} />
                         </CardContent>
                     </Card>
                 </TabsContent>
@@ -76,7 +76,7 @@ export default async function FinanceDashboardPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <FinanceTable records={verified} />
+                            <PaymentFinanceTable records={verified} />
                         </CardContent>
                     </Card>
                 </TabsContent>
@@ -90,7 +90,7 @@ export default async function FinanceDashboardPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <FinanceTable records={rejected} />
+                            <PaymentFinanceTable records={rejected} />
                         </CardContent>
                     </Card>
                 </TabsContent>

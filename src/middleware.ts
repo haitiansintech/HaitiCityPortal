@@ -44,8 +44,6 @@ export default auth(async function middleware(request) {
     // STEP 1: Extract subdomain from host (EXISTING LOGIC - PRESERVED)
     const subdomain = extractSubdomain(host);
 
-    // DEBUG: Log the routing for visibility
-    console.log(`[Middleware] Routing: ${host} -> subdomain: "${subdomain}", path: ${pathname}`);
 
     // Set header for downstream Server Components
     const response = NextResponse.next({

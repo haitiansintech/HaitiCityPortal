@@ -27,6 +27,12 @@ export const tenants = pgTable("tenants", {
     bank_swift_code: text("bank_swift_code"),
     bank_account_number: text("bank_account_number"),
     bank_beneficiary_name: text("bank_beneficiary_name"),
+    whatsapp_number: text("whatsapp_number"),
+
+    // Mayor / Leadership Info
+    mayor_name: text("mayor_name"),
+    mayor_bio: text("mayor_bio"),
+    mayor_image_url: text("mayor_image_url"),
 
     created_at: timestamp("created_at").defaultNow().notNull(),
 });
@@ -151,6 +157,7 @@ export const service_requests = pgTable(
         updated_datetime: timestamp("updated_datetime").defaultNow(),
         expected_datetime: timestamp("expected_datetime"),
 
+        communal_section_id: uuid("communal_section_id").references(() => communal_sections.id),
         idempotency_key: text("idempotency_key"),
     },
     (table) => ({
@@ -229,6 +236,27 @@ export const events = pgTable("events", {
     created_at: timestamp("created_at").defaultNow(),
 });
 
+export const communal_sections = pgTable("communal_sections", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    name: text("name").notNull(),
+    code: text("code"),
+    created_at: timestamp("created_at").defaultNow(),
+});
+
+export const officials = pgTable("officials", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    name: text("name").notNull(),
+    role: text("role").notNull(), // 'Mayor', 'CASEC', 'ASEC', 'Town Delegate'
+    communal_section_id: uuid("communal_section_id").references(() => communal_sections.id),
+    is_president: boolean("is_president").default(false),
+    bio: text("bio"),
+    whatsapp_number: text("whatsapp_number"),
+    photo_url: text("photo_url"),
+    created_at: timestamp("created_at").defaultNow(),
+});
+
 export const datasets = pgTable("datasets", {
     id: uuid("id").defaultRandom().primaryKey(),
     tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
@@ -236,6 +264,21 @@ export const datasets = pgTable("datasets", {
     description: text("description"),
     category: text("category"),
     download_url: text("download_url"),
+    created_at: timestamp("created_at").defaultNow(),
+});
+
+export const facilities = pgTable("facilities", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    name: text("name").notNull(),
+    category: text("category").notNull(), // 'health', 'education', 'safety', 'library', 'emergency'
+    sub_category: text("sub_category"), // e.g., 'Commissariat', 'Urgent Care'
+    communal_section_id: uuid("communal_section_id").references(() => communal_sections.id),
+    latitude: doublePrecision("latitude"),
+    longitude: doublePrecision("longitude"),
+    contact_phone: text("contact_phone"),
+    is_public: boolean("is_public").default(true),
+    status: text("status").default("operational").notNull(), // 'operational', 'limited_services', 'closed'
     created_at: timestamp("created_at").defaultNow(),
 });
 
@@ -247,6 +290,7 @@ export const tenantsRelations = relations(tenants, ({ many }) => ({
     services: many(services),
     requests: many(service_requests),
     payments: many(payment_records),
+    facilities: many(facilities),
 }));
 
 export const servicesRelations = relations(services, ({ one, many }) => ({
@@ -273,6 +317,10 @@ export const serviceRequestsRelations = relations(service_requests, ({ one, many
         fields: [service_requests.tenant_id],
         references: [tenants.id],
     }),
+    section: one(communal_sections, {
+        fields: [service_requests.communal_section_id],
+        references: [communal_sections.id],
+    }),
     attributes: many(service_attributes),
 }));
 
@@ -291,5 +339,44 @@ export const paymentRecordsRelations = relations(payment_records, ({ one }) => (
     user: one(users, {
         fields: [payment_records.user_id],
         references: [users.id],
+    }),
+}));
+
+export const eventsRelations = relations(events, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [events.tenant_id],
+        references: [tenants.id],
+    }),
+}));
+
+export const communalSectionsRelations = relations(communal_sections, ({ one, many }) => ({
+    tenant: one(tenants, {
+        fields: [communal_sections.tenant_id],
+        references: [tenants.id],
+    }),
+    officials: many(officials),
+    requests: many(service_requests),
+    facilities: many(facilities),
+}));
+
+export const officialsRelations = relations(officials, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [officials.tenant_id],
+        references: [tenants.id],
+    }),
+    section: one(communal_sections, {
+        fields: [officials.communal_section_id],
+        references: [communal_sections.id],
+    }),
+}));
+
+export const facilitiesRelations = relations(facilities, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [facilities.tenant_id],
+        references: [tenants.id],
+    }),
+    section: one(communal_sections, {
+        fields: [facilities.communal_section_id],
+        references: [communal_sections.id],
     }),
 }));
