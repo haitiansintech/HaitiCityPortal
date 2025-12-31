@@ -44,7 +44,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mt-24 border-t border-gray-200 bg-gray-50 text-gray-700">
+    <footer className="mt-12 border-t border-gray-200 bg-gray-50 text-gray-700">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-4">
           {/* Col 1: Logo & Socials */}

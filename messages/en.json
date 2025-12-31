@@ -46,9 +46,9 @@
                 "title": "Community Events",
                 "description": "Find town halls, clinics, and local meetings."
             },
-            "openData": {
-                "title": "Open Data",
-                "description": "Explore municipal datasets and spending."
+            "infrastructure": {
+                "title": "City Infrastructure",
+                "description": "Find schools, hospitals, libraries, and parks."
             },
             "localOfficials": {
                 "title": "Local Officials",
@@ -197,6 +197,16 @@
         "language": "Language",
         "selectLanguage": "Select language"
     },
+    "ServiceInfo": {
+        "back": "Back to all services",
+        "howToApply": "How to Apply",
+        "requiredDocuments": "Required Documents",
+        "feesAndPayment": "Fees & Payment",
+        "payNow": "Pay Service Fees Now",
+        "needHelp": "Need Help?",
+        "helpDescription": "If you have questions about this service, contact the municipal office.",
+        "contactSupport": "Contact Support"
+    },
     "Footer": {
         "tagline": "Connecting residents with civic services and data.",
         "projectDetails": "Project Details",
@@ -233,5 +243,265 @@
         "officialNotice": "This is an official public facility registered with the municipality of {tenant}.",
         "emergencyNotice": "For emergencies, please dial 114 (Police) or 116 (Medical).",
         "reportAlert": "Report Damage / Preservation Alert"
+    },
+    "ServicesPage": {
+        "title": "Municipal Services",
+        "description": "Access city services, pay taxes, and connect with your government representatives all in one place.",
+        "viewDetails": "View Details",
+        "categories": {
+            "civic": {
+                "title": "Civic Documents",
+                "birthCertificates": {
+                    "title": "Birth Certificates",
+                    "description": "Request extracts from the National Archives."
+                },
+                "idInfo": {
+                    "title": "National ID Info",
+                    "description": "Guidance on CIN and administrative IDs."
+                }
+            },
+            "infrastructure": {
+                "title": "Sanitation & Infrastructure",
+                "trash": {
+                    "title": "Trash & Sanitation",
+                    "description": "Pickup schedules and special requests."
+                },
+                "permits": {
+                    "title": "Construction Permits",
+                    "description": "Apply for building and structural permits."
+                },
+                "report": {
+                    "title": "Report an Issue",
+                    "description": "Potholes, lighting, and public safety."
+                },
+                "directory": {
+                    "title": "Infrastructure Directory",
+                    "description": "Find schools, hospitals, libraries, and parks."
+                }
+            },
+            "publicSpaces": {
+                "title": "Maintenance & Safety",
+                "cleanup": {
+                    "title": "Street Cleanup",
+                    "description": "Report litter or request public space sweeping."
+                },
+                "towing": {
+                    "title": "Towing & Impounds",
+                    "description": "Locate towed vehicles and pay reclamation fees."
+                }
+            },
+            "leadership": {
+                "title": "Government & Leadership",
+                "officials": {
+                    "title": "Meet Your Officials",
+                    "description": "Contact your CASEC, ASEC, and Mayor."
+                },
+                "governance": {
+                    "title": "Governance Guide",
+                    "description": "Understand how local elective bodies work."
+                },
+                "council": {
+                    "title": "City Council",
+                    "description": "Meeting minutes and municipal decrees."
+                }
+            },
+            "finance": {
+                "title": "Payments & Finance",
+                "pay": {
+                    "title": "Pay Taxes & Fees",
+                    "description": "Property tax, business fees, and fines."
+                },
+                "status": {
+                    "title": "Service Status",
+                    "description": "Track your payments and quittances."
+                }
+            }
+        }
+    },
+    "Services": {
+        "birthCertificates": {
+            "title": "Archives & Birth Certificates",
+            "description": "Requesting an 'Extrait d'Archives' is a critical step for legal identification, passports, and school enrollment. We help facilitate the request between your local Mairie and the National Archives in Port-au-Prince.",
+            "steps": [
+                "Visit the Mairie (City Hall) with your birth notice or an old extract copy.",
+                "Fill out the 'Demande d'Extrait' form provided by the civil registry officer.",
+                "The Mairie will transmit your request to the National Archives (ANH).",
+                "Once the extract is returned to the Mairie, you will be notified via SMS or phone.",
+                "Pick up your official document at the City Hall office."
+            ],
+            "documents": [
+                "Copy of original birth notice (Acte de Naissance/Déclaration)",
+                "Previous extract copy (if available)",
+                "National ID (CIN) of the person making the request",
+                "Power of attorney (if requesting for someone else)"
+            ],
+            "fees": "The standard fee for a birth certificate extract is 500 HTG. Expedited processing may incur additional municipal charges."
+        },
+        "trash": {
+            "steps": [
+                "Check the sanitation schedule for your specific neighborhood (Zone).",
+                "Place your waste bins or bags at the designated curb points by 6:00 AM.",
+                "Ensure sharp objects or hazardous waste are separated into marked containers.",
+                "For bulky items like furniture, request a 'Pickup Spécial' at least 48 hours in advance."
+            ],
+            "reports": {
+                "title": "Trash not picked up?",
+                "description": "If your bin was out by 6:00 AM and was missed, please let us know immediately.",
+                "button": "Report a Missed Pickup"
+            }
+        },
+        "permits": {
+            "steps": [
+                "Create a professional profile on the Haiti City Portal.",
+                "Upload digital scans of all required documents.",
+                "Wait for preliminary review by the municipal commerce department.",
+                "Pay the calculated patent/license fee online or at a local bank.",
+                "Receive your digital permit via email or download from your dashboard."
+            ],
+            "requirements": {
+                "id": "Identity Document (NIF or CIN)",
+                "address": "Proof of address for the business",
+                "quittance": "Previous year quittance (for renewals)",
+                "articles": "Notarized articles of incorporation (for companies)"
+            }
+        },
+        "governance": {
+            "badge": "Governance Guide",
+            "title": "How Your Local Government Works",
+            "intro": "In Haiti, local governance is decentralized into \"Communes\" and \"Communal Sections.\" Understanding who does what helps you get the right services and hold your representatives accountable.",
+            "sections": {
+                "mairie": {
+                    "title": "The Municipal Council (Mairie)",
+                    "description": "Led by a **Principal Mayor** and two Deputy Mayors, the municipal council manages the entire city (Commune). They oversee urban planning, tax collection, public safety, and major infrastructure projects.",
+                    "list": [
+                        {
+                            "label": "**Leadership:** Principal Mayor and two Deputy Mayors."
+                        },
+                        {
+                            "label": "**Jurisdiction:** The entire city (Commune)."
+                        },
+                        {
+                            "label": "**Responsibilities:** Urban planning, tax collection, and major infrastructure."
+                        }
+                    ]
+                },
+                "casec": {
+                    "title": "CASEC (Executive Council)",
+                    "description": "The **Administrative Council of the Communal Section (CASEC)** is a 3-member executive team elected to manage a specific rural or urban section of the city.",
+                    "list": [
+                        {
+                            "label": "**Executive Authority:** They execute the budget and manage small local projects (wells, local roads, sanitation)."
+                        },
+                        {
+                            "label": "**Public Record:** They can verify documents and provide certifications for residents in their section."
+                        },
+                        {
+                            "label": "**Mediation:** Often acting as first-responders for local disputes and social harmony."
+                        }
+                    ]
+                },
+                "asec": {
+                    "title": "ASEC (Assembly)",
+                    "description": "The **Assembly of the Communal Section (ASEC)** is a deliberative body of 7 to 11 members. While CASEC is the \"executive,\" ASEC is the \"checks and balances.\"",
+                    "list": [
+                        {
+                            "label": "**Oversight:** They approve the local development plan and oversee CASEC's spending."
+                        },
+                        {
+                            "label": "**Representation:** They represent the voice of the specific neighborhoods within the section."
+                        },
+                        {
+                            "label": "**Policy:** They debate and vote on local guidelines for land use and community resources."
+                        }
+                    ]
+                },
+                "delegates": {
+                    "title": "Town Delegates",
+                    "description": "Town Delegates (Délégués de Ville) are administrative assistants appointed to bridge the gap between specific city neighborhoods and the central Mairie office.",
+                    "list": [
+                        {
+                            "label": "**Liaison:** Linking neighborhoods directly to the Mayor's office."
+                        },
+                        {
+                            "label": "**Administration:** Assisting in coordinating municipal services at a street level."
+                        },
+                        {
+                            "label": "**Representation:** Ensuring local neighborhood needs are heard centrally."
+                        }
+                    ]
+                }
+            },
+            "footer": {
+                "quote": "\"A government closer to the people.\"",
+                "ctaText": "Get to know your specific representatives and start a conversation today using our directory.",
+                "ctaButton": "Meet Your Officials"
+            }
+        },
+        "cleanup": {
+            "title": "Street Cleanup",
+            "description": "We are dedicated to keeping our boulevards and public spaces clean. Report illegal dumping or request sweeping for major events.",
+            "steps": [
+                "Identify the location of the litter or illegal dump.",
+                "Take a photo if possible (safe to do so).",
+                "Submit a report using the 'Report Street Litter' button below.",
+                "A sanitation team will be dispatched within 48-72 hours."
+            ],
+            "documents": [
+                "No documents required for reporting.",
+                "For event cleanup requests: Event Permit Number."
+            ],
+            "fees": "Reporting illegal dumping is free. Event cleanup services start at 5,000 HTG.",
+            "reports": {
+                "title": "See Trash or Debris?",
+                "description": "Help us keep the city clean by reporting large piles of trash, construction debris, or dead animals.",
+                "button": "Report Street Litter"
+            }
+        },
+        "culture": {
+            "title": "Culture & Tourism",
+            "description": "Our city is rich in history and vibrant traditions. From Carnival to patron saint festivals, the Culture Department ensures our heritage is preserved and celebrated.",
+            "steps": [
+                "Apply for event permits at least 30 days in advance.",
+                "Register new cultural organizations with the Town Hall.",
+                "Visit the 'Directory' to find museums and historical sites.",
+                "Follow our official channels for live event streams."
+            ],
+            "documents": [
+                "Event Permit Application Form",
+                "Organization Registration (MAST)",
+                "Site Usage Agreement"
+            ],
+            "fees": "Public park usage fees vary by event size. Standard cultural registration is free.",
+            "youtube": {
+                "title": "Watch Live Events",
+                "description": "Missed a festival or town hall meeting? We stream key cultural events and announcements on our official YouTube channel.",
+                "button": "Visit Our YouTube Channel"
+            }
+        },
+        "towing": {
+            "title": "Towing & Impounds",
+            "description": "The municipality enforces parking regulations to keep streets clear and safe. If your vehicle has been towed, use this service to locate it and understand the reclamation process.",
+            "steps": [
+                "Enter your license plate number below to check if your vehicle is in a municipal lot.",
+                "Visit the specific impound lot listed in your search result.",
+                "Present valid ID, Vehicle Registration, and Insurance.",
+                "Pay the towing and storage fees (Cash or certified check)."
+            ],
+            "documents": [
+                "Government issued ID (NIF/CIN)",
+                "Original Vehicle Registration",
+                "Proof of Insurance"
+            ],
+            "fees": "Towing Fee: 3,500 HTG. Storage Fee: 500 HTG/day (First 24 hours free)."
+        },
+        "nationalID": {
+            "title": "National ID Information",
+            "comingSoon": "National ID Card (CIN) information will be available soon. This information will be provided by the National Identification Office (ONI)."
+        },
+        "cityCouncil": {
+            "title": "City Council",
+            "decrees": "Municipal Decrees",
+            "noDecrees": "No municipal decrees have been published yet."
+        }
     }
 }

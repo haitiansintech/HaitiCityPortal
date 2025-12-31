@@ -1,19 +1,29 @@
 import ServiceInfoPage from "@/components/ui/ServiceInfoPage";
-import { Link } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { db } from "@/db";
 import { services, tenants } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { headers } from "next/headers";
-import { getLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-export const metadata = {
-    title: "Construction Permits | Haiti City Portal",
-    description: "Apply for building and construction permits (Permis de Construire).",
-};
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
-export default async function PermitsPage() {
-    const locale = await getLocale();
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: "ServicesPage.categories.infrastructure.permits" });
+    return {
+        title: `${t("title")} | Haiti City Portal`,
+        description: t("description"),
+    };
+}
+
+export default async function PermitsPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    const t = await getTranslations("Services.permits");
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
@@ -33,27 +43,25 @@ export default async function PermitsPage() {
     });
 
     // Fallback if permits not seeded yet
-    const name = serviceData ? (serviceData.service_name as any)[locale] || (serviceData.service_name as any)["en"] : "Business Permits";
-    const description = serviceData ? (serviceData.description as any)[locale] || (serviceData.description as any)["en"] : "Apply for or renew business licenses.";
+    const name = serviceData ? (serviceData.service_name as any)[locale] || (serviceData.service_name as any)["en"] : t("title");
+    const description = serviceData ? (serviceData.description as any)[locale] || (serviceData.description as any)["en"] : t("description");
+
+    // Mapping keys to localized labels for requirements
+    const requirementLabels: Record<string, string> = t.raw("requirements");
     const requirements = serviceData ? (serviceData.requirements_json as any[])?.map(r => r.title) : [
-        "Identity Document (NIF or CIN)",
-        "Proof of address for the business",
-        "Previous year quittance (for renewals)",
-        "Notarized articles of incorporation (for companies)"
+        requirementLabels.id,
+        requirementLabels.address,
+        requirementLabels.quittance,
+        requirementLabels.articles
     ];
+
     const fees = serviceData?.base_fee_htg ? `${serviceData.base_fee_htg} HTG` : "Calculated based on business category and location.";
 
     return (
         <ServiceInfoPage
             title={name}
             description={description}
-            steps={[
-                "Create a professional profile on the Haiti City Portal.",
-                "Upload digital scans of all required documents.",
-                "Wait for preliminary review by the municipal commerce department.",
-                "Pay the calculated patent/license fee online or at a local bank.",
-                "Receive your digital permit via email or download from your dashboard."
-            ]}
+            steps={t.raw("steps") as string[]}
             documents={requirements}
             fees={fees}
         />

@@ -46,9 +46,9 @@
                 "title": "Événements Communautaires",
                 "description": "Trouvez des assemblées municipales, des cliniques et des réunions locales."
             },
-            "openData": {
-                "title": "Données Ouvertes",
-                "description": "Explorez les ensembles de données municipales et les dépenses."
+            "infrastructure": {
+                "title": "Infrastructures",
+                "description": "Trouvez des écoles, hôpitaux, bibliothèques et parcs."
             },
             "localOfficials": {
                 "title": "Élus Locaux",
@@ -197,6 +197,16 @@
         "language": "Langue",
         "selectLanguage": "Choisir la langue"
     },
+    "ServiceInfo": {
+        "back": "Retour à tous les services",
+        "howToApply": "Comment postuler",
+        "requiredDocuments": "Documents requis",
+        "feesAndPayment": "Frais et Paiement",
+        "payNow": "Payer les frais de service maintenant",
+        "needHelp": "Besoin d'aide ?",
+        "helpDescription": "Si vous avez des questions sur ce service, contactez le bureau municipal.",
+        "contactSupport": "Contacter l'assistance"
+    },
     "Footer": {
         "tagline": "Connecter les résidents aux services civiques et aux données.",
         "projectDetails": "Détails du Projet",
@@ -233,5 +243,265 @@
         "officialNotice": "Ceci est un établissement public officiel enregistré auprès de la municipalité de {tenant}.",
         "emergencyNotice": "Pour les urgences, veuillez composer le 114 (Police) ou le 116 (Médical).",
         "reportAlert": "Signaler un Dommage / Alerte de Préservation"
+    },
+    "ServicesPage": {
+        "title": "Services Municipaux",
+        "description": "Accédez aux services de la ville, payez vos impôts et connectez-vous avec vos représentants gouvernementaux en un seul endroit.",
+        "viewDetails": "Voir les Détails",
+        "categories": {
+            "civic": {
+                "title": "Documents Civiques",
+                "birthCertificates": {
+                    "title": "Actes de Naissance",
+                    "description": "Demandez des extraits des Archives Nationales."
+                },
+                "idInfo": {
+                    "title": "Infos Carte d'Identité",
+                    "description": "Conseils sur le CIN et les cartes administratives."
+                }
+            },
+            "infrastructure": {
+                "title": "Assainissement & Infrastructure",
+                "trash": {
+                    "title": "Déchets & Assainissement",
+                    "description": "Calendriers de collecte et demandes spéciales."
+                },
+                "permits": {
+                    "title": "Permis de Construire",
+                    "description": "Demander des permis de construction et structurels."
+                },
+                "report": {
+                    "title": "Signaler un Problème",
+                    "description": "Nids-de-poule, éclairage et sécurité publique."
+                },
+                "directory": {
+                    "title": "Annuaire des Infrastructures",
+                    "description": "Trouvez des écoles, hôpitaux, bibliothèques et parcs."
+                }
+            },
+            "publicSpaces": {
+                "title": "Entretien et Sécurité",
+                "cleanup": {
+                    "title": "Nettoyage des Rues",
+                    "description": "Signaler des débris ou demander un balayage des espaces publics."
+                },
+                "towing": {
+                    "title": "Remorquage et Fourrière",
+                    "description": "Localiser les véhicules remorqués et payer les frais de récupération."
+                }
+            },
+            "leadership": {
+                "title": "Gouvernement & Leadership",
+                "officials": {
+                    "title": "Rencontrez vos Officiels",
+                    "description": "Contactez votre CASEC, ASEC et Maire."
+                },
+                "governance": {
+                    "title": "Guide de Gouvernance",
+                    "description": "Comprendre le fonctionnement des instances locales."
+                },
+                "council": {
+                    "title": "Conseil Municipal",
+                    "description": "Procès-verbaux et arrêtés municipaux."
+                }
+            },
+            "finance": {
+                "title": "Paiements & Finance",
+                "pay": {
+                    "title": "Payer Taxes & Frais",
+                    "description": "Taxe foncière, frais professionnels et amendes."
+                },
+                "status": {
+                    "title": "État du Service",
+                    "description": "Suivez vos paiements et quittances."
+                }
+            }
+        }
+    },
+    "Services": {
+        "birthCertificates": {
+            "title": "Archives et Actes de Naissance",
+            "description": "La demande d'un 'Extrait d'Archives' est une étape cruciale pour l'identification légale, les passeports et l'inscription scolaire. Nous facilitons la demande entre votre Mairie locale et les Archives Nationales à Port-au-Prince.",
+            "steps": [
+                "Visitez la Mairie avec votre avis de naissance ou une ancienne copie d'extrait.",
+                "Remplissez le formulaire 'Demande d'Extrait' fourni par l'officier d'état civil.",
+                "La Mairie transmettra votre demande aux Archives Nationales (ANH).",
+                "Une fois l'extrait retourné à la Mairie, vous serez averti par SMS ou par téléphone.",
+                "Récupérez votre document officiel au bureau de la Mairie."
+            ],
+            "documents": [
+                "Copie de l'avis de naissance original (Acte de Naissance/Déclaration)",
+                "Copie de l'extrait précédent (si disponible)",
+                "Carte d'Identité Nationale (CIN) de la personne effectuant la demande",
+                "Procuration (si la demande est faite pour quelqu'un d'autre)"
+            ],
+            "fees": "Les frais standard pour un extrait d'acte de naissance sont de 500 HTG. Un traitement accéléré peut entraîner des frais municipaux supplémentaires."
+        },
+        "trash": {
+            "steps": [
+                "Consultez le calendrier d'assainissement de votre quartier spécifique (Zone).",
+                "Placez vos poubelles ou sacs aux points de ramassage désignés avant 6h00.",
+                "Assurez-vous que les objets tranchants ou les déchets dangereux sont séparés dans des conteneurs marqués.",
+                "Pour les objets encombrants comme les meubles, demandez un 'Ramassage Spécial' au moins 48 heures à l'avance."
+            ],
+            "reports": {
+                "title": "Poubelle non ramassée ?",
+                "description": "Si votre poubelle était sortie avant 6h00 et a été oubliée, veuillez nous en informer immédiatement.",
+                "button": "Signaler un oubli de ramassage"
+            }
+        },
+        "permits": {
+            "steps": [
+                "Créez un profil professionnel sur le portail de la ville d'Haïti.",
+                "Téléchargez des scans numériques de tous les documents requis.",
+                "Attendez l'examen préliminaire par le département du commerce municipal.",
+                "Payez les frais de patente/licence calculés en ligne ou dans une banque locale.",
+                "Recevez votre permis numérique par e-mail ou téléchargez-le depuis votre tableau de bord."
+            ],
+            "requirements": {
+                "id": "Document d'identité (NIF ou CIN)",
+                "address": "Justificatif de domicile de l'entreprise",
+                "quittance": "Quittance de l'année précédente (pour les renouvellements)",
+                "articles": "Statuts notariés (pour les sociétés)"
+            }
+        },
+        "governance": {
+            "badge": "Guide de Gouvernance",
+            "title": "Comment fonctionne votre gouvernement local",
+            "intro": "En Haïti, la gouvernance locale est décentralisée en « Communes » et « Sections Communales ». Comprendre qui fait quoi vous aide à obtenir les bons services et à tenir vos représentants responsables.",
+            "sections": {
+                "mairie": {
+                    "title": "Le Conseil Municipal (Mairie)",
+                    "description": "Dirigé par un **Maire Principal** et deux Maires Adjoints, le conseil municipal gère l'ensemble de la ville (Commune). Ils supervisent l'urbanisme, la collecte des impôts, la sécurité publique et les grands projets d'infrastructure.",
+                    "list": [
+                        {
+                            "label": "**Direction :** Maire Principal et deux Maires Adjoints."
+                        },
+                        {
+                            "label": "**Juridiction :** L'intégralité de la ville (Commune)."
+                        },
+                        {
+                            "label": "**Responsabilités :** Urbanisme, fiscalité et grands projets d'infrastructure."
+                        }
+                    ]
+                },
+                "casec": {
+                    "title": "CASEC (Conseil d'Administration)",
+                    "description": "Le **Conseil d'Administration de la Section Communale (CASEC)** est une équipe exécutive de 3 membres élus pour gérer une section rurale ou urbaine spécifique de la ville.",
+                    "list": [
+                        {
+                            "label": "**Autorité exécutive :** Ils exécutent le budget et gèrent de petits projets locaux (puits, routes locales, assainissement)."
+                        },
+                        {
+                            "label": "**Registre public :** Ils peuvent vérifier des documents et fournir des certifications aux résidents de leur section."
+                        },
+                        {
+                            "label": "**Médiation :** Agissant souvent comme premiers intervenants pour les litiges locaux et l'harmonie sociale."
+                        }
+                    ]
+                },
+                "asec": {
+                    "title": "ASEC (Assemblée)",
+                    "description": "L'**Assemblée de la Section Communale (ASEC)** est un organe délibérant de 7 à 11 membres. Alors que le CASEC est l'« exécutif », l'ASEC assure l'« équilibre des pouvoirs ».",
+                    "list": [
+                        {
+                            "label": "**Supervision :** Ils approuvent le plan de développement local et supervisent les dépenses du CASEC."
+                        },
+                        {
+                            "label": "**Représentation :** Ils représentent la voix des quartiers spécifiques au sein de la section."
+                        },
+                        {
+                            "label": "**Politique :** Ils débattent et votent les directives locales pour l'utilisation des terres et les ressources communautaires."
+                        }
+                    ]
+                },
+                "delegates": {
+                    "title": "Délégués de Ville",
+                    "description": "Les Délégués de Ville sont des assistants administratifs nommés pour combler le fossé entre les quartiers spécifiques de la ville et le bureau central de la Mairie.",
+                    "list": [
+                        {
+                            "label": "**Liaison :** Relier les quartiers directement au bureau du Maire."
+                        },
+                        {
+                            "label": "**Administration :** Aider à coordonner les services municipaux au niveau de la rue."
+                        },
+                        {
+                            "label": "**Représentation :** Veiller à ce que les besoins des quartiers soient entendus au niveau central."
+                        }
+                    ]
+                }
+            },
+            "footer": {
+                "quote": "« Un gouvernement plus proche du peuple. »",
+                "ctaText": "Apprenez à connaître vos représentants spécifiques et entamez une conversation dès aujourd'hui en utilisant notre annuaire.",
+                "ctaButton": "Rencontrez vos Officiels"
+            }
+        },
+        "cleanup": {
+            "title": "Nettoyage des Rues",
+            "description": "Nous nous consacrons à maintenir nos boulevards et espaces publics propres. Signalez les dépôts sauvages ou demandez un balayage pour les événements majeurs.",
+            "steps": [
+                "Identifiez l'emplacement des détritus ou du dépôt sauvage.",
+                "Prenez une photo si possible (si cela est sûr).",
+                "Soumettez un rapport en utilisant le bouton 'Signaler les détritus de rue' ci-dessous.",
+                "Une équipe d'assainissement sera dépêchée dans les 48 à 72 heures."
+            ],
+            "documents": [
+                "Aucun document requis pour le signalement.",
+                "Pour les demandes de nettoyage d'événements : Numéro de permis d'événement."
+            ],
+            "fees": "Le signalement de dépôts sauvages est gratuit. Les services de nettoyage d'événements commencent à 5 000 HTG.",
+            "reports": {
+                "title": "Vous voyez des déchets ou des débris ?",
+                "description": "Aidez-nous à garder la ville propre en signalant les gros tas d'ordures, les débris de construction ou les animaux morts.",
+                "button": "Signaler les détritus de rue"
+            }
+        },
+        "culture": {
+            "title": "Culture & Tourisme",
+            "description": "Notre ville est riche en histoire et en traditions vibrantes. Du Carnaval aux fêtes patronales, le Département de la Culture veille à ce que notre patrimoine soit préservé et célébré.",
+            "steps": [
+                "Demandez des permis d'événement au moins 30 jours à l'avance.",
+                "Enregistrez les nouvelles organisations culturelles auprès de la Mairie.",
+                "Consultez l' 'Annuaire' pour trouver des musées et des sites historiques.",
+                "Suivez nos chaînes officielles pour les flux d'événements en direct."
+            ],
+            "documents": [
+                "Formulaire de demande de permis d'événement",
+                "Enregistrement de l'organisation (MAST)",
+                "Accord d'utilisation du site"
+            ],
+            "fees": "Les frais d'utilisation des parcs publics varient selon la taille de l'événement. L'enregistrement culturel standard est gratuit.",
+            "youtube": {
+                "title": "Regarder les événements en direct",
+                "description": "Vous avez manqué un festival ou une réunion de la mairie ? Nous diffusons les principaux événements culturels et annonces sur notre chaîne YouTube officielle.",
+                "button": "Visiter notre chaîne YouTube"
+            }
+        },
+        "towing": {
+            "title": "Remorquage & Fourrière",
+            "description": "La municipalité applique les règlements de stationnement pour garder les rues dégagées et sûres. Si votre véhicule a été remorqué, utilisez ce service pour le localiser et comprendre le processus de récupération.",
+            "steps": [
+                "Entrez votre numéro de plaque d'immatriculation ci-dessous pour vérifier si votre véhicule se trouve dans un lot municipal.",
+                "Visitez le lot de fourrière spécifique indiqué dans votre résultat de recherche.",
+                "Présantez une pièce d'identité valide, l'immatriculation du véhicule et l'assurance.",
+                "Payez les frais de remorquage et de gardiennage (espèces ou chèque certifié)."
+            ],
+            "documents": [
+                "Pièce d'identité émise par le gouvernement (NIF/CIN)",
+                "Immatriculation originale du véhicule",
+                "Preuve d'assurance"
+            ],
+            "fees": "Frais de remorquage : 3 500 HTG. Frais de gardiennage : 500 HTG/jour (Premières 24 heures gratuites).",
+            "nationalID": {
+                "title": "Informations sur la Carte d'Identité Nationale",
+                "comingSoon": "Les informations sur la Carte d'Identité Nationale (CIN) seront bientôt disponibles. Ces informations seront fournies par l'Office National d'Identification (ONI)."
+            },
+            "cityCouncil": {
+                "title": "Conseil Municipal",
+                "decrees": "Décrets Municipaux",
+                "noDecrees": "Aucun décret municipal n'a encore été publié."
+            }
+        }
     }
 }

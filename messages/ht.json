@@ -46,9 +46,9 @@
                 "title": "Evènman Kominotè",
                 "description": "Jwenn enfòmasyon sou reyinyon Meri, klinik, ak lòt rankont lokal."
             },
-            "openData": {
-                "title": "Done Ouvè",
-                "description": "Eksplore done minisipal yo ak fason lajan depanse."
+            "infrastructure": {
+                "title": "Enfrastrikti Vil la",
+                "description": "Jwenn lekòl, lopital, bibliyotèk, ak pak piblik."
             },
             "localOfficials": {
                 "title": "Otorite Lokal yo",
@@ -197,6 +197,16 @@
         "language": "Lang",
         "selectLanguage": "Chwazi lang"
     },
+    "ServiceInfo": {
+        "back": "Tounen nan tout sèvis yo",
+        "howToApply": "Kijan pou w aplike",
+        "requiredDocuments": "Dokiman ki nesesè",
+        "feesAndPayment": "Frè ak Peman",
+        "payNow": "Peye frè sèvis la kounye a",
+        "needHelp": "Bezwen èd?",
+        "helpDescription": "Si w gen kesyon sou sèvis sa a, kontakte biwo minisipal la.",
+        "contactSupport": "Kontakte Sipò"
+    },
     "Footer": {
         "tagline": "Konekte rezidan yo ak sèvis sivil ak done yo.",
         "projectDetails": "Detay Pwojè a",
@@ -233,5 +243,265 @@
         "officialNotice": "Sa a se yon lokal piblik ofisyèl ki anrejistre nan meri {tenant}.",
         "emergencyNotice": "Pou ijans, rele 114 (Polis) oswa 116 (Ijans Medikal).",
         "reportAlert": "Rapòte Domaj / Alèt Prezèvasyon"
+    },
+    "ServicesPage": {
+        "title": "Sèvis Minisipal yo",
+        "description": "Jwenn sèvis vil la, peye taks, epi konekte ak reprezantan gouvènman w yo tout nan yon sèl kote.",
+        "viewDetails": "Gade Detay yo",
+        "categories": {
+            "civic": {
+                "title": "Dokiman Sivik yo",
+                "birthCertificates": {
+                    "title": "Akt de Nesans",
+                    "description": "Mande ekstrè nan Achiv Nasyonal."
+                },
+                "idInfo": {
+                    "title": "Enfòmasyon sou Kat Idantite",
+                    "description": "Gid sou CIN ak kat administratif."
+                }
+            },
+            "infrastructure": {
+                "title": "Asenisman ak Enfrastrikti",
+                "trash": {
+                    "title": "Fatra ak Asenisman",
+                    "description": "Orè ranmasaj ak demann espesyal."
+                },
+                "permits": {
+                    "title": "Pèmi Konstriksyon",
+                    "description": "Aplike pou pèmi konstriksyon ak estriktirèl."
+                },
+                "report": {
+                    "title": "Rapòte yon Pwoblèm",
+                    "description": "Twou nan wout, ekleraj, ak sekirite piblik."
+                },
+                "directory": {
+                    "title": "Anyè Enfrastrikti",
+                    "description": "Jwenn lekòl, lopital, bibliyotèk, ak pak piblik."
+                }
+            },
+            "publicSpaces": {
+                "title": "Antretyen ak Sekirite",
+                "cleanup": {
+                    "title": "Netwayaj Ri",
+                    "description": "Siyale fatra oswa mande balayage espas piblik."
+                },
+                "towing": {
+                    "title": "Remokaj ak Fourrière",
+                    "description": "Jwenn machin ki remoke epi peye frè rekiperasyon."
+                }
+            },
+            "leadership": {
+                "title": "Gouvènman ak Lidèchip",
+                "officials": {
+                    "title": "Rankontre Ofisyèl ou yo",
+                    "description": "Kontakte CASEC, ASEC, ak Majistra w la."
+                },
+                "governance": {
+                    "title": "Gid Gouvènans",
+                    "description": "Konprann kijan enstans lokal yo fonksyone."
+                },
+                "council": {
+                    "title": "Konsèy Minisipal",
+                    "description": "Rapò reyinyon ak dekrè minisipal yo."
+                }
+            },
+            "finance": {
+                "title": "Peman ak Finans",
+                "pay": {
+                    "title": "Peye Taks ak Frè",
+                    "description": "Taks sou pwopriyete, frè biznis, ak amand."
+                },
+                "status": {
+                    "title": "Eta Sèvis la",
+                    "description": "Swiv peman ak kitans ou yo."
+                }
+            }
+        }
+    },
+    "Services": {
+        "birthCertificates": {
+            "title": "Achiv ak Akt de Nesans",
+            "description": "Mande yon 'Ekstrè Achiv' se yon etap enpòtan pou idantifikasyon legal, paspò, ak enskripsyon lekòl. Nou ede fasilite demann lan ant Meri lokal ou a ak Achiv Nasyonal nan Pòtoprens.",
+            "steps": [
+                "Ale nan Meri a ak avi nesans ou oswa yon ansyen kopi ekstrè.",
+                "Ranpli fòmilè 'Demann Ekstrè' ofisye eta sivil la ba ou a.",
+                "Meri a ap transmèt demann ou an bay Achiv Nasyonal (ANH).",
+                "Yon fwa ekstrè a tounen nan Meri a, y ap fè w konnen pa SMS oswa telefòn.",
+                "Pase pran dokiman ofisyèl ou nan biwo Meri a."
+            ],
+            "documents": [
+                "Kopi avi nesans orijinal (Akt de Nesans/Deklarasyon)",
+                "Ansyen kopi ekstrè (si w genyen l)",
+                "Kat Idantite Nasyonal (CIN) moun k ap fè demann lan",
+                "Pwokirasyon (si w ap fè demann pou yon lòt moun)"
+            ],
+            "fees": "Frè estanda pou yon ekstrè akt de nesans se 500 HTG. Yon tretman rapid ka gen lòt frè minisipal anplis."
+        },
+        "trash": {
+            "steps": [
+                "Tcheke orè asenisman pou katye espesifik ou a (Zòn).",
+                "Mete poubèl ou oswa sache fatra ou yo nan pwen ranmasaj yo anvan 6:00 AM.",
+                "Zonifye objè ki koupe oswa fatra danjere yo separe nan resipyan ki make.",
+                "Pou gwo objè tankou mèb, mande yon 'Ranmasaj Espesyal' omwen 48 èdtan davans."
+            ],
+            "reports": {
+                "title": "Fatra a pa ranmase ?",
+                "description": "Si poubèl ou te deyò anvan 6:00 AM epi yo bliye l, tanpri fè nou konnen imedyatman.",
+                "button": "Rapòte yon Ranmasaj ki pa fèt"
+            }
+        },
+        "permits": {
+            "steps": [
+                "Kreye yon pwofil pwofesyonèl sou Portal Vil Ayiti a.",
+                "Telechaje eskanè dijital tout dokiman ki nesesè yo.",
+                "Tann revizyon preliminè depatman komès minisipal la.",
+                "Peye frè patant/lisans yo kalkile a sou entènèt oswa nan yon bank lokal.",
+                "Resevwa pèmi dijital ou pa imèl oswa telechaje l nan tablodbò w la."
+            ],
+            "requirements": {
+                "id": "Dokiman Idantite (NIF oswa CIN)",
+                "address": "Prèv adrès pou biznis la",
+                "quittance": "Kitans ane pase (pou renouvèlman)",
+                "articles": "Akt notarye (pou sosyete)"
+            }
+        },
+        "governance": {
+            "badge": "Gid Gouvènans",
+            "title": "Kijan Gouvènman Lokal ou a Fonksyone",
+            "intro": "An Ayiti, gouvènans lokal la desantralize an « Komin » ak « Seksyon Kominal ». Konprann ki moun ki fè kisa ede w jwenn bon sèvis yo epi kenbe reprezantan w yo responsab.",
+            "sections": {
+                "mairie": {
+                    "title": "Konsèy Minisipal la (Meri)",
+                    "description": "Lidèchip la gen yon **Majistra Prensipal** ak de Majistra Adjwen, konsèy minisipal la jere tout vil la (Komin). Yo sipèvize planifikasyon iben, koleksyon taks, sekirite piblik, ak gwo pwojè enfrastrikti.",
+                    "list": [
+                        {
+                            "label": "**Lidèchip:** Majistra Prensipal ak de Majistra Adjwen."
+                        },
+                        {
+                            "label": "**Jiridiksyon:** Tout vil la (Komin)."
+                        },
+                        {
+                            "label": "**Responsablite:** Planifikasyon iben, koleksyon taks, ak gwo enfrastrikti."
+                        }
+                    ]
+                },
+                "casec": {
+                    "title": "CASEC (Konsèy Administrasyon)",
+                    "description": "**Konsèy Administrasyon Seksyon Kominal la (CASEC)** se yon ekip egzekitif 3 manm ki eli pou jere yon seksyon riral oswa iben espesifik nan vil la.",
+                    "list": [
+                        {
+                            "label": "**Otorite Egzekitif:** Yo egzekite bidjè a epi jere ti pwojè lokal yo (pi dlo, ti wout lokal, asenisman)."
+                        },
+                        {
+                            "label": "**Dosye Piblik:** Yo kapab verifye dokiman epi bay sètifikasyon pou rezidan nan seksyon yo a."
+                        },
+                        {
+                            "label": "**Mediyasyon:** Souvan yo aji kòm premye moun ki entèvni nan diskisyon lokal yo ak amoni sosyal."
+                        }
+                    ]
+                },
+                "asec": {
+                    "title": "ASEC (Asanble)",
+                    "description": "**Asanble Seksyon Kominal la (ASEC)** se yon kò deliberatif 7 a 11 manm. Pandan CASEC se « egzekitif » la, ASEC se « kontwol ak balans » la.",
+                    "list": [
+                        {
+                            "label": "**Sipèvizyon:** Yo apwouve plan devlopman lokal la epi sipèvize depans CASEC yo."
+                        },
+                        {
+                            "label": "**Reprezantasyon:** Yo reprezante vwa katye espesifik nan seksyon an."
+                        },
+                        {
+                            "label": "**Politik:** Yo deba epi vote sou direktiv lokal pou itilizasyon tè ak resous kominotè."
+                        }
+                    ]
+                },
+                "delegates": {
+                    "title": "Delegé Vil",
+                    "description": "Delegé Vil yo se asistan administratif yo nonmen pou fè pon ant katye espesifik nan vil la ak biwo santral Meri a.",
+                    "list": [
+                        {
+                            "label": "**Lyazon:** Konekte katye yo dirèkteman ak biwo Majistra a."
+                        },
+                        {
+                            "label": "**Administrasyon:** Ede kowòdone sèvis minisipal yo nan nivo lari a."
+                        },
+                        {
+                            "label": "**Reprezantasyon:** Asire yo tande bezwen katye yo nan nivo santral."
+                        }
+                    ]
+                }
+            },
+            "footer": {
+                "quote": "« Yon gouvènman pi pre pèp la. »",
+                "ctaText": "Fè konesans ak reprezantan espesifik ou yo epi kòmanse yon konvèsasyon jodi a avèk anyè nou an.",
+                "ctaButton": "Rankontre Ofisyèl ou yo"
+            }
+        },
+        "cleanup": {
+            "title": "Netwayaj Ri",
+            "description": "Nou dedye pou kenbe boulva nou yo ak espas piblik yo pwòp. Rapòte depotwa sovaj oswa mande balayage pou gwo evènman.",
+            "steps": [
+                "Idantifye kote fatra a oswa depotwa sovaj la ye.",
+                "Pran yon foto si sa posib (si li an sekirite).",
+                "Soumèt yon rapò lè l sèvi avèk bouton 'Rapòte Fatra nan Ri' anba a.",
+                "Yon ekip asenisman ap voye nan 48-72 èdtan."
+            ],
+            "documents": [
+                "Pa bezwen dokiman pou rapòte.",
+                "Pou demann netwayaj evènman: Nimewo Pèmi Evènman."
+            ],
+            "fees": "Rapòte depotwa sovaj gratis. Sèvis netwayaj evènman kòmanse nan 5,000 HTG.",
+            "reports": {
+                "title": "Wè Fatra oswa Debri ?",
+                "description": "Ede nou kenbe vil la pwòp lè w rapòte gwo pil fatra, debri konstriksyon, oswa bèt mouri.",
+                "button": "Rapòte Fatra nan Ri"
+            }
+        },
+        "culture": {
+            "title": "Kilti ak Touris",
+            "description": "Vil nou an rich nan istwa ak tradisyon vibran. Soti nan Kanaval rive nan fèt patronal, Depatman Kilti a asire eritaj nou an prezève ak selebre.",
+            "steps": [
+                "Aplike pou pèmi evènman omwen 30 jou davans.",
+                "Anrejistre nouvo òganizasyon kiltirèl nan Meri a.",
+                "Vizite 'Anyè' a pou jwenn mize ak sit istorik.",
+                "Swiv chanèl ofisyèl nou yo pou emisyon evènman an dirèk."
+            ],
+            "documents": [
+                "Fòm Aplikasyon Pèmi Evènman",
+                "Anrejistreman Òganizasyon (MAST)",
+                "Akò Itilizasyon Sit"
+            ],
+            "fees": "Frè itilizasyon pak piblik yo varye selon gwosè evènman an. Anrejistreman kiltirèl estanda gratis.",
+            "youtube": {
+                "title": "Gade Evènman an Dirèk",
+                "description": "Ou te manke yon festival oswa yon reyinyon meri ? Nou difize evènman kiltirèl kle ak anons sou chanèl YouTube ofisyèl nou an.",
+                "button": "Vizite Chanèl YouTube nou an"
+            }
+        },
+        "towing": {
+            "title": "Remokaj ak Fouri",
+            "description": "Minisipalite a fè respekte règleman pakin pou kenbe lari yo degaje ak an sekirite. Si yo remoke machin ou, sèvi ak sèvis sa a pou lokalize li epi konprann pwosesis rekiperasyon an.",
+            "steps": [
+                "Antre nimewo plak machin ou anba a pou tcheke si machin ou nan yon espas minisipal.",
+                "Vizite pakin fouri espesifik ki nan rezilta rechèch ou an.",
+                "Prezante yon pyès idantite valab, Anrejistreman Machin, ak Asirans.",
+                "Peye frè remokaj ak depo (Lajan kach oswa chèk sètifye)."
+            ],
+            "documents": [
+                "Pyès idantite gouvènman an bay (NIF/CIN)",
+                "Anrejistreman Machin orijinal",
+                "Prèv Asirans"
+            ],
+            "fees": "Frè Remokaj: 3,500 HTG. Frè Depo: 500 HTG/jou (Premye 24 èdtan yo gratis).",
+            "nationalID": {
+                "title": "Enfòmasyon sou Kat Idantite Nasyonal",
+                "comingSoon": "Enfòmasyon sou Kat Idantite Nasyonal (CIN) ap disponib byento. Enfòmasyon sa yo pral bay pa Ofis Nasyonal Idantifikasyon (ONI)."
+            },
+            "cityCouncil": {
+                "title": "Konsèy Minisipal",
+                "decrees": "Dekrè Minisipal yo",
+                "noDecrees": "Poko gen okenn dekrè minisipal ki pibliye."
+            }
+        }
     }
 }

@@ -1,29 +1,32 @@
 import ServiceInfoPage from "@/components/ui/ServiceInfoPage";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
-export const metadata = {
-    title: "Birth Certificates | Haiti City Portal",
-    description: "Request an official extract from the National Archives (Archives Nationales d'Haïti).",
-};
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
-export default function BirthCertificatesPage() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: "Services.birthCertificates" });
+    return {
+        title: `${t("title")} | Haiti City Portal`,
+        description: t("description"),
+    };
+}
+
+export default async function BirthCertificatesPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    const t = await getTranslations("Services.birthCertificates");
+
     return (
         <ServiceInfoPage
-            title="Archives & Birth Certificates"
-            description="Requesting an 'Extrait d'Archives' is a critical step for legal identification, passports, and school enrollment. We help facilitate the request between your local Mairie and the National Archives in Port-au-Prince."
-            steps={[
-                "Visit the Mairie (City Hall) with your birth notice or an old extract copy.",
-                "Fill out the 'Demande d'Extrait' form provided by the civil registry officer.",
-                "The Mairie will transmit your request to the National Archives (ANH).",
-                "Once the extract is returned to the Mairie, you will be notified via SMS or phone.",
-                "Pick up your official document at the City Hall office."
-            ]}
-            documents={[
-                "Copy of original birth notice (Acte de Naissance/Déclaration)",
-                "Previous extract copy (if available)",
-                "National ID (CIN) of the person making the request",
-                "Power of attorney (if requesting for someone else)"
-            ]}
-            fees="The standard fee for a birth certificate extract is 500 HTG. Expedited processing may incur additional municipal charges."
+            title={t("title")}
+            description={t("description")}
+            steps={t.raw("steps") as string[]}
+            documents={t.raw("documents") as string[]}
+            fees={t("fees")}
         />
     );
 }

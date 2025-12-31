@@ -20,7 +20,8 @@ import {
   Phone,
   Info,
   Banknote,
-  Users
+  Users,
+  Building2
 } from "lucide-react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
@@ -76,10 +77,10 @@ export default async function Home() {
       link: "/events"
     },
     {
-      icon: <Info className="h-10 w-10 text-brand-blue" />,
-      title: t("commonServices.openData.title"),
-      description: t("commonServices.openData.description"),
-      link: "/data"
+      icon: <Building2 className="h-10 w-10 text-brand-blue" />,
+      title: t("commonServices.infrastructure.title"),
+      description: t("commonServices.infrastructure.description"),
+      link: "/directory"
     },
   ];
 

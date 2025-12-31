@@ -1,21 +1,30 @@
 import ServiceInfoPage from "@/components/ui/ServiceInfoPage";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
+import { Link, routing } from "@/i18n/routing";
 import { db } from "@/db";
 import { services, tenants } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { headers } from "next/headers";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-export const metadata = {
-    title: "Trash & Sanitation | Haiti City Portal",
-    description: "Municipal trash collection schedules and sanitation services.",
-};
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
 
-export default async function TrashPage() {
-    const locale = await getLocale();
-    const t = await getTranslations("HomePage.services");
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: "HomePage.services" }); // Re-using homepage metadata namespace for consistency
+    return {
+        title: "Trash & Sanitation | Haiti City Portal",
+        description: "Municipal trash collection schedules and sanitation services.",
+    };
+}
+
+export default async function TrashPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    setRequestLocale(locale);
+    const t = await getTranslations("Services.trash");
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
@@ -47,23 +56,18 @@ export default async function TrashPage() {
         <ServiceInfoPage
             title={name}
             description={`${description} ${serviceData.pickup_schedule ? `Schedule: ${serviceData.pickup_schedule}` : ""}`}
-            steps={[
-                "Check the sanitation schedule for your specific neighborhood (Zone).",
-                "Place your waste bins or bags at the designated curb points by 6:00 AM.",
-                "Ensure sharp objects or hazardous waste are separated into marked containers.",
-                "For bulky items like furniture, request a 'Pickup Spécial' at least 48 hours in advance."
-            ]}
+            steps={t.raw("steps") as string[]}
             documents={requirements}
             fees={fees}
             secondaryAction={
                 <div className="bg-amber-50 rounded-2xl p-6 border border-amber-200">
-                    <h3 className="text-lg font-semibold text-amber-900 mb-2">Trash not picked up?</h3>
+                    <h3 className="text-lg font-semibold text-amber-900 mb-2">{t("reports.title")}</h3>
                     <p className="text-sm text-amber-800 mb-4">
-                        If your bin was out by 6:00 AM and was missed, please let us know immediately.
+                        {t("reports.description")}
                     </p>
                     <Button variant="outline" className="w-full border-amber-300 text-amber-900 hover:bg-amber-100" asChild>
-                        <Link href="/report?issue=missed_pickup">
-                            Report a Missed Pickup
+                        <Link href={"/report?issue=missed_pickup" as any}>
+                            {t("reports.button")}
                         </Link>
                     </Button>
                 </div>
