@@ -113,8 +113,33 @@ export default async function EventsPage() {
   const grouped = groupByMonth(events);
   const monthKeys = Object.keys(grouped);
 
+  // Generate JSON-LD for Events
+  const eventsSchema = events.map(event => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": event.title,
+    "startDate": event.start_time,
+    "endDate": event.end_time || event.start_time, // Fallback if no end time
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": event.location || "City Hall",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mairie",
+        "addressCountry": "HT"
+      }
+    },
+    "description": event.description
+  }));
+
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-24 pt-16 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsSchema) }}
+      />
       <div className="mb-12 flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-black/20 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-semibold text-white">Community events</h1>

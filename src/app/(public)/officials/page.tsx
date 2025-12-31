@@ -9,6 +9,7 @@ import { MessageCircle, Users, MapPin, Info, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { SectionFilter } from "@/components/officials/SectionFilter";
+import { BilingualGuide } from "@/components/common/BilingualGuide";
 
 export const metadata = {
     title: "Meet Your Officials | Haiti City Portal",
@@ -58,10 +59,19 @@ export default async function OfficialsPage({
         <div className="min-h-screen bg-canvas py-16 px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
                 <header className="mb-12 text-center md:text-left space-y-4">
-                    <h1 className="text-4xl font-extrabold text-ink-primary tracking-tight">Meet Your Local Officials</h1>
-                    <p className="text-xl text-ink-secondary max-w-3xl leading-relaxed">
-                        Find and connect with your {tenant.name} representatives. From the Central Mayor to your neighborhood CASEC and ASEC members.
-                    </p>
+                    <BilingualGuide
+                        variant="default"
+                        title={{
+                            en: "Meet Your Local Officials",
+                            fr: "Rencontrez Vos Élus Locaux",
+                            ht: "Rankontre Ofisyèl Lokal Ou yo"
+                        }}
+                        description={{
+                            en: `Find and connect with your ${tenant.name} representatives. From the Central Mayor to your neighborhood CASEC and ASEC members.`,
+                            fr: `Trouvez et contactez vos représentants de ${tenant.name}. Du Maire Central aux membres CASEC et ASEC de votre quartier.`,
+                            ht: `Jwenn epi kontakte reprezantan ${tenant.name} ou yo. Soti nan Majistra Santral la rive nan manm CASEC ak ASEC nan katye w la.`
+                        }}
+                    />
                     <div className="pt-4 flex flex-wrap gap-4">
                         <Button asChild variant="outline" className="rounded-xl border-weak hover:bg-white shadow-sm">
                             <Link href="/services/governance" className="flex items-center gap-2">

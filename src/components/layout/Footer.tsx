@@ -72,8 +72,20 @@ export default function Footer() {
 
       </div>
 
-      <div className="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {year} {tenant?.name || "Haiti City Portal"}. All rights reserved.</p>
+      {/* Lower Footer Bar */}
+      <div className="bg-slate-100 border-t border-slate-200 py-4">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
+          <Link href="/sitemap" className="hover:text-brand-blue flex items-center gap-1">
+            Tout Sèvis (Sitemap)
+          </Link>
+        </div>
+      </div>
+
+      <div className="mt-0 flex flex-col gap-4 border-t border-gray-200 pt-6 pb-8 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col gap-1">
+          <p>© {year} {tenant?.name || "Haiti City Portal"}. All rights reserved.</p>
+          <p className="text-xs text-slate-400">© 2025 Haiti City Portal Project. Source-Available License. Commercial use prohibited.</p>
+        </div>
         <div className="flex flex-wrap items-center gap-4">
           <LocaleSwitcher />
           <Link

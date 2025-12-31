@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition, useState } from "react";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 const locales = [
   { value: "en", label: "English" },
@@ -10,17 +11,17 @@ const locales = [
 ];
 
 export default function LocaleSwitcher() {
-  const [locale, setLocale] = useState("en");
+  const { language, setLanguage } = useLanguage();
   const [isPending, startTransition] = useTransition();
 
   return (
     <label className="inline-flex items-center gap-2 text-sm text-gray-600">
       <span className="hidden sm:inline">Language</span>
       <select
-        value={locale}
+        value={language}
         onChange={(event) => {
-          const next = event.target.value;
-          startTransition(() => setLocale(next));
+          const next = event.target.value as "en" | "fr" | "ht" | "es";
+          startTransition(() => setLanguage(next));
         }}
         aria-label="Select language"
         className="rounded-md border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"

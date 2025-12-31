@@ -12,11 +12,16 @@ import {
     MapPin,
     Phone,
     Info,
-    Search
+    Search,
+    Globe,
+    MessageCircle,
+    Mail,
+    Facebook
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { SectionFilter } from "@/components/officials/SectionFilter";
+import { SuggestionModal } from "@/components/directory/SuggestionModal";
 
 // Dynamically import map to avoid SSR issues with Leaflet
 const DirectoryMap = dynamic(() => import("@/components/directory/DirectoryMap"), {
@@ -45,7 +50,13 @@ interface Facility {
     contact_phone: string | null;
     is_public: boolean | null;
     status: string;
+    updated_at?: Date | string | null;
+    last_verified_at?: Date | string | null;
     section?: { name: string } | null;
+    whatsapp_number?: string | null;
+    official_website?: string | null;
+    email_address?: string | null;
+    facebook_page?: string | null;
 }
 
 interface DirectoryClientProps {
@@ -68,7 +79,7 @@ export default function DirectoryClient({
     });
 
     return (
-        <div className="max-w-7xl mx-auto px-6 -mt-12">
+        <div className="max-w-7xl mx-auto px-6 -mt-12 relative z-20">
             {/* Filters Row */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
                 {/* Section Filter Card */}
@@ -102,8 +113,8 @@ export default function DirectoryClient({
                                         asChild
                                         variant={isActive ? "default" : "outline"}
                                         className={`rounded-2xl h-14 px-6 border-2 transition-all group ${isActive
-                                                ? "bg-brand-blue border-brand-blue text-white shadow-lg shadow-brand-blue/30"
-                                                : "bg-white border-brand-blue/10 text-ink-primary hover:border-brand-blue/30 hover:bg-brand-blue/5"
+                                            ? "bg-brand-blue border-brand-blue text-white shadow-lg shadow-brand-blue/30"
+                                            : "bg-white border-brand-blue/10 text-ink-primary hover:border-brand-blue/30 hover:bg-brand-blue/5"
                                             }`}
                                     >
                                         <Link href={`/directory?category=${cat.id}${activeSectionId ? `&sectionId=${activeSectionId}` : ''}`}>
@@ -150,8 +161,8 @@ export default function DirectoryClient({
                                         })()}
                                     </div>
                                     <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border-2 ${f.status === 'operational'
-                                            ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
-                                            : 'bg-rose-50 text-rose-600 border-rose-100'
+                                        ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                        : 'bg-rose-50 text-rose-600 border-rose-100'
                                         }`}>
                                         {f.status.replace('_', ' ')}
                                     </div>
@@ -177,29 +188,83 @@ export default function DirectoryClient({
                                 </div>
 
                                 <div className="flex flex-col gap-3">
-                                    {f.contact_phone && (
-                                        <Button
-                                            asChild
-                                            className={`w-full rounded-2xl h-14 font-black text-lg transition-transform active:scale-95 ${f.category === 'safety' || f.category === 'emergency'
-                                                    ? 'bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200'
-                                                    : 'bg-slate-900 hover:bg-ink-primary shadow-lg shadow-slate-200'
-                                                }`}
-                                        >
-                                            <a href={`tel:${f.contact_phone}`} className="flex items-center justify-center gap-2">
-                                                <Phone className="h-5 w-5" />
-                                                {f.category === 'safety' || f.category === 'emergency' ? 'EMERGENCY CALL' : f.contact_phone}
-                                            </a>
-                                        </Button>
-                                    )}
+                                    <div className="grid grid-cols-4 gap-2">
+                                        {/* Phone Button (Primary) */}
+                                        {f.contact_phone && (
+                                            <Button
+                                                asChild
+                                                className={`col-span-2 rounded-xl h-12 font-bold text-sm transition-transform active:scale-95 ${f.category === 'safety' || f.category === 'emergency'
+                                                    ? 'bg-rose-600 hover:bg-rose-700 shadow-lg shadow-rose-200 text-white'
+                                                    : 'bg-slate-900 hover:bg-ink-primary shadow-lg shadow-slate-200 text-white'
+                                                    }`}
+                                            >
+                                                <a href={`tel:${f.contact_phone}`} className="flex items-center justify-center gap-2">
+                                                    <Phone className="h-4 w-4" />
+                                                    Call
+                                                </a>
+                                            </Button>
+                                        )}
 
-                                    <Link
-                                        href="/report"
-                                        className="text-xs text-center font-bold text-ink-secondary hover:text-brand-blue flex items-center justify-center gap-1 transition-colors"
-                                    >
-                                        <Info className="h-3 w-3" />
-                                        Is this information incorrect? Notify City Hall
-                                    </Link>
+                                        {/* WhatsApp Button */}
+                                        {f.whatsapp_number && (
+                                            <Button
+                                                asChild
+                                                variant="outline"
+                                                className="rounded-xl h-12 border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:border-emerald-300 transition-all active:scale-95"
+                                            >
+                                                <a
+                                                    href={`https://wa.me/${f.whatsapp_number.replace(/[^0-9]/g, '')}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    title="Chat on WhatsApp"
+                                                >
+                                                    <MessageCircle className="h-5 w-5 fill-current" />
+                                                </a>
+                                            </Button>
+                                        )}
+
+                                        {/* Website/Facebook Button */}
+                                        {(f.official_website || f.facebook_page) && (
+                                            <Button
+                                                asChild
+                                                variant="outline"
+                                                className="rounded-xl h-12 border-blue-200 bg-blue-50 text-blue-600 hover:bg-blue-100 hover:border-blue-300 transition-all active:scale-95"
+                                            >
+                                                <a
+                                                    href={f.official_website || f.facebook_page || '#'}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    title="Visit Official Link"
+                                                >
+                                                    {f.facebook_page ? <Facebook className="h-5 w-5 fill-current" /> : <Globe className="h-5 w-5" />}
+                                                </a>
+                                            </Button>
+                                        )}
+
+                                        {/* Email Button */}
+                                        {f.email_address && (
+                                            <Button
+                                                asChild
+                                                variant="outline"
+                                                className="rounded-xl h-12 border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:border-slate-300 transition-all active:scale-95"
+                                            >
+                                                <a href={`mailto:${f.email_address}`} title="Send Email">
+                                                    <Mail className="h-5 w-5" />
+                                                </a>
+                                            </Button>
+                                        )}
+                                    </div>
+
+                                    <SuggestionModal facility={f} />
                                 </div>
+                                {(f.last_verified_at || f.updated_at) && (
+                                    <div className="pt-4 mt-2 border-t border-weak/50 text-center">
+                                        <p className="text-[10px] font-medium text-ink-secondary/60 uppercase tracking-widest flex items-center justify-center gap-1">
+                                            <Shield className="h-3 w-3 text-emerald-500 fill-current" />
+                                            Verified on {new Date(f.last_verified_at || f.updated_at!).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}
+                                        </p>
+                                    </div>
+                                )}
                             </CardContent>
                         </Card>
                     ))
@@ -216,6 +281,6 @@ export default function DirectoryClient({
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }
