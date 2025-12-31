@@ -4,6 +4,7 @@ import { eq, asc } from "drizzle-orm";
 import { headers } from "next/headers";
 import { Shield } from "lucide-react";
 import DirectoryClient from "@/components/directory/DirectoryClient";
+import { BilingualGuide } from "@/components/common/BilingualGuide";
 
 export const metadata = {
     title: "Public Infrastructure Directory | Haiti City Portal",
@@ -48,18 +49,19 @@ export default async function DirectoryPage({
             <div className="bg-brand-blue text-white py-16 px-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-12 transform translate-x-20" />
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
-                            <Shield className="h-6 w-6" />
-                        </div>
-                        <span className="text-white/80 font-bold uppercase tracking-widest text-xs">Infrastructure & Emergency</span>
-                    </div>
-                    <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
-                        City Infrastructure <br /><span className="text-white/60">Directory</span>
-                    </h1>
-                    <p className="text-xl text-white/80 max-w-2xl leading-relaxed font-medium">
-                        Access vital public services, from healthcare and education to emergency safety response centers across your commune.
-                    </p>
+                    <BilingualGuide
+                        variant="hero"
+                        title={{
+                            en: "City Infrastructure\nDirectory",
+                            fr: "Annuaire des\nInfrastructures",
+                            ht: "Anyè Enfrastrikti\nVil la"
+                        }}
+                        description={{
+                            en: "Access vital public services, from healthcare and education to emergency safety response centers across your commune.",
+                            fr: "Accédez aux services publics vitaux, de la santé et de l'éducation aux centres d'intervention d'urgence dans votre commune.",
+                            ht: "Jwenn aksès nan sèvis piblik esansyèl yo, soti nan sante ak edikasyon rive nan sant ijans nan komin ou an."
+                        }}
+                    />
                 </div>
             </div>
 

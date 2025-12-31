@@ -87,8 +87,26 @@ export default async function Home() {
     { label: "Pay Fees", icon: <Banknote className="h-5 w-5" />, href: "/pay" },
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "GovernmentOrganization",
+    "name": `Mairie de ${tenant?.name || "Haiti City Portal"}`,
+    "alternateName": tenant?.name,
+    "logo": tenant?.logo_url || "https://haiticityportal.com/logo.png", // Fallback URL
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+509-129",
+      "contactType": "emergency",
+      "availableLanguage": ["French", "Haitian Creole"]
+    }
+  };
+
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* 1. HERO SECTION (Full Width) */}
       <section className="relative w-full bg-brand-blue/5 py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6">

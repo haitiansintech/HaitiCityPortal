@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "./index";
-import { tenants, users, services, service_requests, events, datasets, officials, communal_sections, facilities } from "./schema";
+import { tenants, users, services, service_requests, events, datasets, officials, communal_sections, facilities, facility_suggestions, projects, handbook_articles, payment_records, emergency_alerts, audit_snapshots } from "./schema";
 import { sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
@@ -227,8 +227,10 @@ async function seed() {
             latitude: 18.2346,
             longitude: -72.5350,
             contact_phone: "+50928172233",
+            whatsapp_number: "+50937000001",
             is_public: true,
             status: "operational",
+            last_verified_at: new Date(),
         },
         {
             tenant_id: JACMEL_TENANT_ID,
@@ -239,8 +241,11 @@ async function seed() {
             latitude: 18.2356,
             longitude: -72.5360,
             contact_phone: "+50931221144",
+            whatsapp_number: "+50931221144",
+            facebook_page: "https://facebook.com/PNHJacmel",
             is_public: true,
             status: "operational",
+            last_verified_at: new Date(),
         },
         {
             tenant_id: JACMEL_TENANT_ID,
@@ -264,8 +269,10 @@ async function seed() {
             latitude: 18.5430,
             longitude: -72.3396,
             contact_phone: "+50937112211",
+            official_website: "https://mspp.gouv.ht",
             is_public: true,
             status: "limited_services",
+            last_verified_at: new Date(),
         },
         {
             tenant_id: PAP_TENANT_ID,
@@ -276,8 +283,106 @@ async function seed() {
             latitude: 18.5445,
             longitude: -72.3380,
             contact_phone: "+50938112222",
+            official_website: "https://pnh.ht",
+            facebook_page: "https://facebook.com/pnh.ht",
             is_public: true,
             status: "operational",
+            last_verified_at: new Date(),
+        },
+    ]).onConflictDoNothing();
+
+    // 10. Seed Projects
+    console.log("Creating Projects...");
+    await db.insert(projects).values([
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Solar Street Lights for Rue de la Liberté",
+            description: "Installing 50 solar-powered street lights to improve safety and nightlife in the historic district.",
+            target_amount: 15000.00,
+            current_raised: 4250.00,
+            status: "fundraising",
+            code: "LIGHT-01",
+            image_url: "https://images.unsplash.com/photo-1595115206385-d60927df4dca?auto=format&fit=crop&q=80&w=400",
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Communal Market Roof Repair",
+            description: "Repairing the storm-damaged roof of the main market to protect vendors and goods.",
+            target_amount: 8000.00,
+            current_raised: 7500.00,
+            status: "fundraising",
+            code: "MKT-ROOF",
+            image_url: "https://images.unsplash.com/photo-1517524926521-1fa1298516d7?auto=format&fit=crop&q=80&w=400",
+        }
+    ]).onConflictDoNothing();
+
+    // 11. Seed Handbook Articles
+    console.log("Creating Handbook Articles...");
+    await db.insert(handbook_articles).values([
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Field Verification Protocol",
+            content_fr: "## Étapes de vérification\n1. Confirmez visuellement que l'établissement est ouvert.\n2. Notez les horaires.",
+            content_kr: "## Etap pou Verifye\n1. Gade si etablisman an ouvè.\n2. Mande kile yo fèmen.",
+            category: "Protocol",
+            is_published: true,
+            required_role: "official",
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Emergency Response Guide",
+            content_fr: "## En cas d'ouragan\n- Activez le Centre d'Opérations d'Urgence (COUD).",
+            content_kr: "## Si gen Siklòn\n- Aktive Sant Operasyon Ijans (COUD).",
+            category: "Emergency",
+            is_published: true,
+            required_role: "all",
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Financial Audit Standards - 2025",
+            content_fr: "Toutes les dépenses municipales de plus de 50 000 HTG doivent être contresignées.",
+            content_kr: "Tout depans ki depase 50 000 goud dwe siyen pa Majistra a.",
+            category: "Finance",
+            is_published: true,
+            required_role: "finance_admin",
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            title: "Infrastructure Audit Policy",
+            content_fr: "## Politique d'Audit\nTous les fonds d'infrastructure doivent être audités mensuellement et publiés dans le grand livre.",
+            content_kr: "## Règleman Odit\nTout lajan enfrastrikti dwe verifye chak mwa epi pibliye pou pèp la wè.",
+            category: "Policy",
+            is_published: true,
+            required_role: "all",
+        }
+    ]).onConflictDoNothing();
+
+    // 12. Seed Payment Records (For Audit)
+    console.log("Creating Payment Records...");
+    await db.insert(payment_records).values([
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            email: "donor1@example.com",
+            amount: "5000.00",
+            currency: "USD",
+            payment_method: "wire_transfer",
+            payment_type: "donation",
+            generated_memo_code: "JAC-DON-LIGHT-01", // Matches the project seeded earlier
+            status: "verified", // Ready for audit
+            is_public_ledger: false,
+            verified_at: new Date(),
+        },
+        {
+            tenant_id: JACMEL_TENANT_ID,
+            email: "donor2@example.com",
+            amount: "250.00",
+            currency: "USD",
+            payment_method: "moncash",
+            payment_type: "donation",
+            generated_memo_code: "JAC-DON-LIGHT-01",
+            status: "verified",
+            is_public_ledger: false,
+            verified_at: new Date(),
         },
     ]).onConflictDoNothing();
 

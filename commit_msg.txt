@@ -1,0 +1,16 @@
+chore: Finalize v1.1 Deployment - Protected Municipal Hub
+
+- **Legal & Protection:**
+  - Implemented BSL 1.1 License to protect contributor IP and prevent commercial scraping.
+  - Added 'noai' meta tags and robots.txt rules to mitigate LLM training on codebase.
+  - Established implicit CLA in README for streamlined contribution management.
+
+- **Navigation & Discovery:**
+  - Generated dynamic sitemap.xml and robots.txt for optimized search indexing.
+  - Built fail-safe HTML Sitemap for low-bandwidth 2G/3G accessibility.
+  - Integrated JSON-LD Schema for rich-snippet display of emergency facilities.
+
+- **Governance & Audit:**
+  - Finalized Mayor's Audit Review dashboard for financial transparency.
+  - Completed ASEC/CASEC 'Field Guide' and mobile-first verification tools.
+  - Injected 'Municipal Handbook' as the living single-source-of-truth for officials.

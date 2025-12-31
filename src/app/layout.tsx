@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { tenants } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { TenantProvider } from "@/components/providers/TenantProvider";
+import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 
@@ -19,6 +20,18 @@ export const metadata: Metadata = {
   },
   description:
     "Report civic issues, explore local events, and access municipal data across Haiti in one modern portal.",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+    // Block AI scrapers
+    "noai": true,
+    "noimageai": true,
+  } as any, // Cast to any because Next.js types might not strictly support custom standard tags yet, but browsers respect them
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -69,14 +82,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to main content
         </a>
         <TenantProvider tenant={tenant as any}>
-          <div className="flex min-h-screen w-full flex-col bg-white">
-            <Navbar />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            {tenant.whatsapp_number && <WhatsAppButton phoneNumber={tenant.whatsapp_number} />}
-          </div>
+          <LanguageProvider>
+            <div className="flex min-h-screen w-full flex-col bg-white">
+              <Navbar />
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+              <Footer />
+              {tenant.whatsapp_number && <WhatsAppButton phoneNumber={tenant.whatsapp_number} />}
+            </div>
+          </LanguageProvider>
         </TenantProvider>
       </body>
     </html>

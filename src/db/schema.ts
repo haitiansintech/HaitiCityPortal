@@ -212,6 +212,8 @@ export const payment_records = pgTable("payment_records", {
     proof_url: text("proof_url"),
     official_quittance_id: text("official_quittance_id"),
     admin_notes: text("admin_notes"),
+    is_public: boolean("is_public").default(false).notNull(),
+    is_public_ledger: boolean("is_public_ledger").default(false).notNull(),
 
     verified_at: timestamp("verified_at"),
     created_at: timestamp("created_at").defaultNow().notNull(),
@@ -280,6 +282,15 @@ export const facilities = pgTable("facilities", {
     is_public: boolean("is_public").default(true),
     status: text("status").default("operational").notNull(), // 'operational', 'limited_services', 'closed'
     created_at: timestamp("created_at").defaultNow(),
+    updated_at: timestamp("updated_at").defaultNow(),
+    last_verified_at: timestamp("last_verified_at"),
+    last_verified_by: uuid("last_verified_by"), // Track which official verified it
+
+    // Multi-channel contacts
+    whatsapp_number: text("whatsapp_number"),
+    official_website: text("official_website"),
+    email_address: text("email_address"),
+    facebook_page: text("facebook_page"),
 });
 
 // -------------------------------------------------------------------------
@@ -380,3 +391,93 @@ export const facilitiesRelations = relations(facilities, ({ one }) => ({
         references: [communal_sections.id],
     }),
 }));
+
+export const facility_suggestions = pgTable("facility_suggestions", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    facility_id: uuid("facility_id").references(() => facilities.id),
+    communal_section_id: uuid("communal_section_id").references(() => communal_sections.id),
+    suggested_data: jsonb("suggested_data").notNull(),
+    user_contact_info: text("user_contact_info").notNull(),
+    status: text("status").default("new").notNull(), // 'new', 'pending_casec', 'approved', 'rejected'
+    created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const facilitySuggestionsRelations = relations(facility_suggestions, ({ one }) => ({
+    facility: one(facilities, {
+        fields: [facility_suggestions.facility_id],
+        references: [facilities.id],
+    }),
+    section: one(communal_sections, {
+        fields: [facility_suggestions.communal_section_id],
+        references: [communal_sections.id],
+    }),
+}));
+
+// ... (previous code)
+
+export const projects = pgTable("projects", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    target_amount: doublePrecision("target_amount").notNull(),
+    current_raised: doublePrecision("current_raised").default(0).notNull(),
+    status: text("status").default("fundraising").notNull(), // 'planning', 'fundraising', 'in_progress', 'completed'
+    code: text("code").notNull(), // e.g., 'LIGHT-01'
+    image_url: text("image_url"),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const projectsRelations = relations(projects, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [projects.tenant_id],
+        references: [tenants.id],
+    }),
+}));
+
+export const handbook_articles = pgTable("handbook_articles", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    title: text("title").notNull(),
+    content_fr: text("content_fr").notNull(),
+    content_kr: text("content_kr").notNull(),
+    category: text("category").notNull(),
+    is_published: boolean("is_published").default(false).notNull(),
+    updated_by: uuid("updated_by"), // Admin ID
+    required_role: text("required_role").default("official").notNull(), // 'official', 'finance_admin', 'mayor', 'all'
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").defaultNow(),
+});
+
+export const handbookArticlesRelations = relations(handbook_articles, ({ one }) => ({
+    tenant: one(tenants, {
+        fields: [handbook_articles.tenant_id],
+        references: [tenants.id],
+    }),
+}));
+
+export const handbook_reads = pgTable("handbook_reads", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    user_id: uuid("user_id").references(() => users.id).notNull(), // or mock ID
+    article_id: uuid("article_id").references(() => handbook_articles.id).notNull(),
+    read_at: timestamp("read_at").defaultNow().notNull(),
+});
+
+export const emergency_alerts = pgTable("emergency_alerts", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    message_fr: text("message_fr").notNull(),
+    message_kr: text("message_kr").notNull(),
+    severity: text("severity").default("high").notNull(), // 'high', 'critical'
+    expires_at: timestamp("expires_at").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const audit_snapshots = pgTable("audit_snapshots", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    tenant_id: uuid("tenant_id").references(() => tenants.id).notNull(),
+    project_id: uuid("project_id").references(() => projects.id),
+    snapshot_total: doublePrecision("snapshot_total").notNull(),
+    new_funds_added: doublePrecision("new_funds_added").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+});
