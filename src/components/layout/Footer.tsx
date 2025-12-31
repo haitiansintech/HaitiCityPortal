@@ -75,7 +75,7 @@ export default function Footer() {
       {/* Lower Footer Bar */}
       <div className="bg-slate-100 border-t border-slate-200 py-4">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
-          <Link href="/sitemap" className="hover:text-brand-blue flex items-center gap-1">
+          <Link href="/plan-site" className="hover:text-brand-blue flex items-center gap-1">
             Tout Sèvis (Sitemap)
           </Link>
         </div>
