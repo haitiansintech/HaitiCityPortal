@@ -1,65 +1,78 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import { db } from "@/db";
-import { issues } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { service_requests, tenants } from "@/db/schema";
+import { desc, eq, and } from "drizzle-orm";
 
-interface IssueRecord {
+interface ServiceRequestRecord {
   id: string;
-  title: string;
+  service_name: string | null;
   description: string | null;
   status: string | null;
-  created_at: Date | null;
+  requested_datetime: Date | null;
 }
 
 function formatStatus(status: string | null) {
-  if (!status) return "Pending";
+  if (!status) return "Open";
   return status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 const statusTone: Record<string, string> = {
-  Resolved: "bg-emerald-500/10 text-emerald-200 border-emerald-400/30",
-  "In Progress": "bg-cyan-500/10 text-cyan-200 border-cyan-400/30",
-  Submitted: "bg-sky-500/10 text-sky-200 border-sky-400/30",
-  Pending: "bg-slate-500/10 text-slate-200 border-slate-400/30",
+  Closed: "bg-emerald-500/10 text-emerald-200 border-emerald-400/30",
+  Acknowledged: "bg-cyan-500/10 text-cyan-200 border-cyan-400/30",
+  Open: "bg-sky-500/10 text-sky-200 border-sky-400/30",
 };
 
 export default async function IssuesListPage() {
-  let data: IssueRecord[] = [];
+  const headersList = await headers();
+  const subdomainHeader = headersList.get("x-tenant-subdomain") || "demo";
+
+  let data: ServiceRequestRecord[] = [];
   let error: { message: string } | null = null;
 
   try {
-    const result = await db
-      .select({
-        id: issues.id,
-        title: issues.title,
-        description: issues.description,
-        status: issues.status,
-        created_at: issues.created_at,
-      })
-      .from(issues)
-      .orderBy(desc(issues.created_at))
-      .limit(20);
-    data = result;
+    // SECURITY: First, resolve tenant by subdomain, then filter requests
+    const tenant = await db
+      .select()
+      .from(tenants)
+      .where(eq(tenants.subdomain, subdomainHeader))
+      .limit(1);
+
+    if (tenant.length > 0) {
+      const result = await db
+        .select({
+          id: service_requests.id,
+          service_name: service_requests.service_name,
+          description: service_requests.description,
+          status: service_requests.status,
+          requested_datetime: service_requests.requested_datetime,
+        })
+        .from(service_requests)
+        .where(eq(service_requests.tenant_id, tenant[0].id))
+        .orderBy(desc(service_requests.requested_datetime))
+        .limit(20);
+      data = result;
+    }
   } catch (e: any) {
     error = { message: e.message };
   }
 
   const enableLocalMode = process.env.ENABLE_LOCAL_MODE === "true";
-  const fallbackIssues: IssueRecord[] = enableLocalMode
+  const fallbackIssues: ServiceRequestRecord[] = enableLocalMode
     ? [
       {
         id: "sample-1",
-        title: "Streetlight outage on Rue Capois",
-        description: "Streetlight in front of the market has been out for two weeks.",
-        status: "in_progress",
-        created_at: new Date(),
+        service_name: "Pothole Repair",
+        description: "Large pothole near the market entrance causing vehicle damage.",
+        status: "open",
+        requested_datetime: new Date(),
       },
       {
         id: "sample-2",
-        title: "Blocked drainage near Avenue Christophe",
-        description: "Debris blocking the drainage channel after recent storms.",
-        status: "submitted",
-        created_at: new Date(Date.now() - 86400000),
+        service_name: "Streetlight Outage",
+        description: "Streetlight has been out for over a week on Rue Capois.",
+        status: "acknowledged",
+        requested_datetime: new Date(Date.now() - 86400000),
       },
     ]
     : [];
@@ -70,7 +83,7 @@ export default async function IssuesListPage() {
     <div className="mx-auto w-full max-w-5xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-6xl lg:px-8">
       <div className="mb-12 flex flex-col gap-6 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-black/20 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-3">
-          <h1 className="text-3xl font-semibold text-white">Service issues</h1>
+          <h1 className="text-3xl font-semibold text-white">Service Requests</h1>
           <p className="text-sm text-slate-300">
             Track recent reports from residents across the municipality. Status updates are refreshed in real time.
           </p>
@@ -115,7 +128,7 @@ export default async function IssuesListPage() {
             />
           </svg>
           <div>
-            <p className="font-semibold">Unable to load issues right now.</p>
+            <p className="font-semibold">Unable to load requests right now.</p>
             <p className="mt-1 text-rose-100/80">{error.message}</p>
           </div>
         </div>
@@ -128,26 +141,26 @@ export default async function IssuesListPage() {
             </svg>
           </div>
           <p className="mt-4 font-semibold text-white">All quiet for now.</p>
-          <p className="mt-2 text-slate-300">No issues reported yet. Be the first to submit one and help guide the response team.</p>
+          <p className="mt-2 text-slate-300">No requests reported yet. Be the first to submit one and help guide the response team.</p>
         </div>
       ) : (
         <div className="relative">
           <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-400/60 via-white/20 to-transparent sm:block" aria-hidden />
           <ul className="space-y-6 pl-0 sm:pl-6">
-            {issuesList.map((issue) => {
-              const statusLabel = formatStatus(issue.status);
-              const tone = statusTone[statusLabel as keyof typeof statusTone] ?? statusTone.Pending;
+            {issuesList.map((request) => {
+              const statusLabel = formatStatus(request.status);
+              const tone = statusTone[statusLabel as keyof typeof statusTone] ?? statusTone.Open;
               return (
                 <li
-                  key={issue.id}
+                  key={request.id}
                   className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur transition hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-cyan-400/20"
                 >
                   <span className="absolute -left-[22px] top-6 hidden h-5 w-5 rounded-full border-4 border-slate-950 bg-cyan-300 shadow-md sm:block" aria-hidden />
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <h2 className="text-lg font-semibold text-white">{issue.title}</h2>
-                      {issue.description ? (
-                        <p className="mt-2 text-sm text-slate-300">{issue.description}</p>
+                      <h2 className="text-lg font-semibold text-white">{request.service_name || "Service Request"}</h2>
+                      {request.description ? (
+                        <p className="mt-2 text-sm text-slate-300">{request.description}</p>
                       ) : (
                         <p className="mt-2 text-sm italic text-slate-400">No description provided.</p>
                       )}
@@ -161,7 +174,7 @@ export default async function IssuesListPage() {
                       <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-3.5 w-3.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l2.5 2.5" />
                       </svg>
-                      Reported on {issue.created_at ? new Date(issue.created_at).toLocaleString() : "Unknown"}
+                      Reported on {request.requested_datetime ? new Date(request.requested_datetime).toLocaleString() : "Unknown"}
                     </span>
                     <span className="inline-flex items-center gap-1 text-slate-300/80">
                       <svg aria-hidden xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-3.5 w-3.5">
@@ -179,3 +192,4 @@ export default async function IssuesListPage() {
     </div>
   );
 }
+
