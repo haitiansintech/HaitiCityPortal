@@ -16,13 +16,222 @@
         "services": {
             "title": "Services Vedettes",
             "viewAll": "Voir Tous les Services →",
-            "getStarted": "Commencer"
+            "getStarted": "Commencer",
+            "viewDirectory": "Voir l'Annuaire",
+            "learnMore": "En Savoir Plus",
+            "reportAlert": "Signaler un Dommage / Alerte de Préservation"
+        },
+        "commonServices": {
+            "birthCertificates": {
+                "title": "Actes de Naissance",
+                "description": "Demandez ou vérifiez des actes de naissance en ligne."
+            },
+            "trashPickup": {
+                "title": "Ramassage des Ordures",
+                "description": "Planifiez un ramassage ou signalez une collecte manquée."
+            },
+            "businessPermits": {
+                "title": "Permis d'Affaires",
+                "description": "Demandez ou renouvelez des licences commerciales."
+            },
+            "propertyTax": {
+                "title": "Payer l'Impôt Foncier",
+                "description": "Recherchez et payez votre impôt foncier en ligne."
+            },
+            "reportIssue": {
+                "title": "Signaler un Problème",
+                "description": "Signalez des nids-de-poule, des lampadaires ou d'autres problèmes."
+            },
+            "communityEvents": {
+                "title": "Événements Communautaires",
+                "description": "Trouvez des assemblées municipales, des cliniques et des réunions locales."
+            },
+            "openData": {
+                "title": "Données Ouvertes",
+                "description": "Explorez les ensembles de données municipales et les dépenses."
+            },
+            "localOfficials": {
+                "title": "Élus Locaux",
+                "description": "Trouvez et contactez vos CASEC, ASEC et Délégués de Ville."
+            },
+            "govGuide": {
+                "title": "Guide du Gouvernement",
+                "description": "Découvrez comment les corps élus locaux et la Mairie travaillent pour vous."
+            }
+        },
+        "mayor": {
+            "badge": "Leadership",
+            "title": "Un Message du Maire",
+            "defaultBio": "Bienvenue sur le portail numérique de notre ville. Nous nous engageons en faveur de la transparence, de l'accessibilité et du service à chaque citoyen avec dignité. Bâtissons notre communauté ensemble.",
+            "contactRep": "Contacter Mes Représentants",
+            "office": "Bureau du Maire"
+        },
+        "news": {
+            "title": "Mises à Jour Récentes",
+            "readMore": "En savoir plus →"
         }
+    },
+    "RoadmapPage": {
+        "title": "Feuille de Route du Produit",
+        "description": "La transparence s'étend à notre code. Voici ce que nous construisons ensuite.",
+        "timeline": {
+            "month": {
+                "badge": "Mois Prochain",
+                "title": "Mobile et Hors-ligne d'Abord",
+                "desc": "Optimisation du « Tableau de bord de terrain » pour les réseaux EDGE 2G.",
+                "item1": "Mise en cache hors ligne pour les demandes de services",
+                "item2": "Secours par SMS pour les alertes critiques",
+                "item3": "Compression d'image (terminé)"
+            },
+            "quarter": {
+                "badge": "Trimestre Prochain",
+                "title": "Expansion et SIG",
+                "desc": "Extension à 5 municipalités supplémentaires et amélioration des outils spécifiques.",
+                "item1": "Intégration avec Vwa pour la vérification officielle",
+                "item2": "Intégration avec OpenStreetMap pour les zones non cartographiées",
+                "item3": "Module de gestion « Adopter un Parc »",
+                "item4": "Flux de travail de permis avancé pour la construction"
+            },
+            "vision": {
+                "badge": "Vision Future",
+                "title": "Identité Souveraine et Terre",
+                "desc": "Objectifs à long terme pour la souveraineté numérique.",
+                "item1": "Ancres de registre foncier vérifiées par Blockchain",
+                "item2": "Intégration de l'identité civique (NIF/CIN)",
+                "item3": "Vote pour le budget participatif"
+            }
+        },
+        "feedback": {
+            "title": "Boucle de Rétroaction de la Communauté",
+            "description": "Nous construisons ce dont vous avez besoin. Participez à nos discussions sur les demandes de fonctionnalités ou votez pour les idées existantes.",
+            "join": "Rejoindre la Discussion",
+            "upvote": "Voter pour les Fonctionnalités"
+        }
+    },
+    "TechManifesto": {
+        "title": "Le Manifeste de la Source Souveraine",
+        "subtitle": "Nous ne construisons pas seulement des logiciels ; nous construisons des institutions. Nos choix techniques reflètent notre engagement envers l'autonomie, la résilience et la dignité d'Haïti.",
+        "pillars": {
+            "2g": {
+                "title": "Conception 2G d'Abord",
+                "description": "Nous optimisons pour le plus petit dénominateur commun de la connectivité haïtienne. Si une page ne se charge pas sur un réseau Edge dans une section communale rurale, c'est un bug."
+            },
+            "accountability": {
+                "title": "Responsabilité Professionnelle",
+                "description": "Chaque élu municipal est lié à un profil Vwa vérifié, transformant la gouvernance locale en un parcours professionnel."
+            },
+            "sovereignty": {
+                "title": "Souveraineté des Données",
+                "description": "Construit avec BSL 1.1, cette plateforme garantit que les données municipales haïtiennes appartiennent à la municipalité, et non à des entités commerciales étrangères."
+            },
+            "transparency": {
+                "title": "La Transparence comme Code",
+                "description": "Les journaux d'audit et les structures de frais sont intégrés à l'interface utilisateur, rendant la corruption plus difficile à cacher et le succès plus facile à voir."
+            }
+        },
+        "footer": {
+            "established": "ÉTABLI EN 2025",
+            "title": "Construit pour Haïti. Détenu par Haïti.",
+            "description": "Ce dépôt est disponible sous la Business Source License 1.1, garantissant que si le code est ouvert à une inspection distincte, sa valeur commerciale reste souveraine au peuple haïtien."
+        }
+    },
+    "ImpactPage": {
+        "title": "Pourquoi C'est Important",
+        "subtitle": "Nous construisons l'infrastructure numérique pour une nouvelle ère de confiance civique. Notre plateforme permet aux citoyens et aux responsables de travailler ensemble à travers quatre piliers fondamentaux.",
+        "pillars": {
+            "transparency": {
+                "title": "Transparence",
+                "description": "Visibilité en temps réel sur les fonds d'infrastructure. Chaque gourde collectée et dépensée est suivie sur un grand livre public ouvert, éliminant les zones d'ombre où se cache la corruption."
+            },
+            "accountability": {
+                "title": "Responsabilité",
+                "description": "Boucles de rapport direct. Lorsqu'un citoyen signale un nid-de-poule ou un ramassage d'ordures manqué, cela va directement au tableau de bord du CASEC responsable, créant un registre vérifiable de l'action (ou de l'inaction)."
+            },
+            "digital": {
+                "title": "Transformation Numérique",
+                "description": "Passer du papier aux pixels. Nous remplaçons les registres physiques fragiles par des bases de données mobiles décentralisées, sauvegardées dans le cloud, qui survivent aux inondations, aux incendies et aux transitions politiques."
+            },
+            "data": {
+                "title": "Accès aux Données",
+                "description": "Une Source de Vérité Unique. Qu'il s'agisse des procédures d'acte de naissance ou de l'emplacement des écoles, les citoyens ne devraient pas avoir à se fier aux rumeurs. Nous fournissons des données municipales officielles et vérifiées."
+            }
+        },
+        "flow": {
+            "title": "Le Flux de la Confiance",
+            "step1": "Rapport Citoyen",
+            "step1Desc": "Photo envoyée via 3G",
+            "step2": "Base de Données Cloud",
+            "step2Desc": "Stockée en toute sécurité",
+            "step3": "Action du CASEC",
+            "step3Desc": "Vérifié et Résolu"
+        },
+        "leadership": {
+            "title": "Une Nouvelle Norme pour le Leadership",
+            "desc1": "Nous ne nous contentons pas de suivre des projets ; nous documentons l'héritage professionnel des personnes qui construisent Haïti.",
+            "desc2": "Grâce à notre partenariat avec Vwa, chaque Maire, ASEC et CASEC bénéficie d'un profil professionnel vérifié. Cela permet aux citoyens de voir leur parcours, leurs anciens rôles et leurs réalisations vérifiées—créant une histoire permanente de service.",
+            "partnerBadge": "Partenaire Stratégique",
+            "partnerTitle": "Propulsé par Vwa",
+            "partnerSubtitle": "La plateforme de vérification définitive pour les professionnels haïtiens.",
+            "feature1": "Vérification d'Identité",
+            "feature2": "Authentification des Rôles",
+            "feature3": "Historique des Performances"
+        }
+    },
+    "Navbar": {
+        "services": "Services",
+        "government": "Gouvernement",
+        "report": "Signaler",
+        "pay": "Payer",
+        "donate": "Faire un don",
+        "hotline": "Ligne d'Urgence 24/7 : 129",
+        "emergencyAlerts": "Alertes et mises à jour d'urgence",
+        "hub": "Centre des Services Municipaux",
+        "openMenu": "Ouvrir le menu principal",
+        "donatePay": "Donner / Payer"
     },
     "Common": {
         "backToHome": "Retour à l'Accueil",
         "search": "Rechercher",
         "contact": "Contact",
-        "login": "Connexion"
+        "login": "Connexion",
+        "language": "Langue",
+        "selectLanguage": "Choisir la langue"
+    },
+    "Footer": {
+        "tagline": "Connecter les résidents aux services civiques et aux données.",
+        "projectDetails": "Détails du Projet",
+        "vision": "Notre Vision",
+        "techManifesto": "Manifeste Technique",
+        "impact": "Impact en Haïti",
+        "roadmap": "Feuille de Route",
+        "contribution": "Guide de Contribution",
+        "resources": "Ressources",
+        "dataCatalog": "Catalogue de Données Ouvertes",
+        "eventsApi": "API d'Événements",
+        "terms": "Conditions d'Utilisation",
+        "privacy": "Politique de Confidentialité",
+        "support": "Support",
+        "contactUs": "Contactez-nous",
+        "reportIssue": "Signaler un Problème",
+        "suggestFeature": "Suggérer une Fonctionnalité",
+        "sitemap": "Tout Sèvis (Plan du site)",
+        "rights": "Tous droits réservés.",
+        "license": "© 2025 Projet Portail de la Ville d'Haïti. Licence Source-Available. Utilisation commerciale interdite.",
+        "accessibility": "Accessibilité",
+        "feedback": "Rétroaction"
+    },
+    "Facility": {
+        "backToDirectory": "← Retour à l'Annuaire",
+        "location": "Emplacement",
+        "contact": "Contact",
+        "entryFee": "Frais d'Entrée",
+        "amenities": "Équipements",
+        "noPhone": "Aucun téléphone répertorié",
+        "clickToCall": "Cliquer pour Appeler",
+        "viewOnMap": "Voir sur la Carte",
+        "aboutFacility": "À propos de cet établissement",
+        "officialNotice": "Ceci est un établissement public officiel enregistré auprès de la municipalité de {tenant}.",
+        "emergencyNotice": "Pour les urgences, veuillez composer le 114 (Police) ou le 116 (Médical).",
+        "reportAlert": "Signaler un Dommage / Alerte de Préservation"
     }
 }

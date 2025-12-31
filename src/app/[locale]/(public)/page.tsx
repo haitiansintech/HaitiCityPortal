@@ -41,53 +41,53 @@ export default async function Home() {
   const commonServices = [
     {
       icon: <FileText className="h-10 w-10 text-brand-blue" />,
-      title: "Birth Certificates",
-      description: "Request or verify birth certificates online.",
+      title: t("commonServices.birthCertificates.title"),
+      description: t("commonServices.birthCertificates.description"),
       link: "/services/birth-certificates"
     },
     {
       icon: <Trash2 className="h-10 w-10 text-brand-blue" />,
-      title: "Trash Pickup",
-      description: "Schedule pickup or report missed collection.",
+      title: t("commonServices.trashPickup.title"),
+      description: t("commonServices.trashPickup.description"),
       link: "/services/trash"
     },
     {
       icon: <Store className="h-10 w-10 text-brand-blue" />,
-      title: "Business Permits",
-      description: "Apply for or renew business licenses.",
+      title: t("commonServices.businessPermits.title"),
+      description: t("commonServices.businessPermits.description"),
       link: "/services/permits"
     },
     {
       icon: <CreditCard className="h-10 w-10 text-brand-blue" />,
-      title: "Pay Property Tax",
-      description: "Look up and pay your property tax online.",
+      title: t("commonServices.propertyTax.title"),
+      description: t("commonServices.propertyTax.description"),
       link: "/tax/lookup"
     },
     {
       icon: <AlertTriangle className="h-10 w-10 text-brand-blue" />,
-      title: "Report an Issue",
-      description: "Report potholes, streetlights, or other problems.",
+      title: t("commonServices.reportIssue.title"),
+      description: t("commonServices.reportIssue.description"),
       link: "/report"
     },
     {
       icon: <Calendar className="h-10 w-10 text-brand-blue" />,
-      title: "Community Events",
-      description: "Find town halls, clinics, and local meetings.",
+      title: t("commonServices.communityEvents.title"),
+      description: t("commonServices.communityEvents.description"),
       link: "/events"
     },
     {
       icon: <Info className="h-10 w-10 text-brand-blue" />,
-      title: "Open Data",
-      description: "Explore municipal datasets and spending.",
+      title: t("commonServices.openData.title"),
+      description: t("commonServices.openData.description"),
       link: "/data"
     },
   ];
 
   const quickActions = [
-    { label: "Report Pothole", icon: <MapPin className="h-5 w-5" />, href: "/report" },
-    { label: "Pay Parking Ticket", icon: <CreditCard className="h-5 w-5" />, href: "/pay" },
-    { label: "Trash Schedule", icon: <Trash2 className="h-5 w-5" />, href: "/services/trash" },
-    { label: "Pay Fees", icon: <Banknote className="h-5 w-5" />, href: "/pay" },
+    { label: t("quickActions.reportPothole"), icon: <MapPin className="h-5 w-5" />, href: "/report" },
+    { label: t("quickActions.payParking"), icon: <CreditCard className="h-5 w-5" />, href: "/pay" },
+    { label: t("quickActions.trashSchedule"), icon: <Trash2 className="h-5 w-5" />, href: "/services/trash" },
+    { label: t("quickActions.payFees"), icon: <Banknote className="h-5 w-5" />, href: "/pay" },
   ];
 
   const jsonLd = {
@@ -145,10 +145,9 @@ export default async function Home() {
       <section className="w-full bg-brand-blue py-8 border-y border-brand-blue">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <QuickActionLink href="/report" icon={<MapPin className="h-5 w-5" />} label={t("quickActions.reportPothole")} />
-            <QuickActionLink href="/pay" icon={<CreditCard className="h-5 w-5" />} label={t("quickActions.payParking")} />
-            <QuickActionLink href="/services/trash" icon={<Trash2 className="h-5 w-5" />} label={t("quickActions.trashSchedule")} />
-            <QuickActionLink href="/pay" icon={<Banknote className="h-5 w-5" />} label={t("quickActions.payFees")} />
+            {quickActions.map((action, idx) => (
+              <QuickActionLink key={idx} href={action.href} icon={action.icon} label={action.label} />
+            ))}
           </div>
         </div>
       </section>
@@ -182,7 +181,7 @@ export default async function Home() {
                   </CardContent>
                   <CardFooter>
                     <span className="flex items-center text-sm font-bold text-brand-blue uppercase tracking-wider group-hover:underline">
-                      Get Started <ArrowRight className="ml-1 h-3 w-3" />
+                      {t("services.getStarted")} <ArrowRight className="ml-1 h-3 w-3" />
                     </span>
                   </CardFooter>
                 </Card>
@@ -197,15 +196,15 @@ export default async function Home() {
                     <Users className="h-10 w-10 text-brand-blue" />
                   </div>
                   <CardTitle className="text-xl font-bold text-ink-primary group-hover:text-brand-blue">
-                    Local Officials
+                    {t("commonServices.localOfficials.title")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-ink-secondary">Find and contact your CASEC, ASEC, and Town Delegates.</p>
+                  <p className="text-ink-secondary">{t("commonServices.localOfficials.description")}</p>
                 </CardContent>
                 <CardFooter>
                   <span className="flex items-center text-sm font-bold text-brand-blue uppercase tracking-wider group-hover:underline">
-                    View Directory <ArrowRight className="ml-1 h-3 w-3" />
+                    {t("services.viewDirectory")} <ArrowRight className="ml-1 h-3 w-3" />
                   </span>
                 </CardFooter>
               </Card>
@@ -218,15 +217,15 @@ export default async function Home() {
                     <Info className="h-10 w-10 text-brand-blue" />
                   </div>
                   <CardTitle className="text-xl font-bold text-ink-primary group-hover:text-brand-blue">
-                    Government Guide
+                    {t("commonServices.govGuide.title")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-ink-secondary">Learn how local elective bodies and the Mairie work for you.</p>
+                  <p className="text-ink-secondary">{t("commonServices.govGuide.description")}</p>
                 </CardContent>
                 <CardFooter>
                   <span className="flex items-center text-sm font-bold text-brand-blue uppercase tracking-wider group-hover:underline">
-                    Learn More <ArrowRight className="ml-1 h-3 w-3" />
+                    {t("services.learnMore")} <ArrowRight className="ml-1 h-3 w-3" />
                   </span>
                 </CardFooter>
               </Card>
@@ -259,21 +258,23 @@ export default async function Home() {
               </div>
               <div className="text-center md:text-left space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-brand-blue font-bold text-xs uppercase tracking-widest border border-brand-blue/10">
-                  Leadership
+                  {t("mayor.badge")}
                 </div>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-ink-primary leading-tight">A Message from Mayor <br /><span className="text-brand-blue">{tenant.mayor_name}</span></h2>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-ink-primary leading-tight">
+                  {t("mayor.title")} <br /><span className="text-brand-blue">{tenant.mayor_name}</span>
+                </h2>
                 <p className="text-lg md:text-xl text-ink-secondary leading-relaxed italic max-w-2xl">
-                  "{tenant.mayor_bio || "Welcome to our city's digital portal. We are committed to transparency, accessibility, and serving every citizen with dignity. Let's build our community together."}"
+                  "{tenant.mayor_bio || t("mayor.defaultBio")}"
                 </p>
                 <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
                   <Button asChild className="rounded-xl px-8 h-12 font-bold shadow-lg">
-                    <Link href="/officials">Contact My Representatives</Link>
+                    <Link href="/officials">{t("mayor.contactRep")}</Link>
                   </Button>
                   <div className="flex items-center gap-3 text-sm font-bold text-ink-secondary uppercase tracking-wider">
                     <div className="h-10 w-10 rounded-full border-2 border-brand-blue flex items-center justify-center">
                       <Image src="/logo-small.png" width={24} height={24} alt="HT" className="opacity-50" />
                     </div>
-                    Office of the Mayor, {tenant.name}
+                    {t("mayor.office")}, {tenant.name}
                   </div>
                 </div>
               </div>
@@ -287,7 +288,7 @@ export default async function Home() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="mb-12 border-b-4 border-neutral-300 pb-4">
             <h2 className="text-3xl font-bold uppercase tracking-wide text-ink-primary">
-              Recent Updates
+              {t("news.title")}
             </h2>
           </div>
 
@@ -304,7 +305,7 @@ export default async function Home() {
                 </h3>
                 <p className="text-ink-secondary">{news.desc}</p>
                 <div className="mt-auto pt-4">
-                  <span className="text-sm font-semibold text-brand-blue cursor-pointer hover:underline">Read more →</span>
+                  <span className="text-sm font-semibold text-brand-blue cursor-pointer hover:underline">{t("news.readMore")}</span>
                 </div>
               </div>
             ))}

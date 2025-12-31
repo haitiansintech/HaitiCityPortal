@@ -16,13 +16,222 @@
         "services": {
             "title": "Sèvis Enpòtan",
             "viewAll": "Gade Tout Sèvis →",
-            "getStarted": "Kòmanse"
+            "getStarted": "Kòmanse",
+            "viewDirectory": "Gade Anyè a",
+            "learnMore": "Aprann Plis",
+            "reportAlert": "Rapòte Domaj / Alèt Prezèvasyon"
+        },
+        "commonServices": {
+            "birthCertificates": {
+                "title": "Akt Nesans",
+                "description": "Mande oswa verifye akt nesans sou entènèt."
+            },
+            "trashPickup": {
+                "title": "Ranmase Fatra",
+                "description": "Planifye ranmase fatra oswa rapòte si yo pa pase."
+            },
+            "businessPermits": {
+                "title": "Pèmi Biznis",
+                "description": "Mande oswa renouvle lisans biznis."
+            },
+            "propertyTax": {
+                "title": "Peye Tak Pwopriyete",
+                "description": "Chèche epi peye tak pwopriyete w sou entènèt."
+            },
+            "reportIssue": {
+                "title": "Rapòte yon Pwoblèm",
+                "description": "Rapòte twou nan wout, lanp lari ki mouri, oswa lòt pwoblèm."
+            },
+            "communityEvents": {
+                "title": "Evènman Kominotè",
+                "description": "Jwenn enfòmasyon sou reyinyon Meri, klinik, ak lòt rankont lokal."
+            },
+            "openData": {
+                "title": "Done Ouvè",
+                "description": "Eksplore done minisipal yo ak fason lajan depanse."
+            },
+            "localOfficials": {
+                "title": "Otorite Lokal yo",
+                "description": "Jwenn epi kontakte CASEC, ASEC, ak Delegue Vil ou yo."
+            },
+            "govGuide": {
+                "title": "Gid Gouvènman",
+                "description": "Aprann kijan otorite lokal yo ak Meri a ap travay pou ou."
+            }
+        },
+        "mayor": {
+            "badge": "Lidèchip",
+            "title": "Yon Mesaj nan men Majistra a",
+            "defaultBio": "Byenveni nan portal dijital vil nou an. Nou pran angajman pou transparans, aksè fasil, ak sèvi chak sitwayen ak diyite. Ann bati kominote nou an ansanm.",
+            "contactRep": "Kontakte Reprezantan m yo",
+            "office": "Biwo Majistra a"
+        },
+        "news": {
+            "title": "Dènye Nouvèl",
+            "readMore": "Li plis →"
         }
+    },
+    "RoadmapPage": {
+        "title": "Plan Travay Pwodwi a",
+        "description": "Transparans rive jis nan kòd nou an. Men sa n ap bati apre sa.",
+        "timeline": {
+            "month": {
+                "badge": "Mwa Pwochèn",
+                "title": "Mobil ak San Entènèt Dabò",
+                "desc": "Optimize \"Dashboard sou Teren\" an pou rezo EDGE 2G.",
+                "item1": "Mete nan kach san entènèt pou Demann Sèvis",
+                "item2": "Sistèm SMS si entènèt la pa bon",
+                "item3": "Kompresyon imaj (fini)"
+            },
+            "quarter": {
+                "badge": "Trimès Pwochèn",
+                "title": "Ekspansyon ak GIS",
+                "desc": "Nou pral rive nan 5 lòt minisipalite epi n ap amelyore zouti yo.",
+                "item1": "Entegrasyon ak Vwa pou Verifikasyon Ofisyèl",
+                "item2": "Entegrasyon ak OpenStreetMap pou zòn ki pa gen kat",
+                "item3": "Modil jesyon \"Adopte yon Pak\"",
+                "item4": "Sistèm pèmi avanse pou konstriksyon"
+            },
+            "vision": {
+                "badge": "Vizyon pou pi Devan",
+                "title": "Idantite ak Tè",
+                "desc": "Objektif alontèm pou souverènte dijital.",
+                "item1": "Rejis tè verifye ak Blockchain",
+                "item2": "Entegrasyon Idantite Sivil (NIF/CIN)",
+                "item3": "Vòt pou bidjè patisipatif"
+            }
+        },
+        "feedback": {
+            "title": "Kominikasyon ak Kominote a",
+            "description": "Nou bati sa w bezwen. Patisipe nan diskisyon pou mande nouvo fonksyon oswa bay vwa pou lide ki deja la yo.",
+            "join": "Antre nan Diskisyon an",
+            "upvote": "Bay Vwa pou Fonksyon"
+        }
+    },
+    "TechManifesto": {
+        "title": "Manifès Sous Souverèn lan",
+        "subtitle": "Nou pa sèlman ap bati lojisyèl; n ap bati enstitisyon. Chwa teknik nou yo montre angajman nou pou otonomi, rezistans, ak diyite Ayiti.",
+        "pillars": {
+            "2g": {
+                "title": "Konpòtman 2G Dabò",
+                "description": "Nou optimize pou pi piti nivo koneksyon an Ayiti. Si yon paj pa chaje sou yon rezo Edge nan yon seksyon kominal, se yon erè li ye."
+            },
+            "accountability": {
+                "title": "Responsablite Pwofesyonèl",
+                "description": "Chak ofisyèl minisipal lye ak yon pwofil Vwa verifye, sa fè lidèchip lokal tounen yon pwofesyon nòmal."
+            },
+            "sovereignty": {
+                "title": "Souverènte Done yo",
+                "description": "Bati ak BSL 1.1, platfòm sa a garanti done minisipal Ayiti yo se pou minisipalite a, se pa pou antite etranje."
+            },
+            "transparency": {
+                "title": "Transparans nan Kòd la",
+                "description": "Istwa operasyon yo ak frè yo parèt aklè nan sistèm nan, sa rann li pi difisil pou kache koripsyon."
+            }
+        },
+        "footer": {
+            "established": "FONDÉ NAN 2025",
+            "title": "Bati pou Ayiti. Pwopriyete Ayiti.",
+            "description": "Kòd sa a disponib anba lisans Business Source License 1.1, sa ki garanti done yo rete pou pèp Ayisyen an."
+        }
+    },
+    "ImpactPage": {
+        "title": "Poukisa sa Enpòtan",
+        "subtitle": "N ap bati enfrastrikti dijital pou yon nouvo epòk konfyans ant sitwayen ak leta. Platfòm nou an pèmèt sitwayen ak ofisyèl travay ansanm nan kat domèn sa yo.",
+        "pillars": {
+            "transparency": {
+                "title": "Transparans",
+                "description": "Wè kijan lajan ap depanse an tan reyèl. Chante kòb ki kolekte ak sa ki depanse parèt aklè, pou koripsyon pa ka kache."
+            },
+            "accountability": {
+                "title": "Responsablite",
+                "description": "Rapò dirèk. Lè yon moun rapòte yon twou nan wout oswa fatra ki pa ranmase, sa ale dirèkteman nan sistèm CASEC ki responsab la."
+            },
+            "digital": {
+                "title": "Transfòmasyon Dijital",
+                "description": "Kite papye, pase nan dijital. Nou ranplase gwo rejis papye ki ka boule oswa pèdi ak baz de done sou nwaj ki an sekirite."
+            },
+            "data": {
+                "title": "Aksè nan Done yo",
+                "description": "Yon sèl Sous Verite. Kit se pou nesans oswa kote lekòl yo ye, sitwayen pa dwe konte sou tripotay. Nou bay enfòmasyon ofisyèl."
+            }
+        },
+        "flow": {
+            "title": "Kijan Konfyans lan Mache",
+            "step1": "Rapò Sitwayen",
+            "step1Desc": "Foto voye ak 3G",
+            "step2": "Baz de Done sou Nwaj",
+            "step2Desc": "Sere an sekirite",
+            "step3": "Aksyon CASEC",
+            "step3Desc": "Verifye epi Rezoud"
+        },
+        "leadership": {
+            "title": "Yon Nouvo Nivo pou Lidèchip",
+            "desc1": "Nou pa sèlman ap swiv pwojè; n ap dokimante istwa pwofesyonèl moun k ap bati Ayiti yo.",
+            "desc2": "Gras ak patenarya nou ak Vwa, chak Majistra, ASEC, ak CASEC jwenn yon pwofil pwofesyonèl verifye. Sa pèmèt sitwayen yo wè travay yo deja fè.",
+            "partnerBadge": "Patnè Estratejik",
+            "partnerTitle": "Pouvwa pa Vwa",
+            "partnerSubtitle": "Pi gwo platfòm verifikasyon pou pwofesyonèl Ayisyen.",
+            "feature1": "Verifikasyon Idantite",
+            "feature2": "Otantifikasyon Wòl",
+            "feature3": "Istwa Travay"
+        }
+    },
+    "Navbar": {
+        "services": "Sèvis yo",
+        "government": "Gouvènman",
+        "report": "Rapòte",
+        "pay": "Peye",
+        "donate": "Fè yon kado",
+        "hotline": "Liy Ijans 24/7: 129",
+        "emergencyAlerts": "Alèt ijans ak nouvèl",
+        "hub": "Sant Sèvis Minisipal",
+        "openMenu": "Louvri meni an",
+        "donatePay": "Fè kado / Peye"
     },
     "Common": {
         "backToHome": "Tounen Lakay",
         "search": "Chèche",
         "contact": "Kontakte nou",
-        "login": "Konekte"
+        "login": "Konekte",
+        "language": "Lang",
+        "selectLanguage": "Chwazi lang"
+    },
+    "Footer": {
+        "tagline": "Konekte rezidan yo ak sèvis sivil ak done yo.",
+        "projectDetails": "Detay Pwojè a",
+        "vision": "Vizyon nou",
+        "techManifesto": "Manifès Teknik",
+        "impact": "Enpak an Ayiti",
+        "roadmap": "Plan Travay",
+        "contribution": "Gid Kontribisyon",
+        "resources": "Resous",
+        "dataCatalog": "Katalòg Done Ouvè",
+        "eventsApi": "API Evènman yo",
+        "terms": "Kondisyon Itilizasyon",
+        "privacy": "Règleman Konfidansyalite",
+        "support": "Sipò",
+        "contactUs": "Kontakte nou",
+        "reportIssue": "Rapòte yon Pwoblèm",
+        "suggestFeature": "Sigjere yon Fonksyon",
+        "sitemap": "Tout Sèvis (Plan sit)",
+        "rights": "Tout dwa rezève.",
+        "license": "© 2025 Pwojè Portal Vil Ayiti. Lisans Source-Available. Itilizasyon komèsyal entèdi.",
+        "accessibility": "Aksesibilite",
+        "feedback": "Kominikasyon"
+    },
+    "Facility": {
+        "backToDirectory": "← Tounen nan Anyè a",
+        "location": "Kote li ye",
+        "contact": "Kontak",
+        "entryFee": "Frè Antre",
+        "amenities": "Sèvis ki genyen",
+        "noPhone": "Pa gen nimewo telefòn",
+        "clickToCall": "Klike pou Rele",
+        "viewOnMap": "Gade sou Kat",
+        "aboutFacility": "Enfòmasyon sou lokal sa a",
+        "officialNotice": "Sa a se yon lokal piblik ofisyèl ki anrejistre nan meri {tenant}.",
+        "emergencyNotice": "Pou ijans, rele 114 (Polis) oswa 116 (Ijans Medikal).",
+        "reportAlert": "Rapòte Domaj / Alèt Prezèvasyon"
     }
 }

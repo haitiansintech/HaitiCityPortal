@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getMessages } from 'next-intl/server';
-import { NextIntlClientProvider } from 'next-intl';
+import ClientIntlProvider from "@/components/providers/ClientIntlProvider";
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Navbar from "@/components/nav/Navbar";
@@ -107,7 +107,10 @@ export default async function LocaleLayout({
         className="min-h-screen font-sans bg-canvas text-ink"
         suppressHydrationWarning
       >
-        <NextIntlClientProvider messages={messages}>
+        <ClientIntlProvider
+          messages={messages}
+          locale={locale}
+        >
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
@@ -127,7 +130,7 @@ export default async function LocaleLayout({
               </div>
             </LanguageProvider>
           </TenantProvider>
-        </NextIntlClientProvider>
+        </ClientIntlProvider>
       </body>
     </html>
   );
