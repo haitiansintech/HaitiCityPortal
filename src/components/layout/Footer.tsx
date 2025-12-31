@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import LocaleSwitcher from "@/components/nav/LocaleSwitcher";
+import { useTenant } from "@/components/providers/TenantProvider";
 
 const footerLinks = {
   About: [
@@ -22,6 +25,8 @@ const footerLinks = {
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const tenant = useTenant();
+
   return (
     <footer className="mt-24 border-t border-gray-200 bg-gray-50 text-gray-700">
       <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
@@ -30,7 +35,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-sky-600 text-xs font-bold text-white">HT</div>
-              <span className="font-bold text-[#333333]">Haiti City Portal</span>
+              <span className="font-bold text-[#333333]">{tenant?.name || "Haiti City Portal"}</span>
             </Link>
             <p className="text-sm text-gray-600 leading-snug">
               Connecting residents with civic services and data.
@@ -65,7 +70,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Haiti City Portal. All rights reserved.</p>
+          <p>© {year} {tenant?.name || "Haiti City Portal"}. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
             <LocaleSwitcher />
             <Link
@@ -86,3 +91,4 @@ export default function Footer() {
     </footer>
   );
 }
+

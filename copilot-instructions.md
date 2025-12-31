@@ -5,6 +5,12 @@ Build a Next.js 15 + TypeScript civic MVP with:
 - Postgres (Drizzle ORM), NextAuth, Object Storage
 - MapLibre (client map), next-intl (en/ht/fr/es), Tailwind v4 + shadcn/ui
 
+## ARCHITECTURE HARD RULES (Do Not Violate)
+1. **Multi-Tenancy**: ALWAYS add `tenant_id` to every database model/table (except global tables like `Tenants`). All queries must filter by this.
+2. **IDs**: NEVER use Integer Auto-Increment. ALWAYS use **UUIDv4** for all IDs to support offline generation.
+3. **Offline-First**: All forms must support a "Draft" state (save to local storage) to handle internet failure.
+4. **Localization**: Use `next-intl` for all text; NEVER hardcode strings.
+
 ## First tasks (in order)
 
 1. **Scaffold** `src/` App Router folders and pages above.

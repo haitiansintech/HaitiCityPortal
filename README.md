@@ -2,6 +2,9 @@
 
 Next.js 15 + TypeScript civic portal for reporting issues, exploring municipal data, and launching key resident services.
 
+## Architecture: Headless Multi-Tenant SaaS
+This project is a single codebase that serves multiple municipalities. Cities are resolved via subdomain (e.g. `jacmel.portal.ht`). content is isolated by `tenant_id`.
+
 ## Getting started
 
 1. Copy the environment template and configure your database and auth credentials:
@@ -10,10 +13,21 @@ Next.js 15 + TypeScript civic portal for reporting issues, exploring municipal d
    cp .env.local.example .env.local
    ```
 
-2. Install dependencies and run the development server:
+2. Install dependencies:
 
    ```bash
    npm install
+   ```
+
+3. **Seed the Test Tenant**:
+   You must seed a tenant (e.g., localhost -> "Demo City") to run the app locally.
+   ```bash
+   npm run db:seed
+   ```
+
+4. Run the development server:
+
+   ```bash
    npm run dev
    ```
 
