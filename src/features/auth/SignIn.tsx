@@ -12,9 +12,7 @@ const SignIn: React.FC = () => {
         // Add authentication logic here
         try {
             // Example: await auth.signInWithEmailAndPassword(email, password);
-            console.log('Signing in with:', { email, password });
         } catch (err) {
-            console.error(err);
             setError('Failed to sign in. Please check your credentials.');
         }
     };

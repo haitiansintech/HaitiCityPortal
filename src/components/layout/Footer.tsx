@@ -19,7 +19,7 @@ const footerLinks = {
   ],
   Support: [
     { href: "mailto:info@haiticity.org", label: "info@haiticity.org" },
-    { href: "/issues/new", label: "Report an issue" },
+    { href: "/report", label: "Report an issue" },
   ],
 } as const;
 
@@ -61,31 +61,33 @@ export default function Footer() {
           </div>
 
           {/* Col 4: Support */}
-          <div>
-            <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-[#333333]">Support</h3>
+          <div className="space-y-4">
+            <h3 className="text-sm font-bold uppercase tracking-wide text-[#333333]">Support</h3>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><Link href="/issues" className="hover:text-sky-600">Report an Issue</Link></li>
+              <li><Link href="/report" className="hover:text-sky-600">Report an Issue</Link></li>
               <li><a href="mailto:info@haiticity.org" className="hover:text-sky-600">info@haiticity.org</a></li>
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {tenant?.name || "Haiti City Portal"}. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-4">
-            <LocaleSwitcher />
-            <Link
-              href="/accessibility"
-              className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Accessibility
-            </Link>
-            <Link
-              href="mailto:info@haiticity.org"
-              className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Feedback
-            </Link>
-          </div>
+
+      </div>
+
+      <div className="mt-12 flex flex-col gap-4 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {year} {tenant?.name || "Haiti City Portal"}. All rights reserved.</p>
+        <div className="flex flex-wrap items-center gap-4">
+          <LocaleSwitcher />
+          <Link
+            href="/accessibility"
+            className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            Accessibility
+          </Link>
+          <Link
+            href="mailto:info@haiticity.org"
+            className="rounded-md border border-gray-200 px-3 py-1 text-gray-600 transition hover:border-primary hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            Feedback
+          </Link>
         </div>
       </div>
     </footer>

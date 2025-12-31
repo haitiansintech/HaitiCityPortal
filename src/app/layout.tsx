@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Navbar from "@/components/nav/Navbar";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
-import "./manual-fixes.css"; // Force load overrides
 
 import { headers } from "next/headers";
 import { db } from "@/db";
 import { tenants } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { TenantProvider } from "@/components/providers/TenantProvider";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://haiti-city-portal.example"),
@@ -38,10 +32,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     tenant = result[0];
 
     if (!tenant) {
-      console.warn(`[Layout] No tenant found for subdomain: ${subdomainHeader}`);
+      // No tenant found - fallback to demo
     }
   } catch (error) {
-    console.error("[Layout] Failed to fetch tenant:", error);
+    // Fail silently in production
   }
 
   // Fallback if DB fetch fails or tenant not found
@@ -52,6 +46,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       subdomain: "demo",
       logo_url: null,
       primary_color: "#0284c7",
+      moncash_merchant_id: null,
+      bank_name: null,
+      bank_swift_code: null,
+      bank_account_number: null,
+      bank_beneficiary_name: null,
+      whatsapp_number: null,
       created_at: new Date()
     }
   }
@@ -59,7 +59,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} min-h-screen font-sans bg-canvas text-ink`}
+        className="min-h-screen font-sans bg-canvas text-ink"
         suppressHydrationWarning
       >
         <a
@@ -68,13 +68,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           Skip to main content
         </a>
-        <TenantProvider tenant={tenant}>
+        <TenantProvider tenant={tenant as any}>
           <div className="flex min-h-screen w-full flex-col bg-white">
             <Navbar />
             <main id="main-content" className="flex-1">
               {children}
             </main>
             <Footer />
+            {tenant.whatsapp_number && <WhatsAppButton phoneNumber={tenant.whatsapp_number} />}
           </div>
         </TenantProvider>
       </body>

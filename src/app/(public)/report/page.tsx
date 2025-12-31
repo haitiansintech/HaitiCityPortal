@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { db } from "@/db";
-import { services, tenants } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { services, tenants, communal_sections } from "@/db/schema";
+import { eq, asc } from "drizzle-orm";
 import ServiceRequestForm from "@/components/forms/ServiceRequestForm";
 
 export const metadata = {
@@ -13,8 +13,9 @@ export default async function ReportPage() {
     const headersList = await headers();
     const subdomainHeader = headersList.get("x-tenant-subdomain") || "demo";
 
-    // Fetch tenant and their services
+    // Fetch tenant and their services/sections
     let availableServices: any[] = [];
+    let availableSections: any[] = [];
 
     try {
         const tenant = await db
@@ -34,6 +35,12 @@ export default async function ReportPage() {
                 .where(eq(services.tenant_id, tenant[0].id));
 
             availableServices = tenantServices;
+
+            const sections = await db.query.communal_sections.findMany({
+                where: eq(communal_sections.tenant_id, tenant[0].id),
+                orderBy: [asc(communal_sections.name)],
+            });
+            availableSections = sections;
         }
     } catch (error) {
         console.error("Failed to fetch services:", error);
@@ -52,7 +59,7 @@ export default async function ReportPage() {
                     </p>
                 </div>
 
-                <ServiceRequestForm services={availableServices} />
+                <ServiceRequestForm services={availableServices} sections={availableSections} />
 
                 <div className="mt-8 text-center text-sm text-gray-500">
                     <p>

@@ -25,7 +25,8 @@ async function verifyServices() {
             if (tenantServices.length > 0) {
                 console.log(`  Services:`);
                 tenantServices.forEach((s, idx) => {
-                    console.log(`    ${idx + 1}. ${s.service_name?.en || s.service_code} (code: ${s.service_code})`);
+                    const name = s.service_name as any;
+                    console.log(`    ${idx + 1}. ${name?.en || s.service_code} (code: ${s.service_code})`);
                 });
             } else {
                 console.log(`  ⚠️  NO SERVICES FOUND!`);

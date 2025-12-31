@@ -14,7 +14,6 @@ const ReportForm: React.FC = () => {
         }
         setError('');
         // Submit the report (API call can be implemented here)
-        console.log({ title, description, location });
     };
 
     return (

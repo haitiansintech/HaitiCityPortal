@@ -9,6 +9,7 @@ import { eq, and } from "drizzle-orm";
 // Validation schema for Open311 service requests
 const ServiceRequestSchema = z.object({
     service_code: z.string().min(1, "Service code is required"),
+    communal_section_id: z.string().min(1, "Communal section is required"),
     description: z.string().min(10, "Description must be at least 10 characters"),
     latitude: z.number().optional(),
     longitude: z.number().optional(),
@@ -76,6 +77,7 @@ export async function submitServiceRequest(input: ServiceRequestInput) {
             .values({
                 tenant_id: tenantId,
                 service_code: validatedData.service_code,
+                communal_section_id: validatedData.communal_section_id,
                 service_name: null, // Could be looked up from services table
                 description: validatedData.description,
                 latitude: validatedData.latitude,

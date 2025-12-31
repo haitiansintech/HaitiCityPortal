@@ -8,9 +8,9 @@ import { useTenant } from "@/components/providers/TenantProvider";
 
 const navLinks = [
   { href: "/services", label: "Services" },
-  { href: "/news", label: "News" },
-  { href: "/policies", label: "Policies" },
-  { href: "/contact", label: "Contact" },
+  { href: "/officials", label: "Government" },
+  { href: "/report", label: "Report" },
+  { href: "/pay", label: "Pay" },
 ];
 
 export default function Navbar() {
@@ -62,27 +62,52 @@ export default function Navbar() {
           </Button>
         </div>
 
-        {/* Mobile Menu Button - TODO: Implement with proper state */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
             <span className="sr-only">Open main menu</span>
-            <svg
-              className="h-6 w-6 text-ink-primary"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+            {isOpen ? (
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg
+                className="h-6 w-6 text-ink-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            )}
           </Button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden border-t border-gray-100 bg-white py-4 px-6 space-y-4 animate-in fade-in slide-in-from-top-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="block text-base font-semibold text-ink-primary hover:text-brand-blue"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Button variant="destructive" asChild className="w-full justify-start">
+            <Link href="/pay" onClick={() => setIsOpen(false)}>Donate / Pay</Link>
+          </Button>
+        </div>
+      )}
     </header>
   );
 }
