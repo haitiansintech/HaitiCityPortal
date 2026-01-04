@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createPaymentIntent } from "@/app/actions/payments";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Info, Banknote, Landmark, Copy, CheckCircle2, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface TenantBankDetails {
     bank_name: string;

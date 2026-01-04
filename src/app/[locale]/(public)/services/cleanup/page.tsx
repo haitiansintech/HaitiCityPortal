@@ -1,6 +1,7 @@
 import ServiceInfoPage from "@/components/ui/ServiceInfoPage";
 import { Button } from "@/components/ui/button";
-import { Link, routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 export function generateStaticParams() {

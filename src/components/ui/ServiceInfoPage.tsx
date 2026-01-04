@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Link } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, CheckCircle2, FileText, CreditCard, HelpCircle } from 'lucide-react';
@@ -27,6 +27,8 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
     secondaryAction
 }) => {
     const t = useTranslations("ServiceInfo");
+    const safeSteps = Array.isArray(steps) ? steps : [];
+    const safeDocuments = Array.isArray(documents) ? documents : [];
 
     return (
         <div className="min-h-screen bg-canvas py-12 px-4 sm:px-6 lg:px-8">
@@ -53,7 +55,7 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                                 {t("howToApply")}
                             </h2>
                             <div className="bg-white rounded-2xl p-6 border border-weak shadow-sm space-y-4">
-                                {steps.map((step, index) => (
+                                {safeSteps.map((step, index) => (
                                     <div key={index} className="flex gap-4">
                                         <span className="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-blue-50 text-brand-blue font-bold text-sm">
                                             {index + 1}
@@ -72,7 +74,7 @@ const ServiceInfoPage: React.FC<ServiceInfoPageProps> = ({
                             <Card className="rounded-2xl border-weak shadow-sm">
                                 <CardContent className="pt-6">
                                     <ul className="space-y-3">
-                                        {documents.map((doc, index) => (
+                                        {safeDocuments.map((doc, index) => (
                                             <li key={index} className="flex items-start gap-3 text-ink-secondary">
                                                 <div className="h-1.5 w-1.5 rounded-full bg-brand-blue mt-2 flex-shrink-0" />
                                                 {doc}

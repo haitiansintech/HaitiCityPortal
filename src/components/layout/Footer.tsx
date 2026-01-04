@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import LocaleSwitcher from "@/components/nav/LocaleSwitcher";
 import { useTenant } from "@/components/providers/TenantProvider";
 import { Facebook, Youtube, Twitter } from "lucide-react";
@@ -11,6 +11,7 @@ export default function Footer() {
   const t = useTranslations("Footer");
   const year = new Date().getFullYear();
   const tenant = useTenant();
+  const tenantName = tenant?.name || "Haiti City Portal";
 
   const footerSections = [
     {
@@ -104,8 +105,10 @@ export default function Footer() {
 
       <div className="mt-0 flex flex-col gap-4 border-t border-gray-200 pt-6 pb-8 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="flex flex-col gap-1">
-          <p>© {year} {tenant?.name || "Haiti City Portal"}. {t("rights")}</p>
-          <p className="text-xs text-slate-400">{t("license")}</p>
+          <p>
+            © {year} {tenantName}. {t("rights")}
+            <span className="block text-xs text-slate-400">{t("license")}</span>
+          </p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <LocaleSwitcher />

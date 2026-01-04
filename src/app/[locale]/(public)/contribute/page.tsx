@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Github, Heart, Users, Shield, BookOpen, Code2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export const metadata = {
     title: "Get Involved | Haiti City Portal",

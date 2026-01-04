@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { searchPayments, uploadPaymentProof } from "@/app/actions/payments";
 import { Search, FileUp, Clock, CheckCircle, Download, ExternalLink, AlertTriangle, Loader2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function PaymentSearchAndList() {
     const [query, setQuery] = useState("");

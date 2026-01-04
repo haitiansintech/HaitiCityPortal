@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { BilingualGuide } from "@/components/common/BilingualGuide";
 
 import { getTranslations } from "next-intl/server";
