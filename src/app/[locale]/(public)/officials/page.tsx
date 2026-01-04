@@ -6,7 +6,7 @@ import { tenants as tenantsTable } from "@/db/schema";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Users, MapPin, Info, ArrowRight, BadgeCheck } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { SectionFilter } from "@/components/officials/SectionFilter";
 import { BilingualGuide } from "@/components/common/BilingualGuide";

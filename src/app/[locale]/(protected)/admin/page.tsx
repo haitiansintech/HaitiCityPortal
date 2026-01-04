@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { db } from "@/db";
 import { service_requests, tenants } from "@/db/schema";
 import { eq, and, desc, gte, sql } from "drizzle-orm";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, Clock, FileText } from "lucide-react";

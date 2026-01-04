@@ -22,7 +22,7 @@ import {
     Brush,
     Car
 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import dynamic from "next/dynamic";
 import { SectionFilter } from "@/components/officials/SectionFilter";
 import { SuggestionModal } from "@/components/directory/SuggestionModal";

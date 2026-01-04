@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 const MapView = dynamic(() => import("@/components/map/MapView"), { ssr: false });
 

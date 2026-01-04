@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, routing } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Gavel, Users, ShieldCheck, UserCog, Building2 } from 'lucide-react';

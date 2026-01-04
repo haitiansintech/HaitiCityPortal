@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, History } from "lucide-react";
 import PaymentSearchAndList from "@/components/payments/PaymentSearchAndList";

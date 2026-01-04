@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { service_requests } from "@/db/schema";
 import { eq, and, desc } from "drizzle-orm";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";

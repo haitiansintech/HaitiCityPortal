@@ -4,7 +4,7 @@ import { eq, desc } from "drizzle-orm";
 import { headers } from "next/headers";
 import { ProjectCard } from "@/components/donation/ProjectCard";
 import { HeartHandshake, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
