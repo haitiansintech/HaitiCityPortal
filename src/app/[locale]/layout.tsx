@@ -108,38 +108,31 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
-      <body
-        className="min-h-screen font-sans bg-canvas text-ink"
-        suppressHydrationWarning
+    <ClientIntlProvider
+      messages={messages}
+      locale={locale}
+      timeZone="America/Port-au-Prince"
+    >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
       >
-        <ClientIntlProvider
-          messages={messages}
-          locale={locale}
-          timeZone="America/Port-au-Prince"
-        >
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
-          >
-            Skip to main content
-          </a>
-          <TenantProvider tenant={tenant as any}>
-            <LanguageProvider>
-              <div className="flex min-h-screen w-full flex-col bg-canvas">
-                <Navbar />
-                <Breadcrumbs />
-                <main id="main-content" className="flex-1">
-                  {children}
-                </main>
-                <Footer />
-                {tenant.whatsapp_number && <WhatsAppButton phoneNumber={tenant.whatsapp_number} />}
-              </div>
-            </LanguageProvider>
-          </TenantProvider>
-        </ClientIntlProvider>
-      </body>
-    </html>
+        Skip to main content
+      </a>
+      <TenantProvider tenant={tenant as any}>
+        <LanguageProvider>
+          <div className="flex min-h-screen w-full flex-col bg-canvas">
+            <Navbar />
+            <Breadcrumbs />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            {tenant.whatsapp_number && <WhatsAppButton phoneNumber={tenant.whatsapp_number} />}
+          </div>
+        </LanguageProvider>
+      </TenantProvider>
+    </ClientIntlProvider>
   );
 }
 

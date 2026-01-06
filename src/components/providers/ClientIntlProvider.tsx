@@ -1,7 +1,7 @@
 "use client";
 
 import { NextIntlClientProvider, AbstractIntlMessages } from "next-intl";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface Props {
     messages: AbstractIntlMessages;
@@ -11,6 +11,12 @@ interface Props {
 }
 
 export default function ClientIntlProvider({ messages, locale, timeZone, children }: Props) {
+    useEffect(() => {
+        if (typeof document !== "undefined") {
+            document.documentElement.lang = locale;
+        }
+    }, [locale]);
+
     return (
         <NextIntlClientProvider
             messages={messages}
