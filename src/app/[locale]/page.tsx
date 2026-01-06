@@ -25,9 +25,7 @@ import {
 } from "lucide-react";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
-import { db } from "@/db";
-import { tenants } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getTenantBySubdomain } from "@/lib/tenants";
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
@@ -35,9 +33,7 @@ export default async function Home() {
   const headersList = await headers();
   const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-  const tenant = await db.query.tenants.findFirst({
-    where: eq(tenants.subdomain, subdomain),
-  });
+  const tenant = await getTenantBySubdomain(subdomain);
 
   const commonServices = [
     {
