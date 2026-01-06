@@ -492,16 +492,18 @@
                 "Registro original del vehículo",
                 "Prueba de seguro"
             ],
-            "fees": "Tasa de Remolque: 3,500 HTG. Tasa de Almacenamiento: 500 HTG/día (Primeras 24 horas gratis).",
-            "nationalID": {
-                "title": "Información sobre el Documento Nacional de Identidad",
-                "comingSoon": "La información sobre el Documento Nacional de Identidad (CIN) estará disponible pronto. Esta información será proporcionada por la Oficina Nacional de Identificación (ONI)."
-            },
-            "cityCouncil": {
-                "title": "Concejo Municipal",
-                "decrees": "Decretos Municipales",
-                "noDecrees": "Aún no se han publicado decretos municipales."
-            }
+            "fees": "Tasa de Remolque: 3,500 HTG. Tasa de Almacenamiento: 500 HTG/día (Primeras 24 horas gratis)."
+        },
+        "nationalID": {
+            "title": "Información sobre el Documento Nacional de Identidad",
+            "description": "Guía para solicitar, renovar o reemplazar tu Documento Nacional de Identidad (CIN) a través de la Oficina Nacional de Identificación (ONI).",
+            "comingSoon": "La información sobre el Documento Nacional de Identidad (CIN) estará disponible pronto. Esta información será proporcionada por la Oficina Nacional de Identificación (ONI)."
+        },
+        "cityCouncil": {
+            "title": "Concejo Municipal",
+            "description": "Consulta los decretos municipales, las audiencias públicas y las próximas sesiones legislativas de tu consejo local.",
+            "decrees": "Decretos Municipales",
+            "noDecrees": "Aún no se han publicado decretos municipales."
         }
     }
 }

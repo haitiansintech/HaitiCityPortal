@@ -496,10 +496,12 @@
         },
         "nationalID": {
             "title": "National ID Information",
+            "description": "Guidance on how to request, renew, or replace your Carte d'Identité Nationale (CIN) through the National Identification Office (ONI).",
             "comingSoon": "National ID Card (CIN) information will be available soon. This information will be provided by the National Identification Office (ONI)."
         },
         "cityCouncil": {
             "title": "City Council",
+            "description": "Review municipal decrees, public hearings, and upcoming legislative sessions from your city's elected council.",
             "decrees": "Municipal Decrees",
             "noDecrees": "No municipal decrees have been published yet."
         }

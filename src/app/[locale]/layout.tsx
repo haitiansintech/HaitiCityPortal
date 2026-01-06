@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import ClientIntlProvider from "@/components/providers/ClientIntlProvider";
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
@@ -67,6 +67,8 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  setRequestLocale(locale);
+
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
@@ -114,6 +116,7 @@ export default async function LocaleLayout({
         <ClientIntlProvider
           messages={messages}
           locale={locale}
+          timeZone="America/Port-au-Prince"
         >
           <a
             href="#main-content"

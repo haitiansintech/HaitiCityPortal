@@ -80,16 +80,21 @@ export default async function GovernancePage({ params }: { params: Promise<{ loc
                                 <p dangerouslySetInnerHTML={{ __html: t(`sections.${key}.description`) }} />
                                 {(() => {
                                     const list = t.raw(`sections.${key}.list`);
-                                    if (Array.isArray(list)) {
-                                        return (
-                                            <ul className="list-disc pl-6 space-y-2">
-                                                {list.map((item, i) => (
-                                                    <li key={i} dangerouslySetInnerHTML={{ __html: typeof item === 'string' ? item : (item as any).label }} />
-                                                ))}
-                                            </ul>
-                                        );
+                                    if (!Array.isArray(list) || list.length === 0) {
+                                        return null;
                                     }
-                                    return null;
+                                    return (
+                                        <ul className="list-disc pl-6 space-y-2">
+                                            {list.map((item, i) => (
+                                                <li
+                                                    key={i}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: typeof item === "string" ? item : (item as any).label,
+                                                    }}
+                                                />
+                                            ))}
+                                        </ul>
+                                    );
                                 })()}
                             </div>
                         </section>

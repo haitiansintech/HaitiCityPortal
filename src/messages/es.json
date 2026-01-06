@@ -1,0 +1,27 @@
+{
+  "Services": {
+    "nationalID": {
+      "title": "Información de Identidad Nacional",
+      "description": "La información sobre el CIN y las identificaciones estará disponible pronto."
+    },
+    "cityCouncil": {
+      "title": "Consejo Municipal",
+      "description": "Los decretos municipales y las actas de las reuniones estarán disponibles aquí en breve."
+    }
+  },
+  "TechManifesto": {
+    "title": "Manifiesto de la Fuente Soberana",
+    "subtitle": "Construyendo instituciones digitales para Haití."
+  },
+  "Governance": {
+    "sections": {
+      "mairie": {
+        "list": [
+          { "item": "Dirección Ejecutiva" },
+          { "item": "Decretos Municipales" },
+          { "item": "Audiencias Públicas" }
+        ]
+      }
+    }
+  }
+}

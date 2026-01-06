@@ -1,0 +1,16 @@
+{
+  "Services": {
+    "nationalID": {
+      "title": "Enfòmasyon sou Kat Idantite",
+      "description": "Enfòmasyon sou CIN ap disponib talè konsa."
+    },
+    "cityCouncil": {
+      "title": "Konsèy Minisipal",
+      "description": "Dekrè minisipal yo ap disponib isit la byento."
+    }
+  },
+  "TechManifesto": {
+    "title": "Manifès Sous Souverèn lan",
+    "subtitle": "Bati enstitisyon dijital pou Ayiti."
+  }
+}
