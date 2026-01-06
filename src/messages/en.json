@@ -1,0 +1,16 @@
+{
+  "Services": {
+    "nationalID": {
+      "title": "National ID Info",
+      "description": "Information on CIN and IDs is coming soon."
+    },
+    "cityCouncil": {
+      "title": "City Council",
+      "description": "Municipal decrees will be available here shortly."
+    }
+  },
+  "TechManifesto": {
+    "title": "Sovereign Source Manifesto",
+    "subtitle": "Building digital institutions for Haiti."
+  }
+}

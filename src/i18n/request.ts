@@ -3,16 +3,14 @@ import { routing } from './routing';
 
 export default getRequestConfig(async ({ requestLocale }) => {
     // This typically corresponds to the `[locale]` segment
-    let locale = await requestLocale;
-
-    // Ensure that a valid locale is used
-    if (!locale || !routing.locales.includes(locale as any)) {
-        locale = routing.defaultLocale;
-    }
+    const resolvedLocale = await requestLocale;
+    const activeLocale = routing.locales.includes(resolvedLocale as any)
+        ? (resolvedLocale as (typeof routing)["locales"][number])
+        : routing.defaultLocale;
 
     return {
-        locale,
-        messages: (await import(`../../messages/${locale}.json`)).default,
-        timeZone: 'America/Port-au-Prince'
+        locale: activeLocale,
+        messages: (await import(`../../messages/${activeLocale}.json`)).default,
+        timeZone: 'America/Port-au-Prince',
     };
 });

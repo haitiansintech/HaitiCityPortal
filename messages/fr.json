@@ -492,16 +492,18 @@
                 "Immatriculation originale du véhicule",
                 "Preuve d'assurance"
             ],
-            "fees": "Frais de remorquage : 3 500 HTG. Frais de gardiennage : 500 HTG/jour (Premières 24 heures gratuites).",
-            "nationalID": {
-                "title": "Informations sur la Carte d'Identité Nationale",
-                "comingSoon": "Les informations sur la Carte d'Identité Nationale (CIN) seront bientôt disponibles. Ces informations seront fournies par l'Office National d'Identification (ONI)."
-            },
-            "cityCouncil": {
-                "title": "Conseil Municipal",
-                "decrees": "Décrets Municipaux",
-                "noDecrees": "Aucun décret municipal n'a encore été publié."
-            }
+            "fees": "Frais de remorquage : 3 500 HTG. Frais de gardiennage : 500 HTG/jour (Premières 24 heures gratuites)."
+        },
+        "nationalID": {
+            "title": "Informations sur la Carte d'Identité Nationale",
+            "description": "Conseils pour demander, renouveler ou remplacer votre Carte d'Identité Nationale (CIN) auprès de l'Office National d'Identification (ONI).",
+            "comingSoon": "Les informations sur la Carte d'Identité Nationale (CIN) seront bientôt disponibles. Ces informations seront fournies par l'Office National d'Identification (ONI)."
+        },
+        "cityCouncil": {
+            "title": "Conseil Municipal",
+            "description": "Consultez les décrets municipaux, les audiences publiques et les prochaines sessions législatives de votre conseil local.",
+            "decrees": "Décrets Municipaux",
+            "noDecrees": "Aucun décret municipal n'a encore été publié."
         }
     }
 }

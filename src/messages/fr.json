@@ -1,0 +1,27 @@
+{
+  "Services": {
+    "nationalID": {
+      "title": "Info Carte d'Identité Nationale",
+      "description": "Les informations concernant la CIN et les pièces d'identité seront bientôt disponibles."
+    },
+    "cityCouncil": {
+      "title": "Conseil Municipal",
+      "description": "Les arrêtés municipaux et les procès-verbaux seront bientôt disponibles ici."
+    }
+  },
+  "TechManifesto": {
+    "title": "Manifeste de la Source Souveraine",
+    "subtitle": "Bâtir des institutions numériques pour Haïti."
+  },
+  "Governance": {
+    "sections": {
+      "mairie": {
+        "list": [
+          { "item": "Direction Exécutive" },
+          { "item": "Arrêtés Municipaux" },
+          { "item": "Audiences Publiques" }
+        ]
+      }
+    }
+  }
+}

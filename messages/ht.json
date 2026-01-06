@@ -492,16 +492,18 @@
                 "Anrejistreman Machin orijinal",
                 "Prèv Asirans"
             ],
-            "fees": "Frè Remokaj: 3,500 HTG. Frè Depo: 500 HTG/jou (Premye 24 èdtan yo gratis).",
-            "nationalID": {
-                "title": "Enfòmasyon sou Kat Idantite Nasyonal",
-                "comingSoon": "Enfòmasyon sou Kat Idantite Nasyonal (CIN) ap disponib byento. Enfòmasyon sa yo pral bay pa Ofis Nasyonal Idantifikasyon (ONI)."
-            },
-            "cityCouncil": {
-                "title": "Konsèy Minisipal",
-                "decrees": "Dekrè Minisipal yo",
-                "noDecrees": "Poko gen okenn dekrè minisipal ki pibliye."
-            }
+            "fees": "Frè Remokaj: 3,500 HTG. Frè Depo: 500 HTG/jou (Premye 24 èdtan yo gratis)."
+        },
+        "nationalID": {
+            "title": "Enfòmasyon sou Kat Idantite Nasyonal",
+            "description": "Aprann kijan pou mande, renouvle oswa ranplase Kat Idantite Nasyonal (CIN) ou atravè Ofis Nasyonal Idantifikasyon (ONI).",
+            "comingSoon": "Enfòmasyon sou Kat Idantite Nasyonal (CIN) ap disponib byento. Enfòmasyon sa yo pral bay pa Ofis Nasyonal Idantifikasyon (ONI)."
+        },
+        "cityCouncil": {
+            "title": "Konsèy Minisipal",
+            "description": "Gade dekrè minisipal yo, odyans piblik, ak pwochen sesyon konsèy vil ou a.",
+            "decrees": "Dekrè Minisipal yo",
+            "noDecrees": "Poko gen okenn dekrè minisipal ki pibliye."
         }
     }
 }
