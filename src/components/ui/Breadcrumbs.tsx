@@ -38,7 +38,7 @@ export function Breadcrumbs() {
 
     // Generate crumbs
     const crumbs = segments.map((segment, index) => {
-        const href = `/${segments.slice(0, index + 1).join("/")}`;
+        const href = `/${segments.slice(1, index + 1).join("/")}`;
         const isLast = index === segments.length - 1;
         // Simple title case for unknown segments, or lookup from map
         let label = routeLabels[segment] || segment.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());

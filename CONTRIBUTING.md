@@ -38,7 +38,7 @@ This project is built by Haitian technologists and allies committed to transpare
 ### Contributors
 <!-- Add your entry below this line -->
 - **[Your Name](https://github.com/yourusername)** - [Vwa Profile](https://haitiansintech.com/profile/yourname) - Brief description of contribution
-
+- **[Makendy Midouin](https://github.com/makendym)** - [Vwa Profile](https://haitiansintech.com/profile/makendym) - Fixed breadcrumb locale duplication bug (#12)
 ---
 
 Thank you for building Haiti's digital future! 🇭🇹
