@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-
+import { useLocale } from "next-intl";
 type Language = "en" | "fr" | "ht" | "es";
 
 interface LanguageContextType {
@@ -13,7 +13,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
     // Default to English or check localStorage
-    const [language, setLanguageState] = useState<Language>("en");
+    const locale = useLocale();
+    const [language, setLanguageState] = useState<Language>(locale as Language);
 
     useEffect(() => {
         const saved = localStorage.getItem("hcp-language") as Language;

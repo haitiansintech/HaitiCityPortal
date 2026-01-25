@@ -54,12 +54,14 @@ export default async function DirectoryPage({
                         title={{
                             en: "City Infrastructure\nDirectory",
                             fr: "Annuaire des\nInfrastructures",
-                            ht: "Anyè Enfrastrikti\nVil la"
+                            ht: "Anyè Enfrastrikti\nVil la",
+                            es: "Directorio de\nInfraestructura Urbana",
                         }}
                         description={{
                             en: "Access vital public services, from healthcare and education to emergency safety response centers across your commune.",
                             fr: "Accédez aux services publics vitaux, de la santé et de l'éducation aux centres d'intervention d'urgence dans votre commune.",
-                            ht: "Jwenn aksès nan sèvis piblik esansyèl yo, soti nan sante ak edikasyon rive nan sant ijans nan komin ou an."
+                            ht: "Jwenn aksès nan sèvis piblik esansyèl yo, soti nan sante ak edikasyon rive nan sant ijans nan komin ou an.",
+                            es: "Acceda a servicios públicos vitales, desde atención médica y educación hasta centros de respuesta de seguridad de emergencia en su comuna.",
                         }}
                     />
                 </div>
