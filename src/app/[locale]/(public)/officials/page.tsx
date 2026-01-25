@@ -64,12 +64,14 @@ export default async function OfficialsPage({
                         title={{
                             en: "Meet Your Local Officials",
                             fr: "Rencontrez Vos Élus Locaux",
-                            ht: "Rankontre Ofisyèl Lokal Ou yo"
+                            ht: "Rankontre Ofisyèl Lokal Ou yo",
+                            es: "Conozca a Sus Funcionarios Locales",
                         }}
                         description={{
                             en: `Find and connect with your ${tenant.name} representatives. From the Central Mayor to your neighborhood CASEC and ASEC members.`,
                             fr: `Trouvez et contactez vos représentants de ${tenant.name}. Du Maire Central aux membres CASEC et ASEC de votre quartier.`,
-                            ht: `Jwenn epi kontakte reprezantan ${tenant.name} ou yo. Soti nan Majistra Santral la rive nan manm CASEC ak ASEC nan katye w la.`
+                            ht: `Jwenn epi kontakte reprezantan ${tenant.name} ou yo. Soti nan Majistra Santral la rive nan manm CASEC ak ASEC nan katye w la.`,
+                            es: `Encuentre y conéctese con sus representantes de ${tenant.name}. Desde el Alcalde Central hasta los miembros de CASEC y ASEC de su vecindario.`,
                         }}
                     />
                     <div className="pt-4 flex flex-wrap gap-4">
