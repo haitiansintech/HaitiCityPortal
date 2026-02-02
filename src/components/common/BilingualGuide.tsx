@@ -8,11 +8,13 @@ interface BilingualGuideProps {
         en: string;
         fr: string;
         ht: string;
+        es: string;
     };
     description: {
         en: string;
         fr: string;
         ht: string;
+        es: string;
     };
     variant?: "default" | "hero";
 }
