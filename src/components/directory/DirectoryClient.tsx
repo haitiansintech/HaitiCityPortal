@@ -42,8 +42,6 @@ const CATEGORIES = [
     { id: "emergency", label: "Emergency", icon: AlertTriangle },
     { id: "recreation", label: "Recreation", icon: TreePine },
     { id: "culture", label: "Culture", icon: Landmark },
-    { id: "sanitation_street", label: "Street Cleanup", icon: Brush },
-    { id: "transportation_impound", label: "Impound/Towing", icon: Car },
 ];
 
 interface Facility {
