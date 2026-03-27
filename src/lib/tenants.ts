@@ -31,7 +31,7 @@ export async function getTenantBySubdomain(subdomain: string): Promise<Tenant> {
         return tenant ?? FALLBACK_TENANT;
     } catch (error) {
         if (process.env.NODE_ENV !== "production") {
-            console.error("[tenant] Failed to load tenant", error);
+            console.warn("[tenant] DB unavailable, using fallback tenant:", error instanceof Error ? error.message : error);
         }
         return FALLBACK_TENANT;
     }
