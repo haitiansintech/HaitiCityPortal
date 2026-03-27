@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { officials, communal_sections } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import { headers } from "next/headers";
-import { tenants as tenantsTable } from "@/db/schema";
+import { getTenantBySubdomain } from "@/lib/tenants";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Users, MapPin, Info, ArrowRight, BadgeCheck } from "lucide-react";
@@ -27,33 +27,23 @@ export default async function OfficialsPage({
     const params = await searchParams;
     const activeSectionId = params.sectionId;
 
-    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    const tenant = await getTenantBySubdomain(subdomain);
     let sections: Awaited<ReturnType<typeof db.query.communal_sections.findMany>> = [];
     let allOfficials: Awaited<ReturnType<typeof db.query.officials.findMany>> = [];
 
     try {
-        tenant = await db.query.tenants.findFirst({
-            where: eq(tenantsTable.subdomain, subdomain),
+        sections = await db.query.communal_sections.findMany({
+            where: eq(communal_sections.tenant_id, tenant.id),
+            orderBy: [asc(communal_sections.name)],
         });
 
-        if (tenant) {
-            sections = await db.query.communal_sections.findMany({
-                where: eq(communal_sections.tenant_id, tenant.id),
-                orderBy: [asc(communal_sections.name)],
-            });
-
-            allOfficials = await db.query.officials.findMany({
-                where: eq(officials.tenant_id, tenant.id),
-                with: { section: true },
-                orderBy: [asc(officials.role), asc(officials.name)],
-            });
-        }
+        allOfficials = await db.query.officials.findMany({
+            where: eq(officials.tenant_id, tenant.id),
+            with: { section: true },
+            orderBy: [asc(officials.role), asc(officials.name)],
+        });
     } catch {
         // DB unavailable, render with empty data
-    }
-
-    if (!tenant) {
-        return <div className="p-20 text-center">Tenant not found.</div>;
     }
 
     const filteredOfficials = activeSectionId

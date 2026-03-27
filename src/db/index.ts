@@ -14,7 +14,7 @@ const globalForDb = global as unknown as {
 };
 
 // Disable prefetch as it is not supported for "Transaction" pool mode
-const client = postgres(connectionString, { prepare: false, connect_timeout: 3, idle_timeout: 20, max_lifetime: 1800 });
+const client = postgres(connectionString, { prepare: false, connect_timeout: 10, idle_timeout: 20, max_lifetime: 1800 });
 export const db = globalForDb.db ?? drizzle(client, { schema });
 
 if (process.env.NODE_ENV !== 'production') {

@@ -1,8 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { headers } from "next/headers";
-import { db } from "@/db";
-import { tenants } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { getTenantBySubdomain } from "@/lib/tenants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Smartphone, CheckCircle, Info } from "lucide-react";
@@ -11,16 +9,7 @@ export default async function MonCashPage() {
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
-    try {
-        tenant = await db.query.tenants.findFirst({
-            where: eq(tenants.subdomain, subdomain)
-        });
-    } catch {
-        // DB unavailable
-    }
-
-    if (!tenant) return <div>Tenant not found</div>;
+    const tenant = await getTenantBySubdomain(subdomain);
 
     const merchantId = tenant.moncash_merchant_id || "DEMO-MERCHANT";
 

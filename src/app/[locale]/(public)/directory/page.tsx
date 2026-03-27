@@ -1,7 +1,8 @@
 import { db } from "@/db";
-import { facilities, communal_sections, tenants as tenantsTable } from "@/db/schema";
+import { facilities, communal_sections } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import { headers } from "next/headers";
+import { getTenantBySubdomain } from "@/lib/tenants";
 import { Shield } from "lucide-react";
 import DirectoryClient from "@/components/directory/DirectoryClient";
 import { BilingualGuide } from "@/components/common/BilingualGuide";
@@ -23,32 +24,24 @@ export default async function DirectoryPage({
     const activeSectionId = params.sectionId;
     const activeCategory = params.category || "all";
 
-    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    const tenant = await getTenantBySubdomain(subdomain);
     let sections: Awaited<ReturnType<typeof db.query.communal_sections.findMany>> = [];
     let allFacilities: Awaited<ReturnType<typeof db.query.facilities.findMany>> = [];
 
     try {
-        tenant = await db.query.tenants.findFirst({
-            where: eq(tenantsTable.subdomain, subdomain),
+        sections = await db.query.communal_sections.findMany({
+            where: eq(communal_sections.tenant_id, tenant.id),
+            orderBy: [asc(communal_sections.name)],
         });
 
-        if (tenant) {
-            sections = await db.query.communal_sections.findMany({
-                where: eq(communal_sections.tenant_id, tenant.id),
-                orderBy: [asc(communal_sections.name)],
-            });
-
-            allFacilities = await db.query.facilities.findMany({
-                where: eq(facilities.tenant_id, tenant.id),
-                with: { section: true },
-                orderBy: [asc(facilities.category), asc(facilities.name)],
-            });
-        }
+        allFacilities = await db.query.facilities.findMany({
+            where: eq(facilities.tenant_id, tenant.id),
+            with: { section: true },
+            orderBy: [asc(facilities.category), asc(facilities.name)],
+        });
     } catch {
         // DB unavailable, render with empty data
     }
-
-    if (!tenant) return <div className="p-20 text-center">Tenant not found.</div>;
 
     // We pass the data to the client component which handles the interactive parts
     return (

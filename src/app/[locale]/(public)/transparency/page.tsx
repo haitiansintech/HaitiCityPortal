@@ -1,7 +1,8 @@
 import { db } from "@/db";
-import { projects, tenants as tenantsTable } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { projects } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
+import { getTenantBySubdomain } from "@/lib/tenants";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ShieldCheck, TrendingUp, DollarSign, Youtube } from "lucide-react";
@@ -15,25 +16,15 @@ export default async function TransparencyPage() {
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    const tenant = await getTenantBySubdomain(subdomain);
     let allProjects: Awaited<ReturnType<typeof db.query.projects.findMany>> = [];
 
     try {
-        tenant = await db.query.tenants.findFirst({
-            where: eq(tenantsTable.subdomain, subdomain),
+        allProjects = await db.query.projects.findMany({
+            where: eq(projects.tenant_id, tenant.id),
         });
-
-        if (tenant) {
-            allProjects = await db.query.projects.findMany({
-                where: eq(projects.tenant_id, tenant.id),
-            });
-        }
     } catch {
         // DB unavailable, render with empty data
-    }
-
-    if (!tenant) {
-        return <div className="p-20 text-center">Tenant not found.</div>;
     }
 
     const totalRaised = allProjects.reduce((acc, curr) => acc + curr.current_raised, 0);

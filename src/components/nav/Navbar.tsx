@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import LocaleSwitcher from "@/components/nav/LocaleSwitcher";
@@ -13,6 +13,7 @@ export default function Navbar() {
   const t = useTranslations("Navbar");
   const [isOpen, setIsOpen] = useState(false);
   const tenant = useTenant();
+  const pathname = usePathname();
 
   const navLinks = [
     { href: "/services", label: t("services") },
@@ -64,15 +65,22 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href as any}
-              className="text-sm font-medium text-ink-primary hover:text-brand-blue transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            return (
+              <Link
+                key={link.href}
+                href={link.href as any}
+                className={`relative text-sm font-medium transition-colors pb-1 ${
+                  isActive
+                    ? "text-brand-blue after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-blue after:rounded-full"
+                    : "text-ink-primary hover:text-brand-blue"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Button variant="destructive" asChild>
             <Link href="/donate">{t("donate")}</Link>
           </Button>
@@ -109,16 +117,23 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white py-4 px-6 space-y-4 animate-in fade-in slide-in-from-top-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href as any}
-              onClick={() => setIsOpen(false)}
-              className="block text-base font-semibold text-ink-primary hover:text-brand-blue"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            return (
+              <Link
+                key={link.href}
+                href={link.href as any}
+                onClick={() => setIsOpen(false)}
+                className={`block text-base font-semibold transition-colors pl-3 border-l-2 ${
+                  isActive
+                    ? "text-brand-blue border-brand-blue"
+                    : "text-ink-primary hover:text-brand-blue border-transparent"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <Button variant="destructive" asChild className="w-full justify-start">
             <Link href="/donate" onClick={() => setIsOpen(false)}>{t("donatePay")}</Link>
           </Button>
