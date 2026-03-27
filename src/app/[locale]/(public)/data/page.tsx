@@ -27,7 +27,7 @@ async function fetchDatasets() {
 
     return data;
   } catch (error: any) {
-    console.error("Failed to load datasets", error.message);
+    console.warn("[data] DB unavailable, using fallback datasets:", error.message);
     return [] as DatasetRecord[];
   }
 }

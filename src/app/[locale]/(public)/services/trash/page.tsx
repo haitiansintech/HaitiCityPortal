@@ -29,22 +29,27 @@ export default async function TrashPage({ params }: { params: Promise<{ locale: 
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    // Fetch tenant
-    const tenant = await db.query.tenants.findFirst({
-        where: eq(tenants.subdomain, subdomain),
-    });
+    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    let serviceData: Awaited<ReturnType<typeof db.query.services.findFirst>> = undefined;
 
-    if (!tenant) return notFound();
+    try {
+        tenant = await db.query.tenants.findFirst({
+            where: eq(tenants.subdomain, subdomain),
+        });
 
-    // Fetch service data
-    const serviceData = await db.query.services.findFirst({
-        where: and(
-            eq(services.tenant_id, tenant.id),
-            eq(services.service_code, "trash")
-        ),
-    });
+        if (tenant) {
+            serviceData = await db.query.services.findFirst({
+                where: and(
+                    eq(services.tenant_id, tenant.id),
+                    eq(services.service_code, "trash")
+                ),
+            });
+        }
+    } catch {
+        // DB unavailable
+    }
 
-    if (!serviceData) return notFound();
+    if (!tenant || !serviceData) return notFound();
 
     const name = (serviceData.service_name as any)[locale] || (serviceData.service_name as any)["en"];
     const description = (serviceData.description as any)[locale] || (serviceData.description as any)["en"];

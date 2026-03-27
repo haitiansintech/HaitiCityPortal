@@ -179,6 +179,8 @@
     },
     "Navbar": {
         "services": "Services",
+        "directory": "Répertoire",
+        "officials": "Élus",
         "government": "Gouvernement",
         "report": "Signaler",
         "pay": "Payer",

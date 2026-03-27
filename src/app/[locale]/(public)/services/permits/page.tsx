@@ -27,20 +27,27 @@ export default async function PermitsPage({ params }: { params: Promise<{ locale
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    // Fetch tenant
-    const tenant = await db.query.tenants.findFirst({
-        where: eq(tenants.subdomain, subdomain),
-    });
+    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    let serviceData: Awaited<ReturnType<typeof db.query.services.findFirst>> = undefined;
+
+    try {
+        tenant = await db.query.tenants.findFirst({
+            where: eq(tenants.subdomain, subdomain),
+        });
+
+        if (tenant) {
+            serviceData = await db.query.services.findFirst({
+                where: and(
+                    eq(services.tenant_id, tenant.id),
+                    eq(services.service_code, "permits")
+                ),
+            });
+        }
+    } catch {
+        // DB unavailable, use translation fallbacks below
+    }
 
     if (!tenant) return notFound();
-
-    // Fetch service data (using 'permits' code, though might need to check seed for exact code)
-    const serviceData = await db.query.services.findFirst({
-        where: and(
-            eq(services.tenant_id, tenant.id),
-            eq(services.service_code, "permits")
-        ),
-    });
 
     // Fallback if permits not seeded yet
     const name = serviceData ? (serviceData.service_name as any)[locale] || (serviceData.service_name as any)["en"] : t("title");

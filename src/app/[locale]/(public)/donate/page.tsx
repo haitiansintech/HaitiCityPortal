@@ -16,20 +16,27 @@ export default async function DonatePage() {
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    // Get tenant info
-    const tenant = await db.query.tenants.findFirst({
-        where: eq(tenantsTable.subdomain, subdomain),
-    });
+    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    let allProjects: Awaited<ReturnType<typeof db.query.projects.findMany>> = [];
+
+    try {
+        tenant = await db.query.tenants.findFirst({
+            where: eq(tenantsTable.subdomain, subdomain),
+        });
+
+        if (tenant) {
+            allProjects = await db.query.projects.findMany({
+                where: eq(projects.tenant_id, tenant.id),
+                orderBy: [desc(projects.created_at)],
+            });
+        }
+    } catch {
+        // DB unavailable, render with empty data
+    }
 
     if (!tenant) {
         return <div className="p-20 text-center">Tenant not found.</div>;
     }
-
-    // Fetch projects
-    const allProjects = await db.query.projects.findMany({
-        where: eq(projects.tenant_id, tenant.id),
-        orderBy: [desc(projects.created_at)],
-    });
 
     return (
         <div className="min-h-screen bg-canvas">

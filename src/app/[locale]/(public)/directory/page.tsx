@@ -19,28 +19,36 @@ export default async function DirectoryPage({
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    const tenant = await db.query.tenants.findFirst({
-        where: eq(tenantsTable.subdomain, subdomain),
-    });
-
-    if (!tenant) return <div className="p-20 text-center">Tenant not found.</div>;
-
-    const sections = await db.query.communal_sections.findMany({
-        where: eq(communal_sections.tenant_id, tenant.id),
-        orderBy: [asc(communal_sections.name)],
-    });
-
     const params = await searchParams;
     const activeSectionId = params.sectionId;
     const activeCategory = params.category || "all";
 
-    const allFacilities = await db.query.facilities.findMany({
-        where: eq(facilities.tenant_id, tenant.id),
-        with: {
-            section: true,
-        },
-        orderBy: [asc(facilities.category), asc(facilities.name)],
-    });
+    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    let sections: Awaited<ReturnType<typeof db.query.communal_sections.findMany>> = [];
+    let allFacilities: Awaited<ReturnType<typeof db.query.facilities.findMany>> = [];
+
+    try {
+        tenant = await db.query.tenants.findFirst({
+            where: eq(tenantsTable.subdomain, subdomain),
+        });
+
+        if (tenant) {
+            sections = await db.query.communal_sections.findMany({
+                where: eq(communal_sections.tenant_id, tenant.id),
+                orderBy: [asc(communal_sections.name)],
+            });
+
+            allFacilities = await db.query.facilities.findMany({
+                where: eq(facilities.tenant_id, tenant.id),
+                with: { section: true },
+                orderBy: [asc(facilities.category), asc(facilities.name)],
+            });
+        }
+    } catch {
+        // DB unavailable, render with empty data
+    }
+
+    if (!tenant) return <div className="p-20 text-center">Tenant not found.</div>;
 
     // We pass the data to the client component which handles the interactive parts
     return (

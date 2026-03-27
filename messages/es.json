@@ -179,6 +179,8 @@
     },
     "Navbar": {
         "services": "Servicios",
+        "directory": "Directorio",
+        "officials": "Funcionarios",
         "government": "Gobierno",
         "report": "Reportar",
         "pay": "Pagar",

@@ -11,9 +11,14 @@ export default async function WirePage() {
     const headersList = await headers();
     const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-    const tenant = await db.query.tenants.findFirst({
-        where: eq(tenants.subdomain, subdomain)
-    });
+    let tenant: Awaited<ReturnType<typeof db.query.tenants.findFirst>> = undefined;
+    try {
+        tenant = await db.query.tenants.findFirst({
+            where: eq(tenants.subdomain, subdomain)
+        });
+    } catch {
+        // DB unavailable
+    }
 
     if (!tenant) return <div>Tenant not found</div>;
 

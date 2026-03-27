@@ -16,8 +16,8 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/services", label: t("services") },
-    { href: "/directory", label: "Infrastructure" },
-    { href: "/officials", label: t("government") },
+    { href: "/directory", label: t("directory") },
+    { href: "/officials", label: t("officials") },
     { href: "/report", label: t("report") },
     { href: "/pay", label: t("pay") },
   ];

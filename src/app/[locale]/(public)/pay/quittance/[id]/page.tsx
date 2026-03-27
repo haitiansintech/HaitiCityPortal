@@ -13,12 +13,15 @@ interface PageProps {
 export default async function QuittancePage({ params }: PageProps) {
     const { id } = await params;
 
-    const record = await db.query.payment_records.findFirst({
-        where: eq(payment_records.id, id),
-        with: {
-            tenant: true
-        }
-    });
+    let record: Awaited<ReturnType<typeof db.query.payment_records.findFirst>> = undefined;
+    try {
+        record = await db.query.payment_records.findFirst({
+            where: eq(payment_records.id, id),
+            with: { tenant: true }
+        });
+    } catch {
+        notFound();
+    }
 
     if (!record || record.status !== "verified") {
         notFound();

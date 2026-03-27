@@ -43,7 +43,7 @@ export default async function ReportPage() {
             availableSections = sections;
         }
     } catch (error) {
-        console.error("Failed to fetch services:", error);
+        console.warn("[report] DB unavailable, using empty services:", error);
     }
 
     return (
