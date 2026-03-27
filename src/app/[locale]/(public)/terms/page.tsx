@@ -3,8 +3,9 @@ import { InfoLayout } from "@/components/layout/InfoLayout";
 
 export const dynamic = "force-static";
 
-export default async function TermsPage() {
-  const entry = await loadContent("terms");
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const entry = await loadContent("terms", locale);
   return (
     <InfoLayout title={entry.title}>
       <MarkdownRenderer content={entry.body} />
