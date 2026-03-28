@@ -1,135 +1,134 @@
+/**
+ * Content loading and rendering utilities.
+ *
+ * MDX files live in src/content/ and follow a locale-suffix naming convention:
+ *   src/content/{slug}.mdx            → English (default)
+ *   src/content/{slug}.fr.mdx         → French
+ *   src/content/{slug}.ht.mdx         → Haitian Creole
+ *   src/content/{slug}.es.mdx         → Spanish
+ *
+ * Slugs may include subdirectories, e.g. "services/birth-certificates" or
+ * "pages/impact". loadContent() always falls back to the English file when a
+ * locale-specific file is not found, so partially-translated content degrades
+ * gracefully rather than crashing.
+ *
+ * Frontmatter (YAML between --- delimiters) carries structured data such as
+ * titles, step arrays, fees, and document lists. The parsed values are
+ * returned on the `data` field and consumed directly by page components.
+ * The markdown body (everything after the frontmatter) is rendered by
+ * MarkdownRenderer, which uses react-markdown for full inline-formatting
+ * support (bold, links, lists, headings).
+ */
+
 import { promises as fs } from "fs";
 import path from "path";
 import { cache } from "react";
+import matter from "gray-matter";
+import ReactMarkdown from "react-markdown";
 
 const contentDir = path.join(process.cwd(), "src/content");
 
 export interface ContentEntry {
+  /** Page title — from frontmatter `title:` or the first H1 in the body. */
   title: string;
+  /** Markdown body text, with frontmatter stripped. */
   body: string;
+  /** All frontmatter fields as a plain object. Cast to a typed interface in the calling page. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: Record<string, any>;
 }
 
+/**
+ * Reads and parses an MDX/Markdown content file, with automatic locale
+ * fallback to English.
+ *
+ * Results are memoized per (slug, locale) pair for the lifetime of the
+ * React render using React.cache, so multiple components on the same page
+ * can call loadContent() without redundant disk reads.
+ *
+ * @param slug   - Path relative to src/content/, without extension.
+ *                 May include subdirectories: "services/trash", "pages/impact".
+ * @param locale - BCP-47 locale string ("en", "fr", "ht", "es").
+ *                 Defaults to English when omitted or when the locale file is absent.
+ */
 export const loadContent = cache(async (slug: string, locale?: string): Promise<ContentEntry> => {
-  let filePath = path.join(contentDir, `${slug}.mdx`);
+  // Normalise path separator for Windows compatibility
+  const slugPath = slug.split("/").join(path.sep);
+  let filePath = path.join(contentDir, `${slugPath}.mdx`);
 
-  if (locale && locale !== 'en') {
-    const localePath = path.join(contentDir, `${slug}.${locale}.mdx`);
+  if (locale && locale !== "en") {
+    const localePath = path.join(contentDir, `${slugPath}.${locale}.mdx`);
     try {
       await fs.access(localePath);
       filePath = localePath;
     } catch {
-      // Fallback to default English file
+      // Locale file not found — fall back to English silently.
     }
   }
 
   const raw = await fs.readFile(filePath, "utf8");
-  const lines = raw.split(/\r?\n/);
-  let title = "";
-  const bodyLines: string[] = [];
+  const { data, content } = matter(raw);
 
-  for (const line of lines) {
-    if (!title && line.startsWith("# ")) {
-      title = line.replace(/^#\s+/, "").trim();
-      continue;
+  // Title comes from frontmatter first, then from the first H1 in the body.
+  let title = (data.title as string) ?? "";
+  let body = content.trim();
+
+  if (!title) {
+    const lines = body.split(/\r?\n/);
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].startsWith("# ")) {
+        title = lines[i].replace(/^#\s+/, "").trim();
+        lines.splice(i, 1);
+        body = lines.join("\n").trim();
+        break;
+      }
     }
-    bodyLines.push(line);
   }
 
-  return { title: title || slug, body: bodyLines.join("\n").trim() };
+  return { title: title || slug, body, data };
 });
 
-type MarkdownNode =
-  | { type: "heading"; level: number; content: string }
-  | { type: "paragraph"; content: string }
-  | { type: "list"; items: string[] };
-
-function parseMarkdown(content: string): MarkdownNode[] {
-  const lines = content.split(/\r?\n/);
-  const nodes: MarkdownNode[] = [];
-  let listBuffer: string[] = [];
-
-  function flushList() {
-    if (listBuffer.length > 0) {
-      nodes.push({ type: "list", items: listBuffer });
-      listBuffer = [];
-    }
-  }
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) {
-      flushList();
-      continue;
-    }
-    if (/^##\s+/.test(trimmed)) {
-      flushList();
-      nodes.push({ type: "heading", level: 2, content: trimmed.replace(/^##\s+/, "").trim() });
-      continue;
-    }
-    if (/^#\s+/.test(trimmed)) {
-      flushList();
-      nodes.push({ type: "heading", level: 1, content: trimmed.replace(/^#\s+/, "").trim() });
-      continue;
-    }
-    if (/^[-*]\s+/.test(trimmed)) {
-      listBuffer.push(trimmed.replace(/^[-*]\s+/, "").trim());
-      continue;
-    }
-    flushList();
-    nodes.push({ type: "paragraph", content: trimmed });
-  }
-
-  flushList();
-  return nodes;
-}
-
+/**
+ * Renders a Markdown string to React elements using react-markdown.
+ *
+ * Applies project-consistent Tailwind typography classes to every element
+ * so that content from MDX files renders with the same visual style as the
+ * surrounding UI without requiring the @tailwindcss/typography plugin.
+ */
 export function MarkdownRenderer({ content }: { content: string }) {
-  const nodes = parseMarkdown(content);
   return (
-    <div className="space-y-6">
-      {nodes.map((node, index) => {
-        if (node.type === "heading") {
-          const Tag = (`h${Math.min(node.level, 3)}` as unknown) as keyof JSX.IntrinsicElements;
-          const isChanges = node.content.toLowerCase().includes("changes");
-          return (
-            <Tag key={index} className={`font-bold tracking-tight text-inherit ${node.level === 1 ? 'text-4xl mb-6' : 'text-2xl mt-8 mb-4'}`}>
-              {node.content}
-            </Tag>
-          );
-        }
-        if (node.type === "list") {
-          return (
-            <ul key={index} className="list-disc space-y-2 pl-6 text-inherit marker:text-blue-600">
-              {node.items.map((item, itemIndex) => (
-                <li key={itemIndex} className="pl-1">{item}</li>
-              ))}
-            </ul>
-          );
-        }
-
-        // Simple heuristic for "Changes" box or important notes
-        // If it follows a "Changes" header (not tracked here easily without state) specifically, or maybe we just check content.
-        // For now, let's keep it simple text-inherit.
-        // Detect "Changes" box logic loosely based on content or if we had a previous header state.
-        // Since we don't have state here, let's just render the paragraph.
-        // However, the user asked to Highlight the final "Changes" clause.
-        // Let's check if the content starts with specific phrase.
-        const isUpdateNotice = node.content.toLowerCase().startsWith("we may update");
-
-        if (isUpdateNotice) {
-          return (
-            <div key={index} className="mt-6 p-6 bg-blue-50 border border-blue-100 rounded-xl text-blue-900 font-medium">
-              <p>{node.content}</p>
-            </div>
-          )
-        }
-
-        return (
-          <p key={index} className="text-inherit leading-relaxed text-lg">
-            {node.content}
-          </p>
-        );
-      })}
-    </div>
+    <ReactMarkdown
+      components={{
+        h2: ({ children }) => (
+          <h2 className="text-2xl font-bold tracking-tight text-inherit mt-8 mb-4">{children}</h2>
+        ),
+        h3: ({ children }) => (
+          <h3 className="text-xl font-semibold text-inherit mt-6 mb-3">{children}</h3>
+        ),
+        p: ({ children }) => (
+          <p className="text-inherit leading-relaxed text-lg mb-4">{children}</p>
+        ),
+        ul: ({ children }) => (
+          <ul className="list-disc space-y-2 pl-6 text-inherit marker:text-blue-600 mb-4">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="list-decimal space-y-2 pl-6 text-inherit mb-4">{children}</ol>
+        ),
+        li: ({ children }) => <li className="pl-1">{children}</li>,
+        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            className="text-brand-blue hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {children}
+          </a>
+        ),
+      }}
+    >
+      {content}
+    </ReactMarkdown>
   );
 }
