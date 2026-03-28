@@ -375,6 +375,50 @@ All routes are locale-prefixed. Example: `/ht/services`, `/en/news/2025-02-12-hu
 
 ---
 
+## Testing
+
+End-to-end smoke tests are written with [Playwright](https://playwright.dev/) and live in `tests/e2e/`.
+
+### Test suites
+
+| File | What it covers |
+|------|----------------|
+| `smoke.routes.test.ts` | Every public route returns HTTP 200 and renders an `<h1>` |
+| `smoke.api.test.ts` | All API routes return expected shapes and status codes |
+| `smoke.i18n.test.ts` | All 4 locales render without `MISSING_MESSAGE` / `FORMATTING_ERROR` |
+| `smoke.ui.test.ts` | Key interactions: navbar, news cards, tax lookup form, contrast checks |
+
+### Running tests
+
+```bash
+# Start dev server + run all tests (auto-starts Next.js if not already running)
+npm run test:e2e
+
+# Interactive Playwright UI (great for debugging failures)
+npm run test:e2e:ui
+
+# Run against production deployment
+PROD_URL=https://yourdomain.com npm run test:e2e:prod
+
+# Open last HTML report
+npm run test:e2e:report
+```
+
+### CI usage
+
+Set `CI=true` in your pipeline. Playwright will retry once on failure, limit workers to 2, and output an HTML report to `playwright-report/`.
+
+```yaml
+# Example GitHub Actions step
+- name: Run smoke tests
+  run: npm run test:e2e
+  env:
+    CI: true
+    DATABASE_URL: ${{ secrets.DATABASE_URL }}
+```
+
+---
+
 ## Further Documentation
 
 - [docs/haiti-city-portal-prd.md](docs/haiti-city-portal-prd.md) — Product Requirements Document
