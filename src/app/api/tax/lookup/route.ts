@@ -1,3 +1,31 @@
+/**
+ * POST /api/tax/lookup
+ *
+ * Mock tax lookup endpoint.
+ *
+ * NOTE: This endpoint is NOT yet connected to a real tax system or the
+ * Direction Générale des Impôts (DGI) API. It exists as a functional
+ * placeholder that demonstrates the lookup UX and allows front-end
+ * development to proceed independently of backend integrations.
+ *
+ * When ENABLE_LOCAL_MODE is active (all non-production environments by
+ * default), the endpoint searches the hardcoded `sampleBills` array and
+ * returns matching records. In production (when ENABLE_LOCAL_MODE is not
+ * set), the handler returns an empty result set until the real integration
+ * is implemented.
+ *
+ * Accepted body shape:
+ *   { searchType: "parcel" | "nif", query: string }
+ */
+
+/**
+ * Placeholder tax bill records for local development and demos.
+ *
+ * These are fictional but realistic-looking entries covering common Haitian
+ * parcel ID and NIF (Numéro d'Identification Fiscale) formats. They are used
+ * exclusively when ENABLE_LOCAL_MODE is active and are never stored in or
+ * read from the database.
+ */
 const sampleBills = [
   {
     id: "HT-BILL-2025-0001",
@@ -41,6 +69,9 @@ export async function POST(request: Request) {
     return Response.json({ error: "Missing search value." }, { status: 400 });
   }
 
+  // ENABLE_LOCAL_MODE gates whether the mock data or the (future) real
+  // integration is used. In all non-production environments this defaults to
+  // true so developers can test the lookup flow without a live tax system.
   const enableLocalMode = process.env.ENABLE_LOCAL_MODE === "true" || process.env.NODE_ENV !== "production";
 
   if (!enableLocalMode) {
@@ -48,6 +79,10 @@ export async function POST(request: Request) {
     return Response.json({ results: [] });
   }
 
+  // searchType determines which field to match against:
+  //   "parcel" — looks up by parcel number (cadastral ID assigned by the mairie)
+  //   "nif"    — looks up by NIF (Numéro d'Identification Fiscale, the national
+  //              taxpayer ID issued by the Direction Générale des Impôts)
   const results = sampleBills.filter((bill) => {
     if (searchType === "parcel") {
       return bill.parcelId.toLowerCase().includes(normalizedQuery);

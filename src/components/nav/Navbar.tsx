@@ -1,3 +1,20 @@
+/**
+ * Main site navigation bar (Client Component).
+ *
+ * Renders a sticky top header with:
+ *  - A top utility bar containing the emergency hotline, social media links,
+ *    and the locale switcher.
+ *  - A main navigation row with the tenant logo/name, desktop nav links,
+ *    and a donate CTA button.
+ *  - A collapsible mobile menu toggled by a hamburger button.
+ *
+ * Why "use client":
+ *  - `useState` is required to manage the mobile menu open/closed state.
+ *  - `usePathname` (from next-intl's navigation helpers) is required to
+ *    detect the active route for link highlighting. Both hooks are React
+ *    Client-only APIs and cannot run in Server Components.
+ */
+
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
@@ -9,10 +26,26 @@ import { Facebook, Youtube, Twitter } from "lucide-react";
 
 import { useTranslations } from "next-intl";
 
+/**
+ * Navbar renders the primary site navigation for all locale-prefixed pages.
+ *
+ * It reads the active tenant from TenantProvider to display the city's name
+ * and logo, and uses next-intl's `useTranslations("Navbar")` for all visible
+ * text so that labels are localised across the four supported languages.
+ *
+ * Active link detection: for each nav link the component compares the current
+ * `pathname` (locale-stripped by next-intl's usePathname) against the link's
+ * `href`. A link is considered active when the pathname exactly matches or
+ * starts with the link path followed by a slash, which correctly highlights
+ * parent routes when the user is on a sub-page (e.g. "/services/trash" keeps
+ * the "Services" link active).
+ */
 export default function Navbar() {
   const t = useTranslations("Navbar");
+  // Controls whether the mobile menu panel is visible
   const [isOpen, setIsOpen] = useState(false);
   const tenant = useTenant();
+  // locale-stripped current pathname, e.g. "/services" not "/ht/services"
   const pathname = usePathname();
 
   const navLinks = [
@@ -66,6 +99,9 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => {
+            // Active link detection: exact match OR the pathname starts with
+            // the link href followed by "/" (covers nested routes like
+            // /services/trash while keeping /services active).
             const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <Link
@@ -118,6 +154,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white py-4 px-6 space-y-4 animate-in fade-in slide-in-from-top-2">
           {navLinks.map((link) => {
+            // Same active detection logic as the desktop nav
             const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <Link
@@ -142,4 +179,3 @@ export default function Navbar() {
     </header>
   );
 }
-

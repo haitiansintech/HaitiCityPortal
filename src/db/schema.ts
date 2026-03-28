@@ -1,3 +1,28 @@
+/**
+ * Database schema — multi-tenant data model.
+ *
+ * Architecture overview
+ * ---------------------
+ * The Haiti City Portal is a multi-tenant application where each "tenant"
+ * represents a Haitian municipality (e.g. Jacmel, Port-au-Prince). All
+ * content tables carry a `tenant_id` foreign key that provides row-level
+ * isolation: every query that reads or writes city-specific data must filter
+ * by tenant_id so that cities never see each other's records.
+ *
+ * The `tenants` table is the foundation. Every other table references it.
+ * The `subdomain` column on `tenants` is the runtime routing key — when a
+ * request arrives at "jacmel.portal.ht", middleware extracts "jacmel", looks
+ * up the tenant row, and injects the tenant context for the rest of the
+ * request lifecycle.
+ *
+ * Multilingual content
+ * --------------------
+ * Fields that contain user-visible text in multiple languages are stored as
+ * JSONB columns. The shape is typically { en: "...", fr: "...", ht: "...",
+ * es: "..." }. This avoids separate language columns and allows new locales
+ * to be added without a schema migration.
+ */
+
 import {
     pgTable,
     text,
@@ -13,10 +38,20 @@ import { relations, sql, InferSelectModel } from "drizzle-orm";
 
 // -------------------------------------------------------------------------
 // 1. Tenants (Foundation)
+//
+// Each row represents one municipality. The `subdomain` value drives
+// multi-tenant routing: middleware reads the request host, extracts the
+// subdomain part (e.g. "jacmel" from "jacmel.portal.ht"), and uses it to
+// look up the correct tenant row. All downstream Server Components then
+// receive the resolved Tenant object via TenantProvider.
 // -------------------------------------------------------------------------
 export const tenants = pgTable("tenants", {
     id: uuid("id").defaultRandom().primaryKey(),
     name: text("name").notNull(),
+    /** The subdomain slug that identifies this tenant in the URL.
+     *  e.g. 'jacmel' → jacmel.portal.ht, 'demo' → localhost (development).
+     *  This value is set by the middleware as the `x-tenant-subdomain` request
+     *  header and is the single source of truth for tenant resolution. */
     subdomain: text("subdomain").notNull().unique(), // e.g., 'jacmel' or 'localhost'
     logo_url: text("logo_url"),
     primary_color: text("primary_color"), // Custom branding per city
@@ -55,7 +90,7 @@ export const users = pgTable("users", {
     municipality_code: text("municipality_code"), // Legacy, can keep or remove. Keeping for compatibility if needed.
     created_at: timestamp("created_at").defaultNow(),
 }, (table) => ({
-    // Email should probably be unique per tenant if users are isolated, or global if SSO. 
+    // Email should probably be unique per tenant if users are isolated, or global if SSO.
     // For now simple unique index with tenant_id might be safer or just rely on manual checks for phase 1.
     // Let's make it unique global for simplicity to start.
     emailIdx: index("users_email_idx").on(table.email),
@@ -64,6 +99,12 @@ export const users = pgTable("users", {
 
 // -------------------------------------------------------------------------
 // 3. Open311 / Service Requests (Replaces 'Issues')
+//
+// Implements an Open311-compatible service catalogue and request lifecycle.
+// `services` defines the types of civic requests a tenant offers (e.g.
+// "Pothole Repair"). `service_requests` are the actual submissions from
+// residents. `service_definitions` and `service_attributes` provide the
+// dynamic attribute/form system for each service type.
 // -------------------------------------------------------------------------
 
 // Represents a type of request (e.g., "Pothole")
@@ -76,7 +117,9 @@ export const services = pgTable(
             .notNull(),
         service_code: text("service_code").notNull(),
 
-        // Multilingual Fields (JSONB)
+        // JSONB multilingual fields — shape: { en: string, fr: string, ht: string, es: string }.
+        // Storing translations in JSONB allows the UI to select the correct
+        // locale at render time without needing separate columns per language.
         service_name: jsonb("service_name").notNull(),
         description: jsonb("description"),
 
@@ -115,6 +158,7 @@ export const service_definitions = pgTable(
         required: boolean("required").default(false).notNull(),
         datatype_description: text("datatype_description"),
         order: doublePrecision("order").default(0),
+        // JSONB multilingual field — shape: { en: string, fr: string, ht: string, es: string }
         description: jsonb("description").notNull(),
         values: jsonb("values"),
 
@@ -196,6 +240,12 @@ export const service_attributes = pgTable(
 
 // -------------------------------------------------------------------------
 // 4. Payments Implementation
+//
+// Records every payment attempt (successful or pending) made by a resident.
+// Payments are tenant-scoped and may be linked to a registered user or
+// submitted as a guest (identified only by email). The generated_memo_code
+// (e.g. "JAC-TAX-8821") is the human-readable reference used for manual
+// reconciliation with bank or MonCash statements in Phase 1.
 // -------------------------------------------------------------------------
 
 export const payment_records = pgTable("payment_records", {
@@ -230,7 +280,12 @@ export const payment_records = pgTable("payment_records", {
 }));
 
 // -------------------------------------------------------------------------
-// 5. Other Modules (Events, Datasets) - Tenant Scoped
+// 5. Other Modules (Events, Datasets, Facilities, Officials, Projects)
+//
+// All tables in this section are tenant-scoped via tenant_id and represent
+// the civic content surfaced to residents: city events, open data sets,
+// municipal facilities (hospitals, schools, police stations), elected
+// officials, and community fundraising projects.
 // -------------------------------------------------------------------------
 export const events = pgTable("events", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -301,7 +356,8 @@ export const facilities = pgTable("facilities", {
 
     // Cultural & Recreation Fields
     entry_fee: text("entry_fee"), // e.g. "Free", "500 HTG"
-    amenities: jsonb("amenities"), // e.g. ['wifi', 'bathroom', 'playground']
+    // JSONB array of amenity tags — shape: string[], e.g. ['wifi', 'bathroom', 'playground']
+    amenities: jsonb("amenities"),
 });
 
 // -------------------------------------------------------------------------
@@ -407,6 +463,7 @@ export const facility_suggestions = pgTable("facility_suggestions", {
     id: uuid("id").defaultRandom().primaryKey(),
     facility_id: uuid("facility_id").references(() => facilities.id),
     communal_section_id: uuid("communal_section_id").references(() => communal_sections.id),
+    // JSONB blob containing the resident's suggested edits to a facility record
     suggested_data: jsonb("suggested_data").notNull(),
     user_contact_info: text("user_contact_info").notNull(),
     status: text("status").default("new").notNull(), // 'new', 'pending_casec', 'approved', 'rejected'

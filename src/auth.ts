@@ -1,3 +1,17 @@
+/**
+ * NextAuth configuration — authentication for citizen and official users.
+ *
+ * This file wires up the NextAuth Credentials provider with the application's
+ * database and exports the four core NextAuth utilities (handlers, signIn,
+ * signOut, auth) used throughout the codebase.
+ *
+ * The base configuration (session strategy, callbacks that propagate role and
+ * tenantId into the JWT and session objects) lives in `./auth.config.ts` and
+ * is spread in here. Splitting the config allows `auth.config.ts` to be
+ * imported by middleware (which runs in the Edge runtime and cannot import
+ * Node.js-only modules like bcryptjs or drizzle-orm).
+ */
+
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
@@ -13,6 +27,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
+            /**
+             * Validates submitted credentials against the database and returns
+             * the user object that will be encoded into the JWT, or null if
+             * authentication fails.
+             *
+             * The authorize callback handles both citizen logins (role: "user")
+             * and municipal official logins (role: "official" | "casec" |
+             * "asec" | "admin"). For official accounts, a second query fetches
+             * the matching `officials` row so that the communal_section_id can
+             * be included in the session — this lets admin pages scope data to
+             * the official's geographic area without an additional lookup.
+             *
+             * Returns null (rather than throwing) on any failure — missing
+             * credentials, unknown email, wrong password, or DB error — so that
+             * NextAuth shows a generic "invalid credentials" message instead of
+             * leaking specific error details to the client.
+             */
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
                     return null;
@@ -41,7 +72,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         return null;
                     }
 
-                    // Fetch official data if applicable
+                    // For official roles, fetch the linked officials row to
+                    // attach the communal_section_id to the session. This value
+                    // is later used by admin API routes and Server Components to
+                    // filter data to the official's assigned section.
                     let communalSectionId = undefined;
                     if (user.role === "official" || user.role === "casec" || user.role === "asec" || user.role === "admin") {
                         const { db } = await import("@/db");
@@ -56,7 +90,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         }
                     }
 
-                    // Return user object (will be passed to jwt callback)
+                    // Return user object (will be passed to jwt callback in auth.config.ts,
+                    // which then propagates role and tenantId into the session token)
                     return {
                         id: user.id,
                         email: user.email,

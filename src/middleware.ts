@@ -1,3 +1,31 @@
+/**
+ * Next.js Edge Middleware — locale detection, auth protection, and tenant injection.
+ *
+ * This middleware runs on every matched request before any page or API route
+ * handler executes. It performs three responsibilities in order:
+ *
+ * 1. Internationalization (next-intl): Detects or redirects to the correct
+ *    locale prefix in the URL (e.g. /ht/services, /fr/services).
+ *
+ * 2. Authentication guard: Checks whether the user has an active NextAuth
+ *    session. Any route that contains "/admin" in its pathname requires a
+ *    valid session. Unauthenticated requests are redirected to the locale-
+ *    aware login page with a `callbackUrl` so users can return after signing in.
+ *
+ * 3. Tenant injection: Extracts the subdomain from the incoming `Host` header
+ *    and writes it to the `x-tenant-subdomain` response header. Downstream
+ *    Server Components read this header to resolve the active Tenant without
+ *    repeating the extraction logic.
+ *
+ * Security note on `x-tenant-subdomain`:
+ * This header is WRITTEN here in middleware and TRUSTED by downstream Server
+ * Components (e.g. layout.tsx, page.tsx). Because Next.js middleware runs
+ * server-side and strips incoming request headers before they reach route
+ * handlers, external callers cannot spoof this header. Engineers must never
+ * add logic that accepts `x-tenant-subdomain` directly from user-supplied
+ * request headers without re-validating through this middleware path.
+ */
+
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import { NextRequest, NextResponse } from 'next/server';
@@ -47,19 +75,26 @@ export default auth(async function middleware(request: NextRequest & { auth: any
     const host = headers.get('host') || '';
     const pathname = request.nextUrl.pathname;
 
-    // STEP 1: Handle Internationalization
-    // We run the intl middleware first to handle redirects/locale detection
+    // STEP 1: Handle Internationalization.
+    // next-intl middleware runs first so that locale redirects (e.g. bare "/" →
+    // "/ht/") happen before any auth check or header injection. The returned
+    // response is either a redirect or a "continue" (next()) response that we
+    // augment in subsequent steps.
     const response = intlMiddleware(request);
 
-    // STEP 2: Extract subdomain from host (EXISTING LOGIC)
+    // STEP 2: Extract subdomain from host and inject it as a trusted header.
+    // This header is read by Server Components to determine which tenant's data
+    // to load. It is set here (server-side) and must NOT be accepted from
+    // external request headers — see file-level security note above.
     const subdomain = extractSubdomain(host);
 
-    // Set header for downstream Server Components
     // Note: intlMiddleware might have already returned a response (redirect),
     // but if it's "next", we can augment it.
     response.headers.set('x-tenant-subdomain', subdomain);
 
-    // STEP 3: Check authentication for protected routes (NEW LOGIC)
+    // STEP 3: Check authentication for protected routes.
+    // Auth is evaluated after intl so that protected admin pages still benefit
+    // from locale-aware redirects before the auth guard fires.
     const session = request.auth;
 
     // Protect /admin routes (regardless of locale prefix)
@@ -70,8 +105,9 @@ export default auth(async function middleware(request: NextRequest & { auth: any
 
     if (pathname.includes('/admin')) {
         if (!session) {
-            // Not authenticated - redirect to login
-            // We need to preserve the locale if possible
+            // Not authenticated — redirect to the locale-prefixed login page.
+            // Preserve the original destination in `callbackUrl` so the login
+            // form can redirect back after a successful sign-in.
             const locale = pathname.split('/')[1];
             const loginPath = routing.locales.includes(locale as any) ? `/${locale}/login` : '/login';
             const loginUrl = new URL(loginPath, request.url);

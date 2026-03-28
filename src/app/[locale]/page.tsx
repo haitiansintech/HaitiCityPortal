@@ -1,3 +1,18 @@
+/**
+ * Public homepage — the first page residents see when visiting the portal.
+ *
+ * This is an async Server Component that:
+ *  - Resolves the active tenant from the `x-tenant-subdomain` header
+ *  - Loads localised copy via next-intl's getTranslations()
+ *  - Renders the hero, quick-action bar, services grid, mayor section, and
+ *    latest news feed
+ *  - Injects JSON-LD structured data for search-engine rich results
+ *
+ * All user-visible text is driven by the translation files under
+ * src/messages/[locale]/HomePage.json so that the page renders correctly in
+ * all four supported languages without any code changes.
+ */
+
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -87,6 +102,11 @@ export default async function Home() {
     { label: t("quickActions.payFees"), icon: <Banknote className="h-5 w-5" />, href: "/pay" },
   ];
 
+  // JSON-LD structured data block.
+  // Provides machine-readable metadata for search engines (Google, Bing) so
+  // they can display rich results (e.g. knowledge panels, sitelinks) for the
+  // municipality. The GovernmentOrganization schema type signals that this is
+  // an official civic entity. See: https://schema.org/GovernmentOrganization
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "GovernmentOrganization",
@@ -115,6 +135,14 @@ export default async function Home() {
               {t("hero.badge")}
             </div>
             <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-ink-primary md:text-6xl lg:text-7xl">
+              {/*
+                t.rich() is used here because the translation string for
+                "hero.title" contains inline HTML tags — specifically a <br />
+                for a line break and a <span> to apply the brand-blue colour to
+                part of the headline. t() would return a plain string and strip
+                the markup; t.rich() evaluates the tag placeholders as JSX
+                render functions instead.
+              */}
               {t.rich("hero.title", {
                 br: () => <br />,
                 span: (chunks) => <span className="text-brand-blue">{chunks}</span>
@@ -290,6 +318,15 @@ export default async function Home() {
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
+            {/*
+              t.raw("news.items") is used here instead of t("news.items")
+              because "news.items" is an array in the translation JSON.
+              t() would coerce any non-string value to a plain string
+              representation, destroying the array structure. t.raw() returns
+              the raw JSON value as-is, preserving the array so it can be
+              iterated with .map(). The explicit type cast documents the
+              expected shape of each element.
+            */}
             {(t.raw("news.items") as { date: string; title: string; desc: string }[]).map((news, i) => (
               <div key={i} className="flex flex-col gap-2 rounded-lg bg-white p-6 shadow-sm border border-neutral-200 hover:border-brand-blue/50">
                 <span className="text-sm font-bold uppercase text-ink-secondary tracking-widest">{news.date}</span>
@@ -319,4 +356,3 @@ function QuickActionLink({ href, icon, label }: { href: string; icon: React.Reac
     </Link>
   );
 }
-
