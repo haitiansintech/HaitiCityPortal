@@ -138,7 +138,7 @@
 }
 
 .text-brand-blue {
-  color: #0284C7 !important;
+  color: #0284C7;
 }
 
 .text-action-red {
@@ -159,11 +159,11 @@
 
 /* Utility Aliases used in Components */
 .bg-brand-blue {
-  background-color: #0284C7 !important;
+  background-color: #0284C7;
 }
 
 .bg-white {
-  background-color: #FFFFFF !important;
+  background-color: #FFFFFF;
 }
 
 /* Phase 1: Cleaning up manual definitions to rely on tailwind.config.ts */

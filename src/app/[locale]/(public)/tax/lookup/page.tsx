@@ -58,42 +58,49 @@ export default function TaxLookupPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6">
+      {/* Page header */}
       <div className="mb-8 space-y-3">
-        <h1 className="text-3xl font-semibold text-white">Property tax lookup</h1>
-        <p className="text-sm text-slate-300">
+        <h1 className="text-3xl font-bold text-gray-900">Property Tax Lookup</h1>
+        <p className="text-base text-gray-600">
           Search by parcel number or taxpayer identification (NIF) to view outstanding property tax bills. Results link to bill details.
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-white/10 bg-slate-900/70 p-6 shadow">
+
+      {/* Search form */}
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+      >
         <fieldset>
-          <legend className="text-sm font-semibold text-white">Search type</legend>
-          <div className="mt-3 flex flex-wrap gap-4 text-sm text-slate-200">
-            <label className="inline-flex items-center gap-2">
+          <legend className="text-sm font-semibold text-gray-900">Search type</legend>
+          <div className="mt-3 flex flex-wrap gap-4 text-sm text-gray-700">
+            <label className="inline-flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="searchType"
                 value="parcel"
                 checked={searchType === "parcel"}
                 onChange={() => setSearchType("parcel")}
-                className="h-4 w-4 border-white/40 bg-slate-900 text-emerald-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                className="h-4 w-4 border-gray-300 text-sky-600 focus:ring-sky-500"
               />
               Parcel ID
             </label>
-            <label className="inline-flex items-center gap-2">
+            <label className="inline-flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
                 name="searchType"
                 value="nif"
                 checked={searchType === "nif"}
                 onChange={() => setSearchType("nif")}
-                className="h-4 w-4 border-white/40 bg-slate-900 text-emerald-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                className="h-4 w-4 border-gray-300 text-sky-600 focus:ring-sky-500"
               />
               NIF
             </label>
           </div>
         </fieldset>
+
         <div className="space-y-2">
-          <label htmlFor="query" className="text-sm font-semibold text-white">
+          <label htmlFor="query" className="text-sm font-semibold text-gray-900">
             {searchType === "parcel" ? "Parcel ID" : "NIF"}
           </label>
           <Input
@@ -104,41 +111,55 @@ export default function TaxLookupPage() {
             aria-describedby="lookup-help"
             required
           />
-          <p id="lookup-help" className="text-xs text-slate-400">
+          <p id="lookup-help" className="text-xs text-gray-500">
             Search accepts numbers and hyphens. Example parcel IDs look like PAP-2025-00123.
           </p>
         </div>
+
         <div className="flex items-center justify-end">
-          <Button type="submit" disabled={isLoading} className="rounded-full">
-            {isLoading ? "Searching..." : "Search"}
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="rounded-full bg-sky-600 text-white hover:bg-sky-700"
+          >
+            {isLoading ? "Searching…" : "Search"}
           </Button>
         </div>
-        {error && <p className="text-sm text-rose-200">{error}</p>}
+
+        {error && (
+          <p className="text-sm font-medium text-rose-600">{error}</p>
+        )}
       </form>
 
+      {/* Results */}
       {results.length > 0 && (
         <div className="mt-10 space-y-4">
-          <h2 className="text-xl font-semibold text-white">Results</h2>
+          <h2 className="text-xl font-bold text-gray-900">Results</h2>
           <ul className="space-y-3">
             {results.map((bill) => (
-              <li key={bill.id} className="rounded-2xl border border-white/10 bg-slate-900/70 p-6">
+              <li
+                key={bill.id}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{bill.ownerName}</h3>
-                    <p className="text-sm text-slate-300">
+                    <h3 className="text-lg font-semibold text-gray-900">{bill.ownerName}</h3>
+                    <p className="text-sm text-gray-500">
                       Parcel {bill.parcelId} · NIF {bill.nif}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-slate-300">Due {new Date(bill.dueDate).toLocaleDateString()}</p>
-                    <p className="text-xl font-semibold text-emerald-300">
+                    <p className="text-sm text-gray-500">
+                      Due {new Date(bill.dueDate).toLocaleDateString()}
+                    </p>
+                    <p className="text-xl font-bold text-sky-700">
                       {bill.amountDue.toLocaleString(undefined, { style: "currency", currency: "USD" })}
                     </p>
                   </div>
                 </div>
                 <Link
                   href={`/tax/bill/${bill.id}`}
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-sky-600 hover:text-sky-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                 >
                   View bill details
                   <svg

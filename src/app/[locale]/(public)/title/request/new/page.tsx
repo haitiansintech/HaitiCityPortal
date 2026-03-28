@@ -80,12 +80,12 @@ export default function TitleRequestWizard() {
   if (reference) {
     return (
       <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
-        <div className="space-y-4 rounded-2xl border border-emerald-400/40 bg-slate-900/70 p-8 text-center">
-          <h1 className="text-3xl font-semibold text-white">Request submitted</h1>
-          <p className="text-sm text-slate-300">
+        <div className="space-y-4 rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
+          <h1 className="text-3xl font-bold text-gray-900">Request submitted</h1>
+          <p className="text-base text-gray-600">
             Thank you, {form.fullName}. Your title verification request has been received.
           </p>
-          <p className="text-lg font-semibold text-emerald-300">Reference: {reference}</p>
+          <p className="text-lg font-semibold text-sky-700">Reference: {reference}</p>
           <Button onClick={() => setCurrentStep(0)} className="rounded-full" variant="outline">
             Track status (coming soon)
           </Button>
@@ -96,32 +96,36 @@ export default function TitleRequestWizard() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
+      {/* Page header */}
       <div className="mb-8 space-y-4">
-        <h1 className="text-3xl font-semibold text-white">Title verification request</h1>
-        <p className="text-sm text-slate-300">
+        <h1 className="text-3xl font-bold text-gray-900">Title Verification Request</h1>
+        <p className="text-base text-gray-600">
           Complete the steps below to submit a title verification request. You can review the summary before sending.
         </p>
-        <ol className="flex flex-wrap gap-3 text-sm text-slate-300">
+
+        {/* Step indicators */}
+        <ol className="flex flex-wrap gap-3 text-sm text-gray-600">
           {steps.map((step, index) => (
             <li key={step} className="flex items-center gap-2">
               <span
                 className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs font-semibold ${
                   index === currentStep
-                    ? "border-emerald-300 bg-emerald-500/20 text-emerald-200"
+                    ? "border-sky-600 bg-sky-100 text-sky-700"
                     : index < currentStep
-                    ? "border-emerald-500 bg-emerald-500/20 text-emerald-200"
-                    : "border-white/30 text-slate-400"
+                    ? "border-sky-500 bg-sky-100 text-sky-600"
+                    : "border-gray-300 text-gray-400"
                 }`}
               >
                 {index + 1}
               </span>
-              <span className={index === currentStep ? "font-semibold text-white" : undefined}>{step}</span>
+              <span className={index === currentStep ? "font-semibold text-gray-900" : "text-gray-500"}>{step}</span>
             </li>
           ))}
         </ol>
       </div>
 
-      <div className="space-y-6 rounded-2xl border border-white/10 bg-slate-900/70 p-8 shadow">
+      {/* Form card */}
+      <div className="space-y-6 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         {currentStep === 0 && (
           <div className="space-y-4">
             <Input
@@ -186,23 +190,23 @@ export default function TitleRequestWizard() {
           </div>
         )}
         {isReviewStep && (
-          <div className="space-y-4 text-sm text-slate-200">
+          <div className="space-y-4 text-sm text-gray-700">
             <div>
-              <h2 className="text-lg font-semibold text-white">Requester</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Requester</h2>
               <p>{form.fullName}</p>
               <p>{form.email}</p>
               {form.phone && <p>{form.phone}</p>}
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-white">Property</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Property</h2>
               <p>Parcel: {form.parcelId}</p>
               <p>{form.address}</p>
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-white">Purpose</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Purpose</h2>
               <p className="whitespace-pre-line">{form.purpose || "No purpose provided."}</p>
               {form.notes && (
-                <p className="mt-2 whitespace-pre-line text-slate-300">Additional notes: {form.notes}</p>
+                <p className="mt-2 whitespace-pre-line text-gray-500">Additional notes: {form.notes}</p>
               )}
             </div>
           </div>
@@ -217,8 +221,13 @@ export default function TitleRequestWizard() {
           >
             Back
           </Button>
-          <Button type="button" className="rounded-full" onClick={handleSubmit} disabled={!canProceed || submitting}>
-            {isReviewStep ? (submitting ? "Submitting..." : "Submit request") : "Next"}
+          <Button
+            type="button"
+            className="rounded-full bg-sky-600 text-white hover:bg-sky-700"
+            onClick={handleSubmit}
+            disabled={!canProceed || submitting}
+          >
+            {isReviewStep ? (submitting ? "Submitting…" : "Submit request") : "Next"}
           </Button>
         </div>
       </div>
