@@ -177,6 +177,23 @@
             "feature3": "Performance History"
         }
     },
+    "ContributePage": {
+        "title": "Join the Movement",
+        "subtitle": "This isn't just a website. It's a collaborative effort to rebuild Haiti's digital sovereignty. Here is how you can help.",
+        "devTitle": "For Developers",
+        "devDesc": "We are building on a modern stack (Next.js 14, Drizzle, Postgres) with a \"Sovereign Source\" license (BSL 1.1). This ensures the code remains free for non-commercial city use while protecting it from corporate capture.",
+        "devViewSource": "View Source",
+        "devManifesto": "Read Engineering Manifesto",
+        "citizensTitle": "For Citizens",
+        "citizensSubtitle": "Help Spread the Word",
+        "citizensDesc": "The most powerful tool we have is community. If you know a neighbor struggling with city services, show them how to use the portal.",
+        "citizensStep1": "Save the hotline <strong>129</strong> in your phone.",
+        "citizensStep2": "Share the <strong>/directory</strong> link on WhatsApp groups.",
+        "citizensShare": "Share on WhatsApp",
+        "officialsTitle": "For Mayors & ASECs",
+        "officialsDesc": "Join the \"Sovereign Source\" network. We provide the software, hosting, and training for free to verified Haitian municipalities. Digitizing your jurisdiction increases tax collection transparency and donor trust.",
+        "officialsDemo": "Request a Demo"
+    },
     "Navbar": {
         "services": "Services",
         "directory": "Directory",

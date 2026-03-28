@@ -177,6 +177,23 @@
             "feature3": "Istwa Travay"
         }
     },
+    "ContributePage": {
+        "title": "Rejwenn Mouvman an",
+        "subtitle": "Sa a pa sèlman yon sit entènèt. Se yon efò kolaboratif pou rebati souverenèt nimerik Ayiti. Men kijan ou ka ede.",
+        "devTitle": "Pou Devlopè yo",
+        "devDesc": "Nou ap bati sou yon pil modèn (Next.js 14, Drizzle, Postgres) ak yon lisans « Sous Souverèn » (BSL 1.1). Sa asire kòd la rete gratis pou itilizasyon minisipal ki pa komèsyal pandan y ap pwoteje l kont dominasyon komèsyal.",
+        "devViewSource": "Wè Kòd Sous la",
+        "devManifesto": "Li Manifès Jeni an",
+        "citizensTitle": "Pou Sitwayen yo",
+        "citizensSubtitle": "Ede Gaye Nouvèl la",
+        "citizensDesc": "Zouti ki pi pisan nou genyen se kominote a. Si ou konnen yon vwazen ki gen difikilte ak sèvis vil la, montre l kijan pou itilize pòtay la.",
+        "citizensStep1": "Anrejistre liy ijans <strong>129</strong> nan telefòn ou.",
+        "citizensStep2": "Pataje lyen <strong>/directory</strong> la sou gwoup WhatsApp yo.",
+        "citizensShare": "Pataje sou WhatsApp",
+        "officialsTitle": "Pou Majistra yo ak ASEC yo",
+        "officialsDesc": "Antre nan rezo « Sous Souverèn » nan. Nou bay lojisyèl la, eèbèjman ak fòmasyon gratis pou minisipalite ayisyen ki verifye. Nimerizasyon jiridiksyon ou a ogmante transparans koleksyon taks ak konfyans donè yo.",
+        "officialsDemo": "Mande yon Demo"
+    },
     "Navbar": {
         "services": "Sèvis yo",
         "directory": "Anyè",

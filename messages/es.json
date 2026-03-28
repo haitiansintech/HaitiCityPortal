@@ -177,6 +177,23 @@
             "feature3": "Historial de Desempeño"
         }
     },
+    "ContributePage": {
+        "title": "Únete al Movimiento",
+        "subtitle": "Esto no es solo un sitio web. Es un esfuerzo colaborativo para reconstruir la soberanía digital de Haití. Así es como puedes ayudar.",
+        "devTitle": "Para Desarrolladores",
+        "devDesc": "Estamos construyendo con una pila moderna (Next.js 14, Drizzle, Postgres) con una licencia de «Fuente Soberana» (BSL 1.1). Esto asegura que el código permanezca libre para uso municipal no comercial mientras lo protege de la captura corporativa.",
+        "devViewSource": "Ver Código Fuente",
+        "devManifesto": "Leer el Manifiesto de Ingeniería",
+        "citizensTitle": "Para Ciudadanos",
+        "citizensSubtitle": "Ayuda a Correr la Voz",
+        "citizensDesc": "La herramienta más poderosa que tenemos es la comunidad. Si conoces a un vecino que tiene dificultades con los servicios de la ciudad, muéstrale cómo usar el portal.",
+        "citizensStep1": "Guarda la línea directa <strong>129</strong> en tu teléfono.",
+        "citizensStep2": "Comparte el enlace <strong>/directory</strong> en grupos de WhatsApp.",
+        "citizensShare": "Compartir en WhatsApp",
+        "officialsTitle": "Para Alcaldes y ASECs",
+        "officialsDesc": "Únete a la red de «Fuente Soberana». Proporcionamos el software, el alojamiento y la capacitación de forma gratuita a los municipios haitianos verificados. Digitalizar su jurisdicción aumenta la transparencia en la recaudación de impuestos y la confianza de los donantes.",
+        "officialsDemo": "Solicitar una Demo"
+    },
     "Navbar": {
         "services": "Servicios",
         "directory": "Directorio",

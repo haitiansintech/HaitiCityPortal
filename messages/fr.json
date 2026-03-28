@@ -177,6 +177,23 @@
             "feature3": "Historique des Performances"
         }
     },
+    "ContributePage": {
+        "title": "Rejoignez le Mouvement",
+        "subtitle": "Ce n'est pas juste un site web. C'est un effort collaboratif pour reconstruire la souveraineté numérique d'Haïti. Voici comment vous pouvez aider.",
+        "devTitle": "Pour les Développeurs",
+        "devDesc": "Nous construisons sur une pile moderne (Next.js 14, Drizzle, Postgres) avec une licence « Source Souveraine » (BSL 1.1). Cela garantit que le code reste gratuit pour un usage municipal non commercial tout en le protégeant contre la capture commerciale.",
+        "devViewSource": "Voir le Code Source",
+        "devManifesto": "Lire le Manifeste d'Ingénierie",
+        "citizensTitle": "Pour les Citoyens",
+        "citizensSubtitle": "Aidez à Faire Passer le Mot",
+        "citizensDesc": "L'outil le plus puissant que nous ayons est la communauté. Si vous connaissez un voisin ayant des difficultés avec les services de la ville, montrez-lui comment utiliser le portail.",
+        "citizensStep1": "Enregistrez la hotline <strong>129</strong> dans votre téléphone.",
+        "citizensStep2": "Partagez le lien <strong>/directory</strong> sur les groupes WhatsApp.",
+        "citizensShare": "Partager sur WhatsApp",
+        "officialsTitle": "Pour les Maires & ASECs",
+        "officialsDesc": "Rejoignez le réseau « Source Souveraine ». Nous fournissons le logiciel, l'hébergement et la formation gratuitement aux municipalités haïtiennes vérifiées. La numérisation de votre juridiction augmente la transparence de la collecte des impôts et la confiance des donateurs.",
+        "officialsDemo": "Demander une Démo"
+    },
     "Navbar": {
         "services": "Services",
         "directory": "Répertoire",
