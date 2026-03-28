@@ -290,11 +290,7 @@ export default async function Home() {
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {[
-              { date: "Feb 12, 2025", title: "Hurricane season readiness webinars", desc: "Weekly preparedness sessions with emergency management leaders." },
-              { date: "Jan 28, 2025", title: "New sanitation pick-up pilot in Carrefour", desc: "Track pilot progress and report feedback directly in the portal." },
-              { date: "Jan 15, 2025", title: "Community grant applications due March 15", desc: "Download the grant data pack and submit proposals digitally." }
-            ].map((news, i) => (
+            {(t.raw("news.items") as { date: string; title: string; desc: string }[]).map((news, i) => (
               <div key={i} className="flex flex-col gap-2 rounded-lg bg-white p-6 shadow-sm border border-neutral-200 hover:border-brand-blue/50">
                 <span className="text-sm font-bold uppercase text-ink-secondary tracking-widest">{news.date}</span>
                 <h3 className="text-xl font-bold text-brand-blue hover:underline cursor-pointer">

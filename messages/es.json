@@ -68,7 +68,24 @@
         },
         "news": {
             "title": "Actualizaciones Recientes",
-            "readMore": "Leer más →"
+            "readMore": "Leer más →",
+            "items": [
+                {
+                    "date": "12 feb. 2025",
+                    "title": "Seminarios web de preparación para la temporada de huracanes",
+                    "desc": "Sesiones semanales de preparación con líderes de gestión de emergencias."
+                },
+                {
+                    "date": "28 ene. 2025",
+                    "title": "Nuevo proyecto piloto de recolección de basura en Carrefour",
+                    "desc": "Siga el progreso del proyecto piloto e informe sus comentarios directamente en el portal."
+                },
+                {
+                    "date": "15 ene. 2025",
+                    "title": "Plazo de solicitudes de subvenciones comunitarias: 15 de marzo",
+                    "desc": "Descargue el paquete de datos de subvenciones y envíe propuestas digitalmente."
+                }
+            ]
         }
     },
     "RoadmapPage": {

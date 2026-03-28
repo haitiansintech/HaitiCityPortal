@@ -68,7 +68,24 @@
         },
         "news": {
             "title": "Mises à Jour Récentes",
-            "readMore": "En savoir plus →"
+            "readMore": "En savoir plus →",
+            "items": [
+                {
+                    "date": "12 fév. 2025",
+                    "title": "Webinaires de préparation à la saison cyclonique",
+                    "desc": "Sessions hebdomadaires de préparation avec les responsables de la gestion des urgences."
+                },
+                {
+                    "date": "28 jan. 2025",
+                    "title": "Nouveau projet pilote de collecte des ordures à Carrefour",
+                    "desc": "Suivez l'avancement du projet pilote et signalez vos retours directement dans le portail."
+                },
+                {
+                    "date": "15 jan. 2025",
+                    "title": "Dépôt des demandes de subvention communautaire avant le 15 mars",
+                    "desc": "Téléchargez le dossier de données de subvention et soumettez vos propositions en ligne."
+                }
+            ]
         }
     },
     "RoadmapPage": {
