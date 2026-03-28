@@ -15,11 +15,18 @@
 import { defineConfig } from "drizzle-kit";
 import * as dotenv from "dotenv";
 
-// Manually load .env (and .env.local if present) into process.env.
-// This is necessary because Drizzle Kit runs outside the Next.js runtime,
-// which normally handles env loading automatically. Without this call,
-// process.env.DATABASE_URL would be undefined and the CLI commands would fail.
-dotenv.config();
+// Drizzle Kit runs outside the Next.js runtime so we must load env files
+// manually. Next.js loads both .env and .env.local automatically, but here
+// we have to replicate that behaviour ourselves.
+//
+// Load order (matches Next.js convention):
+//   1. .env.local  — machine-specific overrides (git-ignored), highest priority
+//   2. .env        — shared defaults committed to the repo, lower priority
+//
+// `override: false` on the second call ensures .env.local values are never
+// clobbered by the fallback .env file.
+dotenv.config({ path: ".env.local" });  // machine-specific (git-ignored)
+dotenv.config({ path: ".env" });        // shared defaults (fallback)
 
 export default defineConfig({
     // Path to the Drizzle schema file that defines all tables and relations.
