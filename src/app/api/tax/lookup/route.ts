@@ -53,7 +53,18 @@ const sampleBills = [
   },
 ];
 
+import { limiters } from "@/lib/rate-limit";
+
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for") ?? "unknown";
+  const { ok, retryAfter } = limiters.search(ip);
+  if (!ok) {
+    return Response.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+    );
+  }
+
   const payload = (await request.json().catch(() => null)) as
     | { searchType?: string; query?: string }
     | null;

@@ -28,8 +28,10 @@ export default async function OfficialsPage({
     const activeSectionId = params.sectionId;
 
     const tenant = await getTenantBySubdomain(subdomain);
-    let sections: Awaited<ReturnType<typeof db.query.communal_sections.findMany>> = [];
-    let allOfficials: Awaited<ReturnType<typeof db.query.officials.findMany>> = [];
+    let sections: (typeof communal_sections.$inferSelect)[] = [];
+    let allOfficials: (typeof officials.$inferSelect & {
+        section: typeof communal_sections.$inferSelect | null;
+    })[] = [];
 
     try {
         sections = await db.query.communal_sections.findMany({

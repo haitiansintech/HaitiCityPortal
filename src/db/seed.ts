@@ -72,8 +72,12 @@ async function seed() {
 
     // 2. Seed Admin Users
     console.log("Creating Admin Users...");
-    const hashedPassword = await bcrypt.hash("admin123", 10);
-    const jacmelPassword = await bcrypt.hash("password123", 10);
+    // Dev-only passwords — read from env or fall back to random tokens so
+    // they are never the same between machines and can't be guessed.
+    const devAdminPassword = process.env.SEED_DEV_PASSWORD ?? Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+    const hashedPassword = await bcrypt.hash(devAdminPassword, 10);
+    const jacmelPassword = await bcrypt.hash(devAdminPassword, 10);
+    console.log(`ℹ️  Dev admin password: ${devAdminPassword}  (set SEED_DEV_PASSWORD in .env.local to use a fixed value)`);
 
     // Demo City Admin
     await db.insert(users).values({

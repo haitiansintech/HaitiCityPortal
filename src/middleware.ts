@@ -114,6 +114,15 @@ export default auth(async function middleware(request: NextRequest & { auth: any
             loginUrl.searchParams.set('callbackUrl', pathname);
             return NextResponse.redirect(loginUrl);
         }
+
+        // RBAC: authenticated users must have admin or superadmin role.
+        // A user-role session that somehow reaches /admin is redirected home.
+        const userRole = (session as any)?.user?.role as string | undefined;
+        if (userRole !== 'admin' && userRole !== 'superadmin') {
+            const locale = pathname.split('/')[1];
+            const homePath = routing.locales.includes(locale as any) ? `/${locale}` : '/';
+            return NextResponse.redirect(new URL(homePath, request.url));
+        }
     }
 
     return response;
