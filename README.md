@@ -66,7 +66,7 @@ haiticityportal/
 │   │   │   │   ├── directory/      # Facilities directory with map
 │   │   │   │   ├── donate/         # Community fundraising projects
 │   │   │   │   ├── events/         # City events listing
-│   │   │   │   ├── government/     # City council page
+│   │   │   │   ├── city-council/   # City council page
 │   │   │   │   ├── login/          # Auth login page
 │   │   │   │   ├── map/            # MapLibre issues map
 │   │   │   │   ├── news/           # News index + [slug] detail pages
@@ -76,7 +76,8 @@ haiticityportal/
 │   │   │   │   ├── privacy/        # Privacy policy (MDX)
 │   │   │   │   ├── report/         # Issue/service request form
 │   │   │   │   ├── services/       # Services index + 8 detail pages
-│   │   │   │   ├── tax/            # Property tax lookup + bill
+│   │   │   │   ├── tax-lookup/     # Property tax lookup
+│   │   │   │   ├── tax-bill/       # Property tax bill detail [id]
 │   │   │   │   ├── terms/          # Terms of service (MDX)
 │   │   │   │   ├── title/          # Title verification wizard
 │   │   │   │   └── transparency/   # Public finance transparency
@@ -359,11 +360,11 @@ All routes are locale-prefixed. Example: `/ht/services`, `/en/news/2025-02-12-hu
 | `/map` | MapLibre map of issues |
 | `/data` | Open data gallery |
 | `/donate` | Community fundraising projects |
-| `/tax/lookup` | Property tax lookup |
-| `/tax/bill/[id]` | Tax bill detail |
+| `/tax-lookup` | Property tax lookup |
+| `/tax-bill/[id]` | Tax bill detail |
 | `/title/request/new` | Title verification wizard |
 | `/transparency` | Public finance transparency |
-| `/government/city-council` | City council page |
+| `/city-council` | City council page |
 | `/contact` | Contact form |
 | `/about` | About page (and sub-pages: `/impact`, `/roadmap`, `/tech`) |
 | `/contribute` | Open-source contribution info |
