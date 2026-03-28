@@ -280,6 +280,14 @@
         "emergencyNotice": "Pour les urgences, veuillez composer le 114 (Police) ou le 116 (Médical).",
         "reportAlert": "Signaler un Dommage / Alerte de Préservation"
     },
+    "Services": {
+        "cityCouncil": {
+            "title": "Conseil Municipal",
+            "description": "Consultez les décrets municipaux, les audiences publiques et les prochaines sessions législatives de votre conseil local.",
+            "decrees": "Décrets Municipaux",
+            "noDecrees": "Aucun décret municipal n'a encore été publié."
+        }
+    },
     "ServicesPage": {
         "title": "Services Municipaux",
         "description": "Accédez aux services de la ville, payez vos impôts et connectez-vous avec vos représentants gouvernementaux en un seul endroit.",

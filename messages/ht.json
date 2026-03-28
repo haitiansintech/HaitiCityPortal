@@ -280,6 +280,14 @@
         "emergencyNotice": "Pou ijans, rele 114 (Polis) oswa 116 (Ijans Medikal).",
         "reportAlert": "Rapòte Domaj / Alèt Prezèvasyon"
     },
+    "Services": {
+        "cityCouncil": {
+            "title": "Konsèy Minisipal",
+            "description": "Gade dekrè minisipal yo, odyans piblik, ak pwochen sesyon konsèy vil ou a.",
+            "decrees": "Dekrè Minisipal yo",
+            "noDecrees": "Poko gen okenn dekrè minisipal ki pibliye."
+        }
+    },
     "ServicesPage": {
         "title": "Sèvis Minisipal yo",
         "description": "Jwenn sèvis vil la, peye taks, epi konekte ak reprezantan gouvènman w yo tout nan yon sèl kote.",

@@ -280,6 +280,14 @@
         "emergencyNotice": "Para emergencias, llame al 114 (Policía) o al 116 (Médico).",
         "reportAlert": "Reportar Daño / Alerta de Preservación"
     },
+    "Services": {
+        "cityCouncil": {
+            "title": "Concejo Municipal",
+            "description": "Consulta los decretos municipales, las audiencias públicas y las próximas sesiones legislativas de tu consejo local.",
+            "decrees": "Decretos Municipales",
+            "noDecrees": "Aún no se han publicado decretos municipales."
+        }
+    },
     "ServicesPage": {
         "title": "Servicios Municipales",
         "description": "Acceda a los servicios de la ciudad, pague impuestos y conéctese con sus representantes gubernamentales, todo en un solo lugar.",

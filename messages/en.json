@@ -280,6 +280,14 @@
         "emergencyNotice": "For emergencies, please dial 114 (Police) or 116 (Medical).",
         "reportAlert": "Report Damage / Preservation Alert"
     },
+    "Services": {
+        "cityCouncil": {
+            "title": "City Council",
+            "description": "Review municipal decrees, public hearings, and upcoming legislative sessions from your city's elected council.",
+            "decrees": "Municipal Decrees",
+            "noDecrees": "No municipal decrees have been published yet."
+        }
+    },
     "ServicesPage": {
         "title": "Municipal Services",
         "description": "Access city services, pay taxes, and connect with your government representatives all in one place.",
