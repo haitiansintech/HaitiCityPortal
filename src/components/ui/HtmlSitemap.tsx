@@ -18,7 +18,7 @@ export default function HtmlSitemap() {
                         <li><Link href="/services/birth-certificates" className="hover:underline text-sm ml-2 text-ink-secondary">- Batistè (Birth Certificates)</Link></li>
                         <li><Link href="/services/permits" className="hover:underline text-sm ml-2 text-ink-secondary">- Pèmi Konstriksyon (Permits)</Link></li>
                         <li><Link href="/services/trash" className="hover:underline text-sm ml-2 text-ink-secondary">- Fatra (Sanitation)</Link></li>
-                        <li><Link href="/tax/lookup" className="hover:underline text-sm ml-2 text-ink-secondary">- Tcheke Estati (Check Status)</Link></li>
+                        <li><Link href="/tax-lookup" className="hover:underline text-sm ml-2 text-ink-secondary">- Tcheke Estati (Check Status)</Link></li>
                     </ul>
                 </section>
 

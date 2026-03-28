@@ -83,7 +83,7 @@ export default async function Home({
       icon: <CreditCard className="h-10 w-10 text-brand-blue" />,
       title: t("commonServices.propertyTax.title"),
       description: t("commonServices.propertyTax.description"),
-      link: "/tax/lookup"
+      link: "/tax-lookup"
     },
     {
       icon: <AlertTriangle className="h-10 w-10 text-brand-blue" />,

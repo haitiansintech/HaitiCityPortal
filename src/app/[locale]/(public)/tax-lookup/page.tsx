@@ -158,7 +158,7 @@ export default function TaxLookupPage() {
                   </div>
                 </div>
                 <Link
-                  href={`/tax/bill/${bill.id}`}
+                  href={`/tax-bill/${bill.id}`}
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-sky-600 hover:text-sky-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
                 >
                   View bill details

@@ -69,14 +69,14 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       services: [
         { title: t("categories.leadership.officials.title"), icon: <Users className="h-6 w-6" />, href: "/officials", description: t("categories.leadership.officials.description") },
         { title: t("categories.leadership.governance.title"), icon: <ShieldCheck className="h-6 w-6" />, href: "/services/governance", description: t("categories.leadership.governance.description") },
-        { title: t("categories.leadership.council.title"), icon: <Gavel className="h-6 w-6" />, href: "/government/city-council", description: t("categories.leadership.council.description") }
+        { title: t("categories.leadership.council.title"), icon: <Gavel className="h-6 w-6" />, href: "/city-council", description: t("categories.leadership.council.description") }
       ]
     },
     {
       title: t("categories.finance.title"),
       services: [
         { title: t("categories.finance.pay.title"), icon: <CreditCard className="h-6 w-6" />, href: "/pay", description: t("categories.finance.pay.description") },
-        { title: t("categories.finance.status.title"), icon: <Info className="h-6 w-6" />, href: "/tax/lookup", description: t("categories.finance.status.description") }
+        { title: t("categories.finance.status.title"), icon: <Info className="h-6 w-6" />, href: "/tax-lookup", description: t("categories.finance.status.description") }
       ]
     }
   ];
