@@ -69,23 +69,7 @@
         "news": {
             "title": "Dènye Nouvèl",
             "readMore": "Li plis →",
-            "items": [
-                {
-                    "date": "12 Fev 2025",
-                    "title": "Webinè pou preparasyon sezon siklòn",
-                    "desc": "Sesyon chak semèn ak lidè jesyon ijans pou prepare popilasyon an."
-                },
-                {
-                    "date": "28 Jan 2025",
-                    "title": "Nouvo pwogram pilòt kolèk fatra nan Kafou",
-                    "desc": "Swiv pwogrè pwogram pilòt la epi rapòte fidbak ou dirèkteman nan pòtay la."
-                },
-                {
-                    "date": "15 Jan 2025",
-                    "title": "Aplikasyon sibvansyon kominotè fèmen 15 mas",
-                    "desc": "Telechaje pakè done sibvansyon an epi soumèt pwopozisyon ou nimerikman."
-                }
-            ]
+            "viewAll": "Wè tout mizajou yo →"
         }
     },
     "RoadmapPage": {

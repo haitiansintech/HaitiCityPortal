@@ -41,14 +41,24 @@ import {
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { getTenantBySubdomain } from "@/lib/tenants";
+import { loadNewsItems, getNewsCount } from "@/lib/content";
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations("HomePage");
   const common = await getTranslations("Common");
   const headersList = await headers();
   const subdomain = headersList.get("x-tenant-subdomain") || "demo";
 
-  const tenant = await getTenantBySubdomain(subdomain);
+  const [tenant, newsItems, totalNewsCount] = await Promise.all([
+    getTenantBySubdomain(subdomain),
+    loadNewsItems(locale, 3),
+    getNewsCount(),
+  ]);
 
   const commonServices = [
     {
@@ -311,35 +321,49 @@ export default async function Home() {
       {/* 4. LATEST UPDATES (News) */}
       <section className="w-full bg-neutral-100 py-16 md:py-24 border-t border-neutral-200">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="mb-12 border-b-4 border-neutral-300 pb-4">
+          <div className="mb-12 flex items-center justify-between border-b-4 border-neutral-300 pb-4">
             <h2 className="text-3xl font-bold uppercase tracking-wide text-ink-primary">
               {t("news.title")}
             </h2>
+            {totalNewsCount > 3 && (
+              <Link
+                href={"/news" as any}
+                className="hidden text-brand-blue hover:underline font-semibold md:block"
+              >
+                {t("news.viewAll")}
+              </Link>
+            )}
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">
-            {/*
-              t.raw("news.items") is used here instead of t("news.items")
-              because "news.items" is an array in the translation JSON.
-              t() would coerce any non-string value to a plain string
-              representation, destroying the array structure. t.raw() returns
-              the raw JSON value as-is, preserving the array so it can be
-              iterated with .map(). The explicit type cast documents the
-              expected shape of each element.
-            */}
-            {(t.raw("news.items") as { date: string; title: string; desc: string }[]).map((news, i) => (
-              <div key={i} className="flex flex-col gap-2 rounded-lg bg-white p-6 shadow-sm border border-neutral-200 hover:border-brand-blue/50">
+            {newsItems.map((news) => (
+              <Link
+                key={news.slug}
+                href={`/news/${news.slug}` as any}
+                className="group flex flex-col gap-2 rounded-lg bg-white p-6 shadow-sm border border-neutral-200 hover:border-brand-blue/50 hover:shadow-md transition-all"
+              >
                 <span className="text-sm font-bold uppercase text-ink-secondary tracking-widest">{news.date}</span>
-                <h3 className="text-xl font-bold text-brand-blue hover:underline cursor-pointer">
+                <h3 className="text-xl font-bold text-brand-blue group-hover:underline">
                   {news.title}
                 </h3>
-                <p className="text-ink-secondary">{news.desc}</p>
+                <p className="text-ink-secondary">{news.description}</p>
                 <div className="mt-auto pt-4">
-                  <span className="text-sm font-semibold text-brand-blue cursor-pointer hover:underline">{t("news.readMore")}</span>
+                  <span className="text-sm font-semibold text-brand-blue group-hover:underline">{t("news.readMore")}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
+
+          {totalNewsCount > 3 && (
+            <div className="mt-10 text-center">
+              <Link
+                href={"/news" as any}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-brand-blue px-6 py-3 text-sm font-bold text-brand-blue hover:bg-brand-blue hover:text-white transition-colors"
+              >
+                {t("news.viewAll")} <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </div>

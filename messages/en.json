@@ -69,23 +69,7 @@
         "news": {
             "title": "Recent Updates",
             "readMore": "Read more →",
-            "items": [
-                {
-                    "date": "Feb 12, 2025",
-                    "title": "Hurricane season readiness webinars",
-                    "desc": "Weekly preparedness sessions with emergency management leaders."
-                },
-                {
-                    "date": "Jan 28, 2025",
-                    "title": "New sanitation pick-up pilot in Carrefour",
-                    "desc": "Track pilot progress and report feedback directly in the portal."
-                },
-                {
-                    "date": "Jan 15, 2025",
-                    "title": "Community grant applications due March 15",
-                    "desc": "Download the grant data pack and submit proposals digitally."
-                }
-            ]
+            "viewAll": "View all updates →"
         }
     },
     "RoadmapPage": {
