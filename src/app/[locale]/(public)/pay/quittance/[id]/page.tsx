@@ -13,21 +13,24 @@ interface PageProps {
 export default async function QuittancePage({ params }: PageProps) {
     const { id } = await params;
 
-    let record: Awaited<ReturnType<typeof db.query.payment_records.findFirst>> = undefined;
+    let record;
+    let tenant;
     try {
         record = await db.query.payment_records.findFirst({
             where: eq(payment_records.id, id),
-            with: { tenant: true }
         });
+        if (record) {
+            tenant = await db.query.tenants.findFirst({
+                where: eq(tenants.id, record.tenant_id),
+            });
+        }
     } catch {
         notFound();
     }
 
-    if (!record || record.status !== "verified") {
+    if (!record || record.status !== "verified" || !tenant) {
         notFound();
     }
-
-    const tenant = record.tenant;
 
     return (
         <div className="min-h-screen bg-gray-100 py-12 px-4 shadow-inner print:bg-white print:py-0 print:px-0">
