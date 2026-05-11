@@ -2,6 +2,17 @@
 
 Next.js 15 + TypeScript civic portal for Haitian municipalities. Residents can report issues, access municipal services, pay fees, view officials, find facilities, and read local news — all in four languages.
 
+> **Documentation hub:** start at **[docs/README.md](docs/README.md)** for a role-based index covering deployment, tenant onboarding, admin manual, content guide, architecture, glossary, and more — available in **English · Français · Kreyòl · Español**.
+
+### Quick links by role
+
+- City staff / mayor → [For Municipalities](docs/FOR_MUNICIPALITIES.md)
+- Developer → [Architecture](docs/ARCHITECTURE.md) → [Contributing](CONTRIBUTING.md)
+- IT / sysadmin → [Deployment](docs/DEPLOYMENT.md) → [Tenant Onboarding](docs/TENANT_ONBOARDING.md)
+- Admin user → [Admin Manual](docs/ADMIN_MANUAL.md)
+- Translator → [Content Guide](docs/CONTENT_GUIDE.md)
+- Confused by a word → [Glossary](docs/GLOSSARY.md)
+
 ## Architecture: Headless Multi-Tenant SaaS
 
 One codebase serves multiple municipalities. Cities are identified by subdomain (e.g. `jacmel.portal.ht`). The middleware extracts the subdomain from the `Host` header, injects it as the `x-tenant-subdomain` request header, and every downstream Server Component reads that header to scope all database queries by `tenant_id`.
@@ -421,8 +432,34 @@ Set `CI=true` in your pipeline. Playwright will retry once on failure, limit wor
 
 ## Further Documentation
 
-- [docs/haiti-city-portal-prd.md](docs/haiti-city-portal-prd.md) — Product Requirements Document
-- [docs/technical-notes.md](docs/technical-notes.md) — Architecture deep-dives and implementation roadmap
+**Full multilingual documentation index → [docs/README.md](docs/README.md)** (English · Français · Kreyòl · Español)
+
+### Plain-language overviews
+
+- [docs/FOR_MUNICIPALITIES.md](docs/FOR_MUNICIPALITIES.md) — Non-technical: what this is, what you need, what it costs, who to contact
+- [docs/GLOSSARY.md](docs/GLOSSARY.md) — Plain definitions of every technical and Haitian-civic term
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Expected behaviour for contributors
+
+### Operations
+
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) — Step-by-step: domain, DNS, hosting, database, first deploy
+- [docs/TENANT_ONBOARDING.md](docs/TENANT_ONBOARDING.md) — Add a new commune to a running deployment
+- [docs/ADMIN_MANUAL.md](docs/ADMIN_MANUAL.md) — Day-to-day admin panel guide for municipal staff
+- [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md) — Translate/edit content via the GitHub web UI (no coding)
 - [docs/BRANCH_PROTECTION.md](docs/BRANCH_PROTECTION.md) — GitHub branch protection setup
+- [.env.production.example](.env.production.example) — Annotated production environment template
+
+### Engineering
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — One-page architecture overview with diagrams
+- [docs/technical-notes.md](docs/technical-notes.md) — Deep-dives: tenants, content, auth, payments, maps
+- [docs/haiti-city-portal-prd.md](docs/haiti-city-portal-prd.md) — Product Requirements Document
+- [docs/v0.1-implementation-plan.md](docs/v0.1-implementation-plan.md) — Implementation status checklist
+- [docs/adr/README.md](docs/adr/README.md) — Architecture Decision Records (the "why")
+- [copilot-instructions.md](copilot-instructions.md) — Hard rules for AI assistants and contributors
+
+### Policy
+
 - [CONTRIBUTING.md](CONTRIBUTING.md) — Contribution guidelines
 - [SECURITY.md](SECURITY.md) — Security policy and vulnerability reporting
+- [LICENSE.md](LICENSE.md) — Business Source License 1.1 (converts to Apache 2.0 on Dec 31, 2028)
